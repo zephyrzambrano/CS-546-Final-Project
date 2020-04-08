@@ -1,0 +1,25 @@
+{
+  "name": "cs-546-final-project",
+  "version": "1.0.0",
+  "description": "Clothes Forum",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zephyrzambrano/CS-546-Final-Project.git"
+  },
+  "author": "add all our names here",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zephyrzambrano/CS-546-Final-Project/issues"
+  },
+  "homepage": "https://github.com/zephyrzambrano/CS-546-Final-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
+    "handlebars": "^4.7.6",
+    "mongodb": "^3.5.5"
+  }
+}

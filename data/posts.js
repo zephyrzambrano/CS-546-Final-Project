@@ -182,7 +182,8 @@ module.exports = {
     addDislikeCount,
     addViewCount,
     removePost,
-
+    addCommentIdToPost,
+    removeCommentIdToPost
 }
 
 

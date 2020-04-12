@@ -1,21 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const users = mongoCollections.users;
-// add more mongoCollections if needed
-
-/* Uncomment require statements these if needed
-
-const posts = require('./posts');
-const comments = require('./comments');
-const reports = require('./reports');
-*/
-
-/*
-userid - objectid
-username - string
-password - string
-nickname - string
-postid - array of post ids
-*/
+ObjectId = require('mongodb').ObjectID;
 
 
 async function createUser(username, password, nickname) {
@@ -27,11 +12,12 @@ async function createUser(username, password, nickname) {
     const userCollection = await users();
 
     let newUser = {
-        username: username,
-        password: password,
-        nickname: nickname, 
-        posts: [],
-        comments: []
+        // userid - object id created by mongodb
+        username: username, // string
+        password: password, // string
+        nickname: nickname,  // string
+        posts: [], // array of postIds as strings
+        comments: [] // array of commentIds as strings
     };
 
     const newInsertInformation = await userCollection.insertOne(newUser);
@@ -69,9 +55,77 @@ async function editUser(userId, username, password, nickname) {
 		return await this.getUserById(id);
 };
 
+async function addPostToUser(userId, postId) { // postId is passed through and stored as a string
+    let currentUser = await this.getUserById(userId);
+    console.log(currentUser);
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne(
+        {_id: ObjectId(userId)},
+        {$addToSet: {posts: postId} }
+        // {$addToSet: {posts: ObjectId(postId).toString()} }
+    );
+
+    if (!updateInfo.matchedCount && ! updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+};
+
+async function removePostFromUser(userId, postId) { // postId is passed through and stored as a string
+    let currentUser = await this.getUserById(userId);
+    console.log(currentUser);
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne(
+        {_id: ObjectId(userId)},
+        {$pull: {posts: postId} }
+        // {$pull: {posts: ObjectId(postId).toString()} }
+    );
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+};
+
+async function addCommentToUser(userId, commentId) { // commentId is passed through and stored as a string
+    let currentUser = await this.getUserById(userId);
+    console.log(currentUser);
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne(
+        {_id: ObjectId(userId)},
+        {$addToSet: {comments: commentId} }
+        // {$addToSet: {comments: ObjectId(commentId).toString()} }
+    );
+
+    if (!updateInfo.matchedCount && ! updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+
+};
+
+async function removeCommentFromUser(userId, commentId) { // commentId is passed through and stored as a string
+    let currentUser = await this.getUserById(userId);
+    console.log(currentUser);
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne(
+        {_id: ObjectId(userId)},
+        {$pull: {comments: commentId} }
+        // {$pull: {comments: ObjectId(commentId).toString()} }
+    );
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+};
+
+
 module.exports = {
     createUser,
     getUserById,
     getAllUsers,
-    editUser
+    editUser,
+    addPostToUser,
+    removePostFromUser,
+    addCommentToUser,
+    removeCommentFromUser
 }

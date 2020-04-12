@@ -18,7 +18,7 @@ postid - array of post ids
 */
 
 
-async function addUser(username, password, nickname) {
+async function createUser(username, password, nickname) {
 
     if (!username || typeof username !== "string") throw "must provide username";
     if (!password || typeof username !== "string") throw "must provide password";
@@ -30,7 +30,8 @@ async function addUser(username, password, nickname) {
         username: username,
         password: password,
         nickname: nickname, 
-        posts: []
+        posts: [],
+        comments: []
     };
 
     const newInsertInformation = await userCollection.insertOne(newUser);
@@ -69,7 +70,7 @@ async function editUser(userId, username, password, nickname) {
 };
 
 module.exports = {
-    addUser,
+    createUser,
     getUserById,
     getAllUsers,
     editUser

@@ -19,7 +19,7 @@ const reports = require('./reports');
 
 
 /*
-module.exports {
+module.exports = {
     // insert functions here
 }
 */

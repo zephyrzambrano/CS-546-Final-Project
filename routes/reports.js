@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
-const reports = data.reports;
+const reportData = data.reports;
 
 module.exports = router;
 

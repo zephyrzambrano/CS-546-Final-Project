@@ -48,20 +48,21 @@ async function getReport(id)
 
 async function addReport(userId,postId,reason)
 {
-    if (!postId || typeof postId !== "string") throw 'You must provide a post id for a report';
-    if (!userId || typeof userId !== "string") throw 'You must provide an user id for a report';
-    userjId = ObjectId.createFromHexString(userId);
-    postId = ObjectId.createFromHexString(postId);
+    if (!postId || typeof postId !== "string") throw 'You must provide a post id for report';
+    if (!userId || typeof userId !== "string") throw 'You must provide an user id for report';
+    if (!reason || typeof reason !== "string") throw 'You must provide reason for report';
+    // userjId = ObjectId.createFromHexString(userId);
+    // postId = ObjectId.createFromHexString(postId);
 
     const reportCollection = await reports();
-    //check if the user has already reported 
-    const existReport = await reportCollection.findOne({userId: userId, postId: postId}); //not sure if it's work
+    // check if the user has already reported 
+    const existReport = await reportCollection.findOne({userId: userId, postId: postId}); 
     if(existReport == null)
     {
         let newReport = {
             userId: userId,
             postId: postId,
-            reasons: [reason]//not sure if it's work
+            reasons: [reason]
         };
         const insertInfo = await reportCollection.insertOne(newReport);
         if (insertInfo.insertedCount === 0) throw 'Could not add report';
@@ -69,8 +70,8 @@ async function addReport(userId,postId,reason)
         const reportt = await this.getReport(newId);
         return reportt;
     }
-    await reportCollection.updateOne({_id: existReport._id}, {$addToSet: {resons:reason}});//check input id
-    return existReport;
+    await reportCollection.updateOne({_id: existReport._id}, {$addToSet: {reasons:reason}});
+    return await this.getReport(existReport._id);
 }
 
 

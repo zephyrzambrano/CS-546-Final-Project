@@ -2,6 +2,7 @@ const userRoutes = require("./users");
 const postRoutes = require("./posts");
 const commentRoutes = require("./comments");
 const reportRoutes = require("./reports");
+const path = require('path');
 
 const constructorMethod = app => {
     app.use("/users", userRoutes);
@@ -10,6 +11,7 @@ const constructorMethod = app => {
     app.use("/reports", reportRoutes);
 
     app.get('/', (req, res) => {
+        // res.sendFile(path.resolve('static/placeholder.html'));
         res.render("placeholder/placeholder");
     });
 

@@ -1,10 +1,14 @@
 const mongoCollections = require('../config/mongoCollections');
-const posts = mongoCollections.posts;
 const { ObjectId } = require('mongodb');
+const posts = mongoCollections.posts;
+const comments = mongoCollections.comments;
+const usersCollection = require("./users.js");
+
+
 
 /*
 There are 11 properties in the post collection
-1.PostId:ObjectID
+1._id(PostId):ObjectID
 2.topic:string
 3.userId:string
 4.content:string
@@ -17,6 +21,7 @@ There are 11 properties in the post collection
 11.date:Date object
 */
 
+
 async function createPost(topic, userId, content, photoArr, tagArr) {//This function needs to interact with the user collection, and when a post is created, the user's postID needs to add a piece of data
     if (!topic || typeof topic !== "string")//此函数需要互动user collection，当创建了一个post，user的postID需要添加一条数据
         throw 'you should input a string as the topic';
@@ -24,7 +29,7 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
         throw 'you should input a string as the userId';
     if (!content || typeof content !== "string")
         throw 'you should input a string as the content';
-    if (!photoArr || !Array.isArray(tagArr))
+    if (!photoArr || !Array.isArray(photoArr))
         throw "You must provide an array of photos"
     if (!tagArr || !Array.isArray(tagArr))
         throw "You must provide an array of tags"
@@ -44,11 +49,11 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
     }
     let insertInfo = await postCollection.insertOne(newPost);
     if (insertInfo.insertedCount === 0)
-        throw 'Could not create the Post';
+        throw 'Something wrong when adding the post';
     let newId = insertInfo.insertedId;
-    let postCreated = await this.getPostById(newId.toHexString());
+    let postCreated = await getPostById(newId.toHexString());
 
-    usersCollection.addPostToUser(userId,newId.toHexString());//call the method in the user collection
+    await usersCollection.addPostToUser(userId, newId.toHexString());//call the method in the user collection
 
     return postCreated;
 }
@@ -58,18 +63,21 @@ async function getPostById(id) {
         throw 'You must provide an id to search for';
     let postCollection = await posts();
     let objId = ObjectId.createFromHexString(id);
-    let PostGoal = await postCollection.findOne({ _id: objId });
-    if (PostGoal === null) throw 'No Post with that id';
-    return PostGoal;
+    let postGoal = await postCollection.findOne({ _id: objId });
+    if (postGoal === null)
+        throw 'No Post with that id';
+    return postGoal;
 }
 
 async function getPostByString(str) {
     if (!str || typeof str !== "string") throw 'You must provide an str to search for';
     let postCollection = await posts();
     let re = new RegExp(".*" + str + ".*", "i");
-    let PostGoal = await postCollection.find({ topic: re }).toArray();
+    // let PostGoal = await postCollection.find({ topic: re }).toArray();
+    let PostGoal = await postCollection.find({ $or: [{ topic: re }, { content: re }] }).toArray();
+
     // let PostGoal = await postCollection.find({content:/01/i}).toArray();
-    if (PostGoal === null) throw 'No Post with that id';
+    if (PostGoal === null) throw 'No Post with that str';
     return PostGoal;
 }
 
@@ -77,7 +85,7 @@ async function getPostByOneTag(tag) {
     if (!tag || typeof tag !== "string") throw 'You must provide a tag to search for';
     let postCollection = await posts();
     let PostGoal = await postCollection.find({ tagArr: { $elemMatch: { $eq: tag } } }).toArray();
-    if (PostGoal === null) throw 'No Post with that id';
+    if (PostGoal === null) throw 'No Post with that tag';
     return PostGoal;
 }
 
@@ -86,7 +94,7 @@ async function getPostByMultTag(tags) {
         throw "You must provide an array of tags"
     let postCollection = await posts();
     let PostGoal = await postCollection.find({ tagArr: { $all: tags } }).toArray();
-    if (PostGoal === null) throw 'No Post with that id';
+    if (PostGoal === null) throw 'No Post with that tags';
     return PostGoal;
 }
 
@@ -97,16 +105,16 @@ async function editContent(id, newContent) {
     let postCollection = await posts();
     let updatedInfo = await postCollection.updateOne({ _id: objId }, { $set: { content: newContent } });
     if (updatedInfo.modifiedCount === 0) {
-        throw 'could not update the post successfully';
+        throw 'could not edit the content successfully';
     }
-    return await this.getPostById(id);
+    return await getPostById(id);
 }
 
 async function addLikeCount(postId, userId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id';
     let postObjId = ObjectId.createFromHexString(postId);
-    let postGoal = await this.getPostById(postId);
+    let postGoal = await getPostById(postId);
     if (postGoal.likeCount.indexOf(userId) !== -1)
         throw "the user has already liked it";
     if (postGoal.dislikeCount.indexOf(userId) !== -1)
@@ -115,16 +123,16 @@ async function addLikeCount(postId, userId) {
     let postCollection = await posts();
     let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { likeCount: postGoal.likeCount } });
     if (updatedInfo.modifiedCount === 0) {
-        throw 'could not update the like successfully';
+        throw 'could not add the likeCount successfully';
     }
-    return await this.getPostById(postId);
+    return await getPostById(postId);
 }
 
 async function addDislikeCount(postId, userId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id';
     let postObjId = ObjectId.createFromHexString(postId);
-    let postGoal = await this.getPostById(postId);
+    let postGoal = await getPostById(postId);
     if (postGoal.dislikeCount.indexOf(userId) !== -1)
         throw "the user has already disliked it";
     if (postGoal.likeCount.indexOf(userId) !== -1)
@@ -133,34 +141,37 @@ async function addDislikeCount(postId, userId) {
     let postCollection = await posts();
     let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { dislikeCount: postGoal.dislikeCount } });
     if (updatedInfo.modifiedCount === 0) {
-        throw 'could not update the like successfully';
+        throw 'could not add the dislike successfully';
     }
-    return await this.getPostById(postId);
+    return await getPostById(postId);
 }
 
 async function addViewCount(postId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
     let postObjId = ObjectId.createFromHexString(postId);
-    let postGoal = await this.getPostById(postId);
+    let postGoal = await getPostById(postId);
     let postCollection = await posts();
     let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { viewCount: postGoal.viewCount + 1 } });
     if (updatedInfo.modifiedCount === 0) {
-        throw 'could not update the like successfully';
+        throw 'could not add the viewCount successfully';
     }
-    return await this.getPostById(postId);
+    return await getPostById(postId);
 }
 
 async function removePost(postId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
+
+    await removeAllCommentsInPost(postId);//delete the data in the comment collection
+
     let postObjId = ObjectId.createFromHexString(postId);
     let postCollection = await posts();
-    let postInfo=await this.getPostById(postId);
+    let postInfo = await getPostById(postId);
     let deletionInfo = await postCollection.removeOne({ _id: postObjId });
     if (deletionInfo.deletedCount === 0) {
         throw `Could not delete the band with id of ${id}`;
     }
 
-    usersCollection.removePostId(postInfo.userId,postId);//call the method in the user collection
+    await usersCollection.removePostFromUser(postInfo.userId, postId);//call the method in the user collection to remove the post id
 
     return true;
 }
@@ -170,10 +181,10 @@ async function addCommentIdToPost(postId, commentId) {//此函数需要配合com
     if (!commentId || typeof commentId !== "string") throw 'You must provide a comment id';
     let postObjId = ObjectId.createFromHexString(postId);
     let postCollection = await posts();
-    let postGoal = await this.getPostById(postId);
+    let postGoal = await getPostById(postId);
     postGoal.commentIdArr.push(commentId);
-    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { commentIdArr: postGoal.commentIdArr });
-    console.log(updatedInfo);
+    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { commentIdArr: postGoal.commentIdArr } });
+    // console.log(updatedInfo);
     return true;
 }
 
@@ -182,15 +193,27 @@ async function removeCommentIdFromPost(postId, commentId) {//此函数需要配�
     if (!commentId || typeof commentId !== "string") throw 'You must provide a comment id';
     let postObjId = ObjectId.createFromHexString(postId);
     let postCollection = await posts();
-    let postGoal = await this.getPostById(postId);
-    let temp=[];
-    for(let i=0;i<postGoal.commentIdArr.length;i++){
-        if(postGoal.commentIdArr[i]!==commentId)
+    let postGoal = await getPostById(postId);
+    let temp = [];
+    for (let i = 0; i < postGoal.commentIdArr.length; i++) {
+        if (postGoal.commentIdArr[i] !== commentId)
             temp.push(postGoal.commentIdArr[i]);
     }
-    postGoal.commentIdArr=temp;
-    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { commentIdArr: postGoal.commentIdArr });
-    console.log(updatedInfo);
+    postGoal.commentIdArr = temp;
+    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { commentIdArr: postGoal.commentIdArr } });
+    // console.log(updatedInfo);
+    return true;
+}
+
+async function removeAllCommentsInPost(postId) {
+    if (!postId || typeof postId !== "string")
+        throw 'you should input a string as the postId';
+
+    let commentCollection = await comments();
+    let deletionInfo = await commentCollection.remove({ postId: postId });
+    if (deletionInfo.deletedCount === 0) {
+        throw `Could not delete the comment`;
+    }
     return true;
 }
 
@@ -208,8 +231,6 @@ module.exports = {
     addCommentIdToPost,
     removeCommentIdFromPost
 }
-
-
 
 
 

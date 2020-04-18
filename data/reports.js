@@ -1,4 +1,5 @@
 const mongoCollections = require('../config/mongoCollections');
+// const mongoCollections = require('./mongoCollections');
 const reports = mongoCollections.reports;
 const { ObjectId } = require('mongodb');
 
@@ -39,7 +40,7 @@ async function addReport(userId,postId,reason)
 {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id for report';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id for report';
-    if (!reason || !Array.isArray(reason)) throw 'You must provide reason for report';
+    if (!reason || !Array.isArray(reason)) throw 'You must provide reason array for the report';
 
     const reportCollection = await reports();
     // check if the user has already reported 
@@ -57,8 +58,9 @@ async function addReport(userId,postId,reason)
         const reportt = await this.getReport(newId);
         return reportt;
     }
-    await reportCollection.updateOne({_id: existReport._id}, {$addToSet: {reasons:reason}});
-    return await this.getReport(existReport._id);
+    else{
+        throw "you have already reported the post once"
+    };
 }
 
 module.exports = {

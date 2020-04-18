@@ -19,14 +19,13 @@ async function createUser(username, password, nickname) { //tested
     };
     const newInsertInformation = await userCollection.insertOne(newUser);
     if (newInsertInformation.insertedCount === 0) throw 'Insert failed!';
-    
-	return await this.getUserById(newInsertInformation.insertedId);
+
+    return await this.getUserById(newInsertInformation.insertedId);
 };
 
 async function getUserById(userId) { //updated string id to objid, tested
     const userCollection = await users();
-    if(typeof userId =="string")
-    {
+    if (typeof userId == "string") {
         const objId = ObjectId.createFromHexString(userId);
         userId = objId;
     }
@@ -42,8 +41,7 @@ async function getAllUsers() {//tested
 };
 
 async function editUser(userId, username, password, nickname) {//updated string id to objid, tested
-    if(typeof userId =="string")
-    {
+    if (typeof userId == "string") {
         const objId = ObjectId.createFromHexString(userId);
         userId = objId;
     }
@@ -60,30 +58,62 @@ async function editUser(userId, username, password, nickname) {//updated string 
     return await this.getUserById(userId);
 };
 
+async function editPassword(userId, password) {//updated string id to objid, tested
+    if (typeof userId == "string") {
+        const objId = ObjectId.createFromHexString(userId);
+        userId = objId;
+    }
+    const userUpdateInfo = {
+        password: password
+    };
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne({ _id: userId }, { $set: userUpdateInfo });
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+};
+
+async function editNickname(userId, nickname) {//updated string id to objid, tested
+    if (typeof userId == "string") {
+        const objId = ObjectId.createFromHexString(userId);
+        userId = objId;
+    }
+    const userUpdateInfo = {
+        nickname: nickname
+    };
+
+    const userCollection = await users();
+    const updateInfo = await userCollection.updateOne({ _id: userId }, { $set: userUpdateInfo });
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
+
+    return await this.getUserById(userId);
+};
+
 async function addPostToUser(userId, postId) { // postId is passed through and stored as a string
     let currentUser = await this.getUserById(userId);
-    console.log(currentUser);
+    // console.log(currentUser);
 
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
-        {_id: ObjectId(userId)},
-        {$addToSet: {posts: postId} }
+        { _id: ObjectId(userId) },
+        { $addToSet: { posts: postId } }
         // {$addToSet: {posts: ObjectId(postId).toString()} }
     );
 
-    if (!updateInfo.matchedCount && ! updateInfo.modifiedCount) throw 'Update failed';
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
 
     return await this.getUserById(userId);
 };
 
 async function removePostFromUser(userId, postId) { // postId is passed through and stored as a string
     let currentUser = await this.getUserById(userId);
-    console.log(currentUser);
+    // console.log(currentUser);
 
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
-        {_id: ObjectId(userId)},
-        {$pull: {posts: postId} }
+        { _id: ObjectId(userId) },
+        { $pull: { posts: postId } }
         // {$pull: {posts: ObjectId(postId).toString()} }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
@@ -97,12 +127,12 @@ async function addCommentToUser(userId, commentId) { // commentId is passed thro
 
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
-        {_id: ObjectId(userId)},
-        {$addToSet: {comments: commentId} }
+        { _id: ObjectId(userId) },
+        { $addToSet: { comments: commentId } }
         // {$addToSet: {comments: ObjectId(commentId).toString()} }
     );
 
-    if (!updateInfo.matchedCount && ! updateInfo.modifiedCount) throw 'Update failed';
+    if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
 
     return await this.getUserById(userId);
 
@@ -114,8 +144,8 @@ async function removeCommentFromUser(userId, commentId) { // commentId is passed
 
     const userCollection = await users();
     const updateInfo = await userCollection.updateOne(
-        {_id: ObjectId(userId)},
-        {$pull: {comments: commentId} }
+        { _id: ObjectId(userId) },
+        { $pull: { comments: commentId } }
         // {$pull: {comments: ObjectId(commentId).toString()} }
     );
     if (!updateInfo.matchedCount && !updateInfo.modifiedCount) throw 'Update failed';
@@ -129,6 +159,8 @@ module.exports = {
     getUserById,
     getAllUsers,
     editUser,
+    editPassword,
+    editNickname,
     addPostToUser,
     removePostFromUser,
     addCommentToUser,

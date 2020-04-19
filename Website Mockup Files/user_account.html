@@ -16,17 +16,34 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="placeholder.html">Insert Link Name</a></li>
-                    <li><a href="placeholder.html">Insert Link Name</a></li>
-                    <li><a href="placeholder.html">Insert Link Name</a></li>
+                    <li><a href="placeholder.html">Nav Bar Placeholder</a></li>
+                    <li><a href="placeholder.html">Nav Bar Placeholder</a></li>
+                    <li><a href="placeholder.html">Nav Bar Placeholder</a></li>
                 </ul>
             </nav>
         </header>
 
         <main>
             <h1>User Account</h1>
-            <!--only uncomment script if needed-->
-            <!--<script src="/public/js/script.js"></script>-->
+            <form></form>
+            <p class="default">Username: *user's name here*</p>
+            
+            <form action="/result" method="post" id="text-to-test">
+                <label for="text-to-test">Nickname</label><br>
+                <input type="text" id="text-to-test" name="text-to-test" value="*user's nickname here*"><br>
+                <input type="submit" value="Update" class="button">
+            </form>
+            <form action="/result" method="post" id="text-to-test">
+                <label for="text-to-test">Password</label><br>
+                <input type="text" id="text-to-test" name="text-to-test" value="****************"><br>
+                <input type="submit" value="Update" class="button">
+            </form>
+            
+            <h2>Your Posts</h2>
+            <ul>
+                <li>post 1</li>
+                <li>post 2</li>
+            </ul>
         </main>
     </body>
 

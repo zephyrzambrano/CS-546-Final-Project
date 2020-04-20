@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 		const newUser = await userData.createUser(userInfo.username,userInfo.password,userInfo.nickname);//revised userinfo to userInfo, and wrong function name
 		res.json(newUser);
 	} catch (e) {
-		res.sendStatus(500);
+		res.status(400).json({ error: e });
 	}
 });
 

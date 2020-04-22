@@ -36,16 +36,20 @@ Database Functions:
             <br> <!--separates nav from main-->
             <h1>User Account</h1>
             <form></form>
-            <p class="default">Username: *user's name here*</p>
+            <form action="/result" method="post" id="text-to-test">
+                <label for="text-to-test">Username</label><br>
+                <input type="text" id="username" name="username" value="Username"><br>
+                <input type="submit" value="Update" class="button">
+            </form>
             
             <form action="/result" method="post" id="text-to-test">
                 <label for="text-to-test">Nickname</label><br>
-                <input type="text" id="text-to-test" name="text-to-test" value="*user's nickname here*"><br>
+                <input type="text" id="nickname" name="nickname" value="Nickname"><br>
                 <input type="submit" value="Update" class="button">
             </form>
             <form action="/result" method="post" id="text-to-test">
                 <label for="text-to-test">Password</label><br>
-                <input type="password" id="text-to-test" name="text-to-test" value="****************"><br>
+                <input type="password" id="password" name="password" value="*****"><br>
                 <input type="submit" value="Update" class="button">
             </form>
             

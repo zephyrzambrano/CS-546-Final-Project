@@ -8,7 +8,8 @@ async function createUser(username, password, nickname) { //tested
     if (!password || typeof username !== "string") throw "must provide password";
     if (!nickname || typeof username !== "string") throw "must provide nickname";
     const userCollection = await users();
-
+    const existUser = await userCollection.findOne({username: username}); 
+    if (existUser) throw `${username} is used, please submit another username`;
     let newUser = {
         // userid - object id created by mongodb
         username: username, // string

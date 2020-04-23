@@ -210,7 +210,7 @@ async function removeCommentIdFromPost(postId, commentId) {//此函数需要配�
     return true;
 }
 
-async function removeAllCommentsInPost(postId) {
+async function removeAllCommentsInPost(postId) {//the method will delete all the comments in comments collection which has this postId
     if (!postId || typeof postId !== "string")
         throw 'you should input a string as the postId';
 

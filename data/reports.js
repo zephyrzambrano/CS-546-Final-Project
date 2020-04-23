@@ -1,17 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const reports = mongoCollections.reports;
 const { ObjectId } = require('mongodb');
-// add more mongoCollections if needed
-
-
-// Uncomment require statements these if needed
-
-// const posts = require('./posts');
-// const comments = require('./comments');
-
-
-
-
 
 
 // insert functions here
@@ -30,7 +19,7 @@ async function getAllReports() {
     }
 }
 
-async function getReport(id)
+async function getReportById(id)
 {
     if (!id) throw 'You must provide an id to search for report';
     if(typeof id =="string")
@@ -50,9 +39,7 @@ async function addReport(userId,postId,reason)
 {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id for report';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id for report';
-    if (!reason || typeof reason !== "string") throw 'You must provide reason for report';
-    // userjId = ObjectId.createFromHexString(userId);
-    // postId = ObjectId.createFromHexString(postId);
+    if (!reason || !Array.isArray(reason)) throw 'You must provide reason array for the report';
 
     const reportCollection = await reports();
     // check if the user has already reported 
@@ -62,7 +49,7 @@ async function addReport(userId,postId,reason)
         let newReport = {
             userId: userId,
             postId: postId,
-            reasons: [reason]
+            reasons: reason
         };
         const insertInfo = await reportCollection.insertOne(newReport);
         if (insertInfo.insertedCount === 0) throw 'Could not add report';
@@ -70,12 +57,13 @@ async function addReport(userId,postId,reason)
         const reportt = await this.getReport(newId);
         return reportt;
     }
-    await reportCollection.updateOne({_id: existReport._id}, {$addToSet: {reasons:reason}});
-    return await this.getReport(existReport._id);
+    else{
+        throw "you have already reported the post once"
+    };
 }
 
-
-
-
-
-module.exports = {getAllReports,getReport,addReport}
+module.exports = {
+    getAllReports,
+    getReportById,
+    addReport
+}

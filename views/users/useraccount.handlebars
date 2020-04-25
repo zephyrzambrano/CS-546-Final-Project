@@ -1,0 +1,25 @@
+<h1>User Account</h1>
+
+<p>Your username: {{usename}}</p>
+<form action="/result" method="post" id="text-to-test">
+    <label for="text-to-test">Username</label><br>
+    <input type="text" id="username" name="username" value="Username"><br>
+    <input type="submit" value="Update Username" class="button">
+</form>
+
+<p>Your nickname: {{nickname}}</p>  
+<form action="/result" method="post" id="text-to-test">
+    <label for="text-to-test">Nickname</label><br>
+    <input type="text" id="nickname" name="nickname" value="Nickname"><br>
+    <input type="submit" value="Update Nickname" class="button">
+</form>
+
+<p>Your password: {{password}}</p>
+<form action="/result" method="post" id="text-to-test">
+    <label for="text-to-test">Password</label><br>
+    <input type="password" id="password" name="password" value="*****"><br>
+    <input type="submit" value="Update Password" class="button">
+</form>
+
+<h1>Your Posts</h1>
+{{post-list}}

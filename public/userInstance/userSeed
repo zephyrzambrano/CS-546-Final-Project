@@ -1,8 +1,5 @@
-// const posts = require('./posts.js');
-const users = require('./users.js');
-// const comments = require('./comments.js');
-const connection = require('./mongoConnection');
-// const hah=require("./test");
+const users = require('../../data/users.js');
+const connection = require('../../config/mongoConnection');
 
 async function main() {
     let u1=await users.createUser("un01","pw0101","nn01");

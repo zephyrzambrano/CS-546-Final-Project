@@ -4,7 +4,8 @@
   "description": "Clothes Forum",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^4.0.3",
     "handlebars": "^4.7.6",
-    "mongodb": "^3.5.5"
+    "mongodb": "^3.5.5",
+    "node-uuid": "^1.4.8"
   }
 }

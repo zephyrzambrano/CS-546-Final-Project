@@ -10,7 +10,7 @@ const constructorMethod = app => {
     app.use("/reports", reportRoutes);
 
     app.get('/', (req, res) => {
-        res.render("placeholder/placeholder");
+        res.render("placeholder/home");
     });
 
     app.use("*", (req, res) => {

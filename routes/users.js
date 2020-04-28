@@ -9,7 +9,6 @@ const userData = data.users;
 /patch (edit user)
 */
 
-
 router.get('/:id', async (req, res) => {
 	try {
 		let user = await userData.getUserById(req.params.id);

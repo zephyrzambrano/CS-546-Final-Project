@@ -1,0 +1,41 @@
+post1 = {
+    // postID: "",The server automatically generates the data
+	topic: "Cool, billowy, short-sleeved shirt",
+    // userID: "",
+    content: "In the wild. Our Hawaiian collection just keeps growing, the Diffusion Shirt is crafted from a lightweight fabric with a new leopard print all-over.",
+	photoArr: ["MS056S-898-1.jpg","MS056S-898-3.jpg"],
+	commentIdArr: [],
+    tagArr: ["leisure", "shirt"],
+    //likeCount: "10",
+    //dislikeCount: "9",
+    //viewCount: "8",
+    //date: The server automatically generates the data
+};
+
+post2 = {
+    // postID: "",The server automatically generates the data
+	topic: "My ULTRA LIGHT DOWN RIBBED BLOUSON",
+    // userID: "",
+    content: "Not only is it light, but it's also warm. I don't feel cold even if it's minus ten degrees after I wear it.",
+	photoArr: ["goods_428055_sub3.jpg"],
+	commentIdArr: [],
+    tagArr: ["down jacket","leisure"],
+    //likeCount: "7",
+    //dislikeCount: "6",
+    //viewCount: "5",
+    //date: The server automatically generates the data
+};
+
+post3 = {
+    // postID: "",
+	topic: "I wear the same KANDO JACKET with my friend",
+    // userID: "",
+    content: "My friend and I bought the same suit. The style was plain, but the texture felt like wool.After I wear it, a lot of pretty girls talk to me, while my friends doesn't. Am I too handsome?",
+	photoArr: ["goods_08_426858.jpg","usgoods_426858_sub21.jpg"],
+	commentIdArr: [],
+    tagArr: ["suit","offical"],
+    //likeCount: "10",
+    //dislikeCount: "99",
+    //viewCount: "800",
+    //date: The server automatically generates the data
+};

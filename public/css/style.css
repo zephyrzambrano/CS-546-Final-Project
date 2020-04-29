@@ -1,0 +1,122 @@
+.img-ad {
+    width: 100%;
+}
+
+.post-part {
+    padding: 10px 20px 20px 50px;
+    float: left;
+}
+
+.user-Pic {
+    width: 85px;
+    height: 85px;
+}
+
+.footer {
+    height: 80px;
+    background-color: #f4f3f3;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+    padding-top: 20px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #3c3c3c;
+}
+
+.footer a:hover {
+    color: #b52818;
+}
+
+#to-top {
+    color: #3c3c3c;
+    text-decoration: none;
+    left: 95%;
+    top: 90%;
+    position: fixed;
+}
+
+#to-top:hover {
+    color: #b52818;
+    cursor: pointer;
+}
+
+#addNewPost {
+    position: relative;
+    padding-left: 25%;
+}
+
+#Guide {
+    padding-left: 18px;
+}
+
+.fileinput-button {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.fileinput-button input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    -ms-filter: 'alpha(opacity=0)';
+}
+
+#signin-form {
+    margin: 0 auto 18%;
+    padding-right: 350px;
+}
+
+#signup-form {
+    margin: 0 auto 8%;
+    padding-right: 350px;
+}
+
+.all-checkbox {
+    position: relative;
+}
+
+.all-checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+
+.all-checkbox label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -9px;
+    width: 19px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #bbbbbb;
+    background: #ffffff;
+}
+
+.all-checkbox input[type="checkbox"]:checked + label:after {
+    position: absolute;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    content: "\e013";
+    top: 42%;
+    left: 3px;
+    margin-top: -5px;
+    font-size: 11px;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+    color: #333;
+}
+
+.all-checkbox label {
+    cursor: pointer;
+    line-height: 1.2;
+    font-weight: normal;
+    margin-bottom: 0;
+    text-align: left;
+}

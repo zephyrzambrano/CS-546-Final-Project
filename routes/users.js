@@ -6,8 +6,19 @@ const userData = data.users;
 /*
 /get (get user information)
 /post (create user)
-/patch (edit user)
+/post/id (edit user)
 */
+router.get('/account', async (req, res) => {
+    // if (!req.session.user) {		//if not logged in, redirect to the homepage
+	// 	return res.redirect('/');
+	// }
+
+	// const {userId} = req.session.user;    //will retrieve the userId from session
+	const userId= "5ea8b8829e985f05f07d933c";
+	const{username, nickname,password,posts}=await userData.getUserById(userId);// should determine posts
+    res.render('users/useraccount',{username: username, nickname: nickname, password: password, 'post-list':posts});
+});
+
 
 router.get('/:id', async (req, res) => {
 	try {
@@ -20,7 +31,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
 	let userInfo = req.body;
-
 	if (!userInfo) {
 		res.status(400).json({ error: 'You must provide data to create a user' });
 		return;
@@ -48,24 +58,32 @@ router.post('/', async (req, res) => {
 	}
 });
 
-router.patch('/:id', async (req, res) => {
-	const requestBody = req.body;
-	let updatedObject = {};
+router.post('/:id', async (req, res) => { //patch _ edit username,nickname,password
+	const { username, password,nickname } = req.body;
+	let updatedObject={};
 	try {
-		const oldUser = await userData.getUserById(req.params.id);// revised oldPost to oldUser
-		if (requestBody.username && requestBody.username !== oldUser.username) updatedObject.username = requestBody.username; 
-		if (requestBody.password && requestBody.password !== oldUser.password) updatedObject.password = requestBody.password;
-		if (requestBody.nickname && requestBody.nickname !== oldUser.nickname) updatedObject.nickname = requestBody.nickname;
-		if (requestBody.userId && requestBody.userId !== oldUser.userId)
-			updatedObject.userId = requestBody.userId;
+		const oldUser = await userData.getUserById(req.params.id);
+		
+		if (username && username !== oldUser.username) updatedObject.username = username; 
+		if (password && password !== oldUser.password) updatedObject.password = password;
+		if (nickname && nickname !== oldUser.nickname) updatedObject.nickname = nickname;
 	} catch (e) {
 		res.status(404).json({ error: 'User not found' });
 		return;
 	}
-
 	try {
-		const updatedUser = await userData.editUser(req.params.id, updatedObject.username,updatedObject.password,updatedObject.nickname);//updated input parameters
-		res.json(updatedUser);
+		let updatedUser;
+		if(updatedObject.username)
+		{
+			updatedUser = await userData.editUsername(req.params.id, username );
+		}else if(updatedObject.password)
+		{
+			updatedUser = await userData.editPassword(req.params.id, password );
+		}else if(updatedObject.nickname)
+		{
+			updatedUser = await userData.editNickname(req.params.id, nickname );
+		}
+		res.redirect('/users/account');
 	} catch (e) {
 		res.status(500).json({ error: e });
 	}
@@ -73,7 +91,7 @@ router.patch('/:id', async (req, res) => {
 
 //create getAll route 
 router.get("/", async (req, res) => {
-    try {
+	try {
       const userList = await userData.getAllUsers();
       res.json(userList);
     } catch (e) {

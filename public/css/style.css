@@ -80,7 +80,6 @@
     position: relative;
     width: 100%;
     font-size: 0.9em;
-    font-style: oblique;
 }
 
 .all-checkbox input[type="checkbox"] {
@@ -114,6 +113,14 @@
     width: 16px;
     height: 16px;
     color: #333;
+
+    font-weight: bold;
+    color: #b52818;
+}
+
+.all-checkbox input[type="checkbox"]:checked + label {
+    font-weight: bold;
+    color: #b52818;
 }
 
 .all-checkbox label {
@@ -122,4 +129,9 @@
     font-weight: normal;
     margin-bottom: 0;
     text-align: left;
+}
+
+.all-checkbox label:hover {
+    color: #b52818;
+    font-weight: bold;
 }

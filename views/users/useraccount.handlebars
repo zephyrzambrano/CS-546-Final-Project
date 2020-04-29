@@ -1,23 +1,23 @@
 <h1>User Account</h1>
 
-<p>Your username: {{usename}}</p>
-<form action="/result" method="post" id="text-to-test">
+<p>Your username: {{username}}</p>
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="text-to-test"> <!--/user/5ea8b8829e985f05f07d933c will  rewrite to /users/{{_id}}-->
     <label for="text-to-test">Username</label><br>
-    <input type="text" id="username" name="username" value="Username"><br>
+    <input type="text" id="username" name="username"><br>
     <input type="submit" value="Update Username" class="button">
 </form>
 
 <p>Your nickname: {{nickname}}</p>  
-<form action="/result" method="post" id="text-to-test">
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="text-to-test">
     <label for="text-to-test">Nickname</label><br>
-    <input type="text" id="nickname" name="nickname" value="Nickname"><br>
+    <input type="text" id="nickname" name="nickname"><br>
     <input type="submit" value="Update Nickname" class="button">
 </form>
 
 <p>Your password: {{password}}</p>
-<form action="/result" method="post" id="text-to-test">
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="text-to-test">
     <label for="text-to-test">Password</label><br>
-    <input type="password" id="password" name="password" value="*****"><br>
+    <input type="password" id="password" name="password"><br>
     <input type="submit" value="Update Password" class="button">
 </form>
 

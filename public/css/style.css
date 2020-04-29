@@ -78,6 +78,9 @@
 
 .all-checkbox {
     position: relative;
+    width: 100%;
+    font-size: 0.9em;
+    font-style: oblique;
 }
 
 .all-checkbox input[type="checkbox"] {
@@ -88,12 +91,12 @@
     content: '';
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 1px;
     margin-top: -9px;
-    width: 19px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     display: inline-block;
-    border-radius: 2px;
+    border-radius: 3px;
     border: 1px solid #bbbbbb;
     background: #ffffff;
 }

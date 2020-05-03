@@ -54,7 +54,7 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
     const form = new formidable.IncomingForm();//创建formidable解析器
     form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
     form.keepExtensions = true;//保留后缀名
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, async(err, fields, files) => {
         try {
             if (!fields)
                 throw "need data to create post";

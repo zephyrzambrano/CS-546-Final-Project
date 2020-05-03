@@ -55,54 +55,21 @@
         <!-- Posts list here -->
         <div class="row">
             <div class="col-sm-12">
-<!--                {{#each HomePagePosts}}-->
-<!--                    <div class="media post-part">-->
-<!--                        <div class="media-left">-->
-<!--                            <a href="#">-->
-<!--                                <img class="media-object user-Pic" src="../../public/images/user1.jpg" alt="UserPic">-->
-<!--                            </a>-->
-<!--                        </div>-->
-<!--                        <div class="media-body">-->
-<!--                            <h4 class="media-heading">{{HomePagePosts.title}}</h4>-->
-<!--                            {{HomePagePosts.content}}-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                {{else}}-->
-<!--                    <h2>There is no result.</h2>-->
-<!--                {{/each}}-->
-                <div class="media post-part">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object user-Pic" src="../../public/images/user1.jpg" alt="UserPic">
-                        </a>
+                {{#each posts}}
+                    <div class="media post-part">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object user-Pic" src={{posts.photos.[0]}} alt="UserPic">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">{{posts.topic}}</h4>
+                            {{posts.content}}
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">I love this match!!!</h4>
-                        This is what I wore yesterday to attend a party, and asdasdasd  sda asdas asdasd d dasdasdasdasdasd  s das a as das asda a sa dasa asd asdsadasa  asdad asdadsdada as d asd asdadasd as dasd aa s f sf fsd fsad fasdf asfs sdadasdf aas das asdf asd asd fdf asdf asd fasdf sdf aasf asdf .
-                    </div>
-                </div>
-                <div class="media post-part">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object user-Pic" src="../../public/images/user1.jpg" alt="UserPic">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">I love this match!!!</h4>
-                        This is what I wore yesterday to attend a party, and asdasdasd  sda asdas asdasd d dasdasdasdasdasd  s das a as das asda a sa dasa asd asdsadasa  asdad asdadsdada as d asd asdadasd as dasd aa s f sf fsd fsad fasdf asfs sdadasdf aas das asdf asd asd fdf asdf asd fasdf sdf aasf asdf .
-                    </div>
-                </div>
-                <div class="media post-part">
-                    <div class="media-left">
-                        <a href="#">
-                            <img class="media-object user-Pic" src="../../public/images/user1.jpg" alt="UserPic">
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">I love this match!!!</h4>
-                        This is what I wore yesterday to attend a party, and asdasdasd  sda asdas asdasd d dasdasdasdasdasd  s das a as das asda a sa dasa asd asdsadasa  asdad asdadsdada as d asd asdadasd as dasd aa s f sf fsd fsad fasdf asfs sdadasdf aas das asdf asd asd fdf asdf asd fasdf sdf aasf asdf .
-                    </div>
-                </div>
+                {{else}}
+                    <h2>There is no result.</h2>
+                {{/each}}
             </div>
         </div>
         <br/>
@@ -113,7 +80,7 @@
                 <div class="row">
                     <h4 id="Guide">Add new Post here.</h4>
                     <div class="col-sm-8">
-                        <input name="phrase" id="titleId" class="form-control" placeholder="Title" value="" aria-describedby="basic-addon1"></input>
+                        <input name="phrase" id="topicId" class="form-control" placeholder="Title" value="" aria-describedby="basic-addon1">
                     </div>
                     <br/>
                     <br/>
@@ -122,73 +89,73 @@
                     </div>
                     <div class="all-checkbox col-sm-4">
                         <p><label class="checkbox-inline">
-                            <input type="checkbox" id="check1" value="tag1">
+                            <input type="checkbox" id="check1" value="Men">
                             <label for="check1">Men</label>
                         </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check2" value="tag2">
+                                <input type="checkbox" id="check2" value="Women">
                                 <label for="check2">Women</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check3" value="tag3">
+                                <input type="checkbox" id="check3" value="Kids">
                                 <label for="check3">Kids</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check4" value="tag4">
+                                <input type="checkbox" id="check4" value="Travel">
                                 <label for="check4">Travel</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check5" value="tag5">
+                                <input type="checkbox" id="check5" value="Hike">
                                 <label for="check5">Hike</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check6" value="tag6">
+                                <input type="checkbox" id="check6" value="Camp">
                                 <label for="check6">Camp</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check7" value="tag7">
+                                <input type="checkbox" id="check7" value="Sports">
                                 <label for="check7">Sports</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check8" value="tag8">
+                                <input type="checkbox" id="check8" value="Party">
                                 <label for="check8">Party</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check9" value="tag9">
+                                <input type="checkbox" id="check9" value="Yoga">
                                 <label for="check9">Yoga</label>
                             </label>
                         </p>
                         <p>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check10" value="tag10">
+                                <input type="checkbox" id="check10" value="Sleepwear">
                                 <label for="check10">Sleepwear</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check11" value="tag11">
+                                <input type="checkbox" id="check11" value="Suit">
                                 <label for="check11">Suit</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check12" value="tag12">
+                                <input type="checkbox" id="check12" value="Dress">
                                 <label for="check12">Dress</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check14" value="tag14">
+                                <input type="checkbox" id="check14" value="Ceremony">
                                 <label for="check14">Ceremony</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check15" value="tag15">
+                                <input type="checkbox" id="check15" value="Spring">
                                 <label for="check15">Spring</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check16" value="tag16">
+                                <input type="checkbox" id="check16" value="Summer">
                                 <label for="check16">Summer</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check17" value="tag17">
+                                <input type="checkbox" id="check17" value="Autumn">
                                 <label for="check17">Autumn</label>
                             </label>
                             <label class="checkbox-inline">
-                                <input type="checkbox" id="check18" value="tag18">
+                                <input type="checkbox" id="check18" value="Winter">
                                 <label for="check18">Winter</label>
                             </label>
                         </p>

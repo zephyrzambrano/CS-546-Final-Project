@@ -24,3 +24,31 @@ file.onchange = function () {
 }
 xhr.open('post', '网址');
 xhr.send(formData);
+
+$("#likeCount").click(function() {
+    alert("You liked this post! :)")
+
+    var currentLike = $("#likeCount").text();
+    parseInt(currentLike);
+    var newLike = currentLike + 1;
+
+    var likeCount = new FormData(form);
+    likeCount.set('likeCount',newLike);
+
+    xhr.open('post', '网址');
+    xhr.send(likeCount);
+})
+
+$("#dislikeCount").click(function() {
+    alert("You disliked this post! :(")
+
+    var currentDislike = $("#dislikeCount").text();
+    parseInt(currentDislike);
+    var newDislike = currentDislike + 1;
+
+    var dislikeCount = new FormData(form);
+    likeCount.set('dislikeCount',newDislike);
+
+    xhr.open('post', '网址');
+    xhr.send(dislikeCount);
+})

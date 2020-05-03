@@ -34,7 +34,6 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
         throw "You must provide an array of photos"
     if (!tagArr || !Array.isArray(tagArr))
         throw "You must provide an array of tags"
-
     let postCollection = await posts();
     let newPost = {
         topic: topic,

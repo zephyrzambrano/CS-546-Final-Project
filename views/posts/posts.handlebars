@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>CS546 Final Project</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+<!--            {{#if postInfo}}-->
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="post-imgs col-sm-9">
+                            {{#each postInfo.photoArr}}
+                                <img class="PostImg" src={{postInfo.photoArr}}>
+                                <br/>
+                                <br/>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h4>
+                        {{#each postInfo.tagArr}}
+                            <span class="label label-success">{{postInfo.tagArr}}</span>
+                        {{/each}}
+                        <div class="post-time">{{postInfo.date}}</div>
+                    </h4>
+                    <br/>
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <span class="PostTopic">{{postInfo.topic}}</span>
+                            <span class="post-glyphicon">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{postInfo.likeCount}}</span>
+                            &nbsp;
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">{{postInfo.dislikeCount}}</span>
+                        </span>
+                        </div>
+                        <div class="panel-footer">
+                            {{postInfo.content}}
+                            <br/>
+                            <br/>
+                        </div>
+                        {{#each commentsInfo}}
+                            <ul class="list-group">
+                                <li class="list-group-item"><h6>{{commentsInfo.userNickname}}:<span class="post-time">{{commentsInfo.date}}</span></h6>{{commentsInfo.content}}</li>
+                            </ul>
+                        {{/each}}
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</body>
+</html>

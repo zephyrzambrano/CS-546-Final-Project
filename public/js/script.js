@@ -4,12 +4,16 @@ var formData = new FormData(form);
 formData.get('topic');
 formData.get('content');
 
-var tagArr = document.getElementsByName('tag');
-console.log(tagArr);
+var tags = document.getElementsByName('tag');
+console.log(tags);
 
-// for(let i = 0; i<17; i++){
-//
-// }
+var tagArr = [];
+
+for(let i = 0; i<17; i++) {
+    if(tags[i].checked) {
+        tagArr.push(tags[i].value);
+    }
+}
 var file = document.getElementById('addImg')
 // 当用户选择文件的时候
 file.onchange = function () {

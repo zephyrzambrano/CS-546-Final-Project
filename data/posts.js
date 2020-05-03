@@ -61,7 +61,7 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
 
 async function getAllPost(){
     let postCollection = await posts();
-    let postsGoal = await postCollection.find({});
+    let postsGoal = await postCollection.find({}).toArray();;
     return postsGoal;
 }
 

@@ -19,6 +19,24 @@ router.get('/account', async (req, res) => {
     res.render('users/useraccount',{username: username, nickname: nickname, password: password, 'post-list':posts});
 });
 
+router.get('/signin', async (req, res) => {
+    // if (!req.session.user) {		//if not logged in, redirect to the homepage
+	// 	return res.redirect('/');
+	// }
+
+	// const {userId} = req.session.user;    //will retrieve the userId from session
+    res.render('home/signin');
+});
+
+router.get('/signup', async (req, res) => {
+    // if (!req.session.user) {		//if not logged in, redirect to the homepage
+	// 	return res.redirect('/');
+	// }
+
+	// const {userId} = req.session.user;    //will retrieve the userId from session
+	res.render('home/signup');
+});
+
 
 router.get('/:id', async (req, res) => {
 	try {

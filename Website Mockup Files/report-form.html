@@ -1,0 +1,55 @@
+<!--
+Report form database data:
+- user id of the user reporting the post
+- post that is reported
+- reason for reporting the post (form)
+-->
+
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Clothes Forum</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--<link rel="stylesheet" href="/public/css/style.css">-->
+        <link rel="stylesheet" href="user_account_style.css">
+        
+
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <ul id="nav">
+                    <li id="nav-item"><a href="placeholder.html" id="nav-link">Nav Bar Placeholder</a></li>
+                    <li id="nav-item"><a href="placeholder.html" id="nav-link">Nav Bar Placeholder</a></li>
+                    <li id="nav-item"><a href="placeholder.html" id="nav-link">Nav Bar Placeholder</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Report Form</h1>
+
+            <p>Post you are reporting: {{reported-post}</p>  
+
+            <p>Reason for reporting this post:</p>
+            <form action="/post" method="post" id="reason">
+                <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                <label for="vehicle2">Spam</label><br>
+                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                <label for="vehicle3">Abusive comments</label><br>
+                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                <label for="vehicle3">Innappropriate language</label><br>
+                <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+                <label for="vehicle3">Off topic</label><br>
+                <input type="submit" value="Submit Report" class="button">
+            </form>
+        </main>
+    </body>
+
+</html>

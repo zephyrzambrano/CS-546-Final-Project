@@ -166,3 +166,7 @@
 .post-time {
     float: right;
 }
+
+.glyphicon:hover {
+    cursor: pointer;
+}

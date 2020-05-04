@@ -50,3 +50,10 @@ $('#tag-Men').click(function () {
         response.postArr;
     })
 })
+
+// This is to add comment in post page
+$('#addComment').click(function () {
+        $.post('localhost:3000/post/addComment',{postId: postInfo._id, userId: postInfo.userId, commentContent: $('#message-text').val()}, function (response) {
+            response.commentInfo;
+        })
+    })

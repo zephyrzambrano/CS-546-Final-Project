@@ -46,7 +46,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gender <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Men</a></li>
+                                <li><a href="localhost:3000/homePage/search?searchString=Men">Men</a></li>
                                 <li><a href="#">Women</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="#">Kids</a></li>
@@ -93,10 +93,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         {{#if username}}
                             <span id="userNAME">Hello, {{username}}.</span>
-                            <button type="button" class="btn btn-default navbar-btn">Sign out</button>
+                            <button type="button" onclick="window.location.href='localhost:3000/signout'" class="btn btn-default navbar-btn">Sign out</button>
                         {{else}}
-                            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-                            <button type="button" class="btn btn-default navbar-btn">Sign up</button>
+                            <button type="button" onclick="window.location.href='localhost:3000/signin'" class="btn btn-default navbar-btn">Sign in</button>
+                            <button type="button" onclick="window.location.href='localhost:3000/signup'" class="btn btn-default navbar-btn">Sign up</button>
                         {{/if}}
                     </ul>
                 </div><!-- /.navbar-collapse -->

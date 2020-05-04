@@ -43,3 +43,10 @@ $("#dislikeCount").click(function() {
         }
     })
 })
+
+// This is search by categories
+$('#tag-Men').click(function () {
+    $.post('localhost:3000/search', {searchString: $('#tag-Men').text()}, function (response) {
+        response.postArr;
+    })
+})

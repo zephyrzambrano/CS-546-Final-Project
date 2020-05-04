@@ -1,54 +1,45 @@
+
+// This is to transport data in "Add new post"
 var form = document.getElementById('static-form');
 var formData = new FormData(form);
 
 formData.get('topic');
 formData.get('content');
 
-var tags = document.getElementsByName('tag');
-console.log(tags);
+$('input[type="checkbox"]:checked').each(function(index) {
+    var tagArr = [];
+    tagArr[index] = $(this).val();
+})
 
-var tagArr = [];
+let JSONData = JSON.stringify(tagArr);
+formData.set('tag', JSONData);
 
-for(let i = 0; i<17; i++) {
-    if(tags[i].checked) {
-        tagArr.push(tags[i].value);
-    }
-}
 var file = document.getElementById('addImg')
 // 当用户选择文件的时候
 file.onchange = function () {
-    var formData = new FormData();// 创建空表单对象
-    formData.append('photoArr', this.files); // 将用户选择的二进制文件追加到表单对象中
-    xhr.open('post', '路由');// 配置ajax对象，请求方式必须为post
-    xhr.send(formData);
+    formData.append('photoArr', this.files[0]); // 将用户选择的二进制文件追加到表单对象中
 }
-xhr.open('post', '网址');
+xhr.open('post', '/createPost');
 xhr.send(formData);
 
+
+// This is to add like or dislike counts in post page
 $("#likeCount").click(function() {
-    alert("You liked this post! :)")
-
-    var currentLike = $("#likeCount").text();
-    parseInt(currentLike);
-    var newLike = currentLike + 1;
-
-    var likeCount = new FormData(form);
-    likeCount.set('likeCount',newLike);
-
-    xhr.open('post', '网址');
-    xhr.send(likeCount);
+    $.get('localhost:3000/post/like', {postId: postInfo._id, userId: postInfo.userId}, function (response) {
+        if (response.likeCount) {
+            $('#likeCount').text(response.likeCount.length)
+        } else {
+            alert(response)
+        }
+    })
 })
 
 $("#dislikeCount").click(function() {
-    alert("You disliked this post! :(")
-
-    var currentDislike = $("#dislikeCount").text();
-    parseInt(currentDislike);
-    var newDislike = currentDislike + 1;
-
-    var dislikeCount = new FormData(form);
-    likeCount.set('dislikeCount',newDislike);
-
-    xhr.open('post', '网址');
-    xhr.send(dislikeCount);
+    $.get('localhost:3000/post/dislike', {postId: postInfo._id, userId: postInfo.userId}, function (response) {
+        if (response.dislikeCount) {
+            $('#dislikeCount').text(response.dislikeCount.length)
+        } else {
+            alert(response)
+        }
+    })
 })

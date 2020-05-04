@@ -55,21 +55,23 @@
         <!-- Posts list here -->
         <div class="row">
             <div class="col-sm-12">
-                {{#each posts}}
-                    <div class="media post-part">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object user-Pic" src={{posts.photoArr.[0]}} alt="UserPic">
-                            </a>
+                {{#if postArr}}
+                    {{#each postArr}}
+                        <div class="media post-part">
+                            <div class="media-left">
+                                <a href="#">
+                                    <img class="media-object user-Pic" src={{postArr.[0]}} alt="UserPic">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading postTopic" value={{postArr._id}}>{{postArr.topic}}</h4>
+                                {{postArr.content}}
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <h4 class="media-heading postTopic" value={{posts._id}}>{{posts.topic}}</h4>
-                            {{posts.content}}
-                        </div>
-                    </div>
+                    {{/each}}
                 {{else}}
                     <h2>There is no result.</h2>
-                {{/each}}
+                {{/if}}
             </div>
         </div>
         <br/>

@@ -170,3 +170,7 @@
 .glyphicon:hover {
     cursor: pointer;
 }
+
+#addNewComment {
+    float: right;
+}

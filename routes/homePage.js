@@ -54,7 +54,7 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
     const form = new formidable.IncomingForm();//创建formidable解析器
     form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
     form.keepExtensions = true;//保留后缀名
-    form.parse(req, async(err, fields, files) => {
+    form.parse(req, async (err, fields, files) => {
         try {
             if (!fields)
                 throw "need data to create post";
@@ -64,22 +64,29 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
                 throw "need userId to create post"
             if (!fields.content)
                 throw "need content to create post"
-            if (!fields.photoArr || !Array.isArray(fields.photoArr))
-                throw "need a photo array to create post";
             if (!fields.tagArr || !Array.isArray(fields.tagArr))
                 throw "need a tagArr to create post";
+
+            let photoArr = [];
+            if (files.photo1)
+                photoArr.push(files.photo1.path.split('public')[1]);
+            if (files.photo2)
+                photoArr.push(files.photo2.path.split('public')[1]);
+            if (files.photo3)
+                photoArr.push(files.photo3.path.split('public')[1]);
+
+            files.xxx.path.split('public')[1];
             let newPost = await postData.createPost(
                 fields.topic,
                 fields.userId,
                 fields.content,
-                fields.photoArr,
+                photoArr,
                 fields.tagArr
             )
             res.send(newPost);
         } catch (error) {
             res.status(404).send(error);
         }
-
     })
 });
 
@@ -99,7 +106,7 @@ module.exports = router;
     //             throw "need a photo array to create post";
     //         if (!req.body.tagArr || !Array.isArray(req.body.tagArr))
     //             throw "need a tagArr to create post";
-    
+
     //         let newPost = await postData.createPost(
     //             req.body.topic,
     //             req.body.userId,

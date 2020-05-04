@@ -1,0 +1,35 @@
+<h1>User Account</h1>
+
+<p>Your username: {{username}}</p>
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="username"> <!--/user/5ea8b8829e985f05f07d933c will  rewrite to /users/{{_id}}-->
+    <label for="username">Username</label><br>
+    <input type="text" id="username" name="username"><br>
+    <input type="submit" value="Update Username" class="button">
+</form>
+
+<p>Your nickname: {{nickname}}</p>  
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="nickname">
+    <label for="nickname">Nickname</label><br>
+    <input type="text" id="nickname" name="nickname"><br>
+    <input type="submit" value="Update Nickname" class="button">
+</form>
+
+<p>Your password: {{password}}</p>
+<form action="/users/5ea8b8829e985f05f07d933c" method="post" id="password">
+    <label for="password">Password</label><br>
+    <input type="password" id="password" name="password"><br>
+    <input type="submit" value="Update Password" class="button">
+</form>
+
+<h1>Your Posts</h1>
+{{post-list}}
+
+<!--Yao: I have used the parameters in the /route/users.js as below
+<form action="/users/>
+<input name="username">
+<input name="password">
+<input name="nickname">
+<p>Your username: {{username}}</p>
+<p>Your nickname: {{nickname}}</p>
+<p>Your password: {{password}}</p>
+{{post-list}}-->

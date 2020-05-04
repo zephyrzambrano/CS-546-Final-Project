@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <style>
+        .wrongMsg {color: red;}
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <br>
+            <form id="signin-form" method="post" action="/users/signin">
+                <div class="form-group">
+                    <p for="text1">Username:</p>
+                    <input type="email" class="form-control" id="signinUserName" name="username" placeholder="Your username">
+                    <br>
+                    <p for="text1">Nickname:</p>
+                    <input type="text" class="form-control" id="signupNickName" name="nickname" placeholder="Your nickname">
+                    <br>
+                    <p for="text1">Password:</p>
+                    <input type="password" class="form-control" id="signinPassword" name="password" placeholder="Your password">
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">Sign in</button>
+                    </div>
+                    {{#unless status}}
+                        <p class="wrongMsg">{{message}}</p>
+                    {{/unless}}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<div class="container">
+    <main class="container">
+        <!-- advertisement here -->
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="container">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img class="img-ad" src="../../public/images/nike-ad.jpg" alt="...">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img class="img-ad" src="../../public/images/nike-ad.jpg" alt="...">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img class="img-ad" src="../../public/images/nike-ad.jpg" alt="...">
+                                <div class="carousel-caption">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <!-- Posts list here -->
+        <div class="row">
+            <div class="col-sm-12">
+                {{#each posts}}
+                    <div class="media post-part">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object user-Pic" src={{posts.photoArr.[0]}} alt="UserPic">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading postTopic" value={{posts._id}}>{{posts.topic}}</h4>
+                            {{posts.content}}
+                        </div>
+                    </div>
+                {{else}}
+                    <h2>There is no result.</h2>
+                {{/each}}
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <!-- Add new Post -->
+        {{#if userLogin}}
+            <div id="addNewPost">
+                <form id="static-form" method="post" action="./home">
+                    <div class="row">
+                        <h4 id="Guide">Add new Post here.</h4>
+                        <div class="col-sm-8">
+                            <input name="topic" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
+                        </div>
+                        <br/>
+                        <br/>
+                        <div class="col-sm-8">
+                            <textarea name="content" class="form-control" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
+                        </div>
+                        <div class="all-checkbox col-sm-4">
+                            <p>
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check1" value="Men">
+                                    <label for="check1">Men</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check2" value="Women">
+                                    <label for="check2">Women</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check3" value="Kids">
+                                    <label for="check3">Kids</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check4" value="Travel">
+                                    <label for="check4">Travel</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check5" value="Hike">
+                                    <label for="check5">Hike</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check6" value="Swim">
+                                    <label for="check6">Camp</label>
+                                </label>&nbsp;
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check7" value="Sports">
+                                    <label for="check7">Sports</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check8" value="Party">
+                                    <label for="check8">Party</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="tag" type="checkbox" id="check9" value="Yoga">
+                                    <label for="check9">Yoga</label>
+                                </label>
+                            </p>
+                            <p>
+                                <label class="checkbox-inline">
+                                    <input name="Sleepwear" type="checkbox" id="check10" value="Sleepwear">
+                                    <label for="check10">Sleepwear</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Suit" type="checkbox" id="check11" value="Suit">
+                                    <label for="check11">Suit</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Dress" type="checkbox" id="check12" value="Dress">
+                                    <label for="check12">Dress</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Ceremony" type="checkbox" id="check14" value="Ceremony">
+                                    <label for="check14">Ceremony</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Spring" type="checkbox" id="check15" value="Spring">
+                                    <label for="check15">Spring</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Summer" type="checkbox" id="check16" value="Summer">
+                                    <label for="check16">Summer</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Autumn" type="checkbox" id="check17" value="Autumn">
+                                    <label for="check17">Autumn</label>
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input name="Winter" type="checkbox" id="check18" value="Winter">
+                                    <label for="check18">Winter</label>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+
+                    <br/>
+                    <div>
+                        <label class="btn btn-default fileinput-button">
+                            <span>Choose photos</span>
+                            <input name="photoArr" id="addImg" type="file" accept="image/png,image/jpg" multiple="multiple">
+                        </label>
+                        <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Submit</button>
+                    </div>
+                </form>
+            </div>
+        {{else}}
+            <h3>You must sign in to add new post.</h3>
+        {{/if}}
+    </main>
+</div>
+<script type="javascript">
+    $('.postTopic').click(function () {
+        window.location.href = `localhost:3000/posts/`+ $(this).val();
+    })
+</script>
+</body>
+</html>

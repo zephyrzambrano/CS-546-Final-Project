@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>CS546 Final Project</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+<!--            {{#if postInfo}}-->
+                <div class="col-sm-4">
+                    <div class="row">
+                        <div class="post-imgs col-sm-9">
+                            {{#each postInfo.photoArr}}
+                                <img class="PostImg" src={{postInfo.photoArr}}>
+                                <br/>
+                                <br/>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <h4>
+                        {{#each postInfo.tagArr}}
+                            <span class="label label-success">{{postInfo.tagArr}}</span>
+                        {{/each}}
+                    </h4>
+                    <h4><div class="post-time">02/03/20</div></h4>
+                    <br/>
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <span class="PostTopic">{{postInfo.topic}}</span>
+                            <span class="post-glyphicon">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{postInfo.likeCount}}</span>
+                            &nbsp;
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">{{postInfo.dislikeCount}}</span>
+                        </span>
+                        </div>
+                        <div class="panel-footer">
+                            {{postInfo.content}}
+                            <br/>
+                            <br/>
+                        </div>
+                        {{#if commentInfo}}
+                        <ul class="list-group">
+                            {{#each commentsInfo}}
+                                <li class="list-group-item"><h6>{{commentsInfo.userNickname}}:<span class="post-time">{{commentsInfo.date}}</span></h6>{{commentsInfo.content}}</li>
+                            {{/each}}
+                        </ul>
+                        {{else}}
+                            <ul class="list-group">
+                                <li class="list-group-item">No Comments.</li>
+                            </ul>
+                        {{/if}}
+                    </div>
+                </div>
+            {{/if}}
+        </div>
+
+        <!--Add new comment-->
+        {{#if userLogin}}
+            <div id="addNewComment">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Add comment</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Add your comment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Your comment</label>
+                                        <textarea class="form-control" rows="7" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button id="addComment" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    </div>
+</body>
+</html>

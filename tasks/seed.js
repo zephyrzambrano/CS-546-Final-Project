@@ -8,9 +8,8 @@ async function main() {
     const db = await connection();
     await db.dropDatabase();
     //add users
-    let u1=await users.createUser("un01@gmail.com","pw0101","nn01");
-    let u1_userid = JSON.stringify(u1._id);
-    u1_userid = u1_userid.replace(/\"/g, "");    
+    let u1=await users.createUser("un01@gmail.com","pw0101","nn01");  
+    let u1_userid = u1._id.toHexString();
     let u2=await users.createUser("un02@gmail.com","pw0202","nn02");
     let u3=await users.createUser("un03@gmail.com","pw0303","nn03");
     let u4=await users.createUser("un04@gmail.com","pw0404","nn04");

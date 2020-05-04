@@ -16,6 +16,16 @@ app.use(cookieParser());
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+app.use(express.json());
+app.use(
+	session({
+        name: 'AuthCookie',
+        secret: 'some secret string!',
+        resave: false,
+        saveUninitialized: true
+    })
+);
+
 configRoutes(app);
 
 app.listen(3000, () => {

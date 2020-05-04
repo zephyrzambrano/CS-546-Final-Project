@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const data = require("../data");
+const bcrypt = require('bcryptjs');
 const userData = data.users;
 
 /*
@@ -9,23 +10,42 @@ const userData = data.users;
 /post/id (edit user)
 */
 router.get('/account', async (req, res) => {
-    // if (!req.session.user) {		//if not logged in, redirect to the homepage
-	// 	return res.redirect('/');
-	// }
+    if (!req.session.user) {		//if not logged in, redirect to the homepage
+		return res.redirect('/homePage');
+	}
 
-	// const {userId} = req.session.user;    //will retrieve the userId from session
-	const userId= "5ea8b8829e985f05f07d933c";
+	const {userId} = req.session.user;  
 	const{username, nickname,password,posts}=await userData.getUserById(userId);// should determine posts
     res.render('users/useraccount',{username: username, nickname: nickname, password: password, 'post-list':posts});
 });
 
 router.get('/signin', async (req, res) => {
-    // if (!req.session.user) {		//if not logged in, redirect to the homepage
-	// 	return res.redirect('/');
-	// }
-
-	// const {userId} = req.session.user;    //will retrieve the userId from session
+	
+	if (req.session.user) {
+		const {userId} = req.session.user;  
+		const{username, nickname,password,posts}=await userData.getUserById(userId);
+   		res.render('users/useraccount',{username: username, nickname: nickname, password: password, 'post-list':posts});
+	}
     res.render('home/signin');
+});
+
+router.post('/signin', async (req, res) => {
+	const { username, password } = req.body;
+	const allUser = await userData.getAllUsers();
+	for (let x of allUser)
+    {
+		if(username == x.username)
+        {
+			// if(await bcrypt.compare(password, x.password))   for checking the hashed password in the future
+			if(password == x.password) //use password in the seed.js
+            {
+				req.session.user = {userId: x._id}; 
+                return res.redirect('/users/account');
+			}
+            break;
+        }
+    }
+    res.status(401).render('home/signin',{message:"invalid account or password"});
 });
 
 router.get('/signup', async (req, res) => {
@@ -37,6 +57,10 @@ router.get('/signup', async (req, res) => {
 	res.render('home/signup');
 });
 
+router.get('/signout', async (req, res) => {
+	req.session.destroy();
+    return res.redirect('/homePage');
+});
 
 router.get('/:id', async (req, res) => {
 	try {

@@ -40,6 +40,7 @@
 
 #to-top:hover {
     color: #b52818;
+    cursor: pointer;
 }
 
 #addNewPost {
@@ -73,4 +74,103 @@
 #signup-form {
     margin: 0 auto 8%;
     padding-right: 350px;
+}
+
+.all-checkbox {
+    position: relative;
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.all-checkbox input[type="checkbox"] {
+    opacity: 0;
+}
+
+.all-checkbox label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    margin-top: -9px;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid #bbbbbb;
+    background: #ffffff;
+}
+
+.all-checkbox input[type="checkbox"]:checked + label:after {
+    position: absolute;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    content: "\e013";
+    top: 42%;
+    left: 3px;
+    margin-top: -5px;
+    font-size: 11px;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+    color: #333;
+
+    font-weight: bold;
+    color: #b52818;
+}
+
+.all-checkbox input[type="checkbox"]:checked + label {
+    font-weight: bold;
+    color: #b52818;
+}
+
+.all-checkbox label {
+    cursor: pointer;
+    line-height: 1.2;
+    font-weight: normal;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.all-checkbox label:hover {
+    color: #b52818;
+    font-weight: bold;
+}
+
+.panel-body {
+    padding: 5px 15px;
+}
+
+.PostTopic {
+    line-height: 2px;
+    font-weight: bold;
+}
+
+.PostImg {
+    height: 200px;
+    width: auto;
+    transition: all 0.6s;
+}
+
+.PostImg:hover {
+    transform: scale(1.3);
+}
+
+.post-imgs {
+    padding-left: 100px;
+}
+
+.post-glyphicon {
+    float: right;
+}
+
+.post-time {
+    float: right;
+}
+
+.glyphicon:hover {
+    cursor: pointer;
+}
+
+#addNewComment {
+    float: right;
 }

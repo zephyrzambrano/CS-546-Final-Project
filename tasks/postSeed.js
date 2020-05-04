@@ -9,7 +9,7 @@ async function main() {
     let a1 = await posts.createPost("im topic01","5eae3a8a6bfe4e96dc87f133","im content01",["photo01,photo02"],["tagA","tagB","tagC"])
     let a2 = await posts.createPost("im topic02","5eae3a8a6bfe4e96dc87f133","im content02",["photo03,photo02"],["tagD","tagB","tagC"])
     let a3 = await posts.createPost("im topic03","5eae3a8a6bfe4e96dc87f133","im content03",["photo01,photo03"],["tagA","tagD","tagC"])
-    // console.log(a1);
+    console.log(a1);
     // let a4 = await posts.getPostByString("02");
     // console.log(a4);
     // let a5=await posts.getPostByOneTag("tagE");

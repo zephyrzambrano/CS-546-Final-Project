@@ -17,7 +17,7 @@ async function main() {
     // let u13=await users.createUser("unun01@gmail.com","pw","nn");
     // let u14=await users.createUser("unun01@gmail.com","pw","nn");
 
-    // console.log(u1);
+    console.log(u1);
     // let u4=await users.getUserById("5e9a4865c44e6d8048b0d3ce");
     // console.log(u4);
     // let u5=await users.getAllUsers();

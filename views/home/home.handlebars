@@ -63,7 +63,7 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">{{posts.topic}}</h4>
+                            <h4 class="media-heading postTopic" value={{posts._id}}>{{posts.topic}}</h4>
                             {{posts.content}}
                         </div>
                     </div>
@@ -179,5 +179,10 @@
         {{/if}}
     </main>
 </div>
+<script type="javascript">
+    $('.postTopic').click(function () {
+        window.location.href = `localhost:3000/posts/`+ $(this).val();
+    })
+</script>
 </body>
 </html>

@@ -10,15 +10,17 @@ const formidable = require('formidable');
 router.get('/', async (req, res) => {
     try {
         let userLogin = null;
-        if (req.session.userId)
-            userLogin = await userData.getUserById(req.session.userId);
+        if(req.session){
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
+        }
         let postArr = await postData.getAllPost();
         for (let i = 0; i < postArr.length; i++) {
             let temp = await userData.getUserById(postArr[i].userId);
             postArr[i].userNickname = temp.nickname;
         }
-        res.send({ postArr, userLogin });
-        // res.render('home/home.handlebars',{postArr,userLogin});
+        // res.send({ postArr, userLogin });
+        res.render('home/home.handlebars',{postArr,userLogin});
     } catch (error) {
         res.status(404).send(error);
     }

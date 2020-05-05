@@ -1,5 +1,4 @@
 const mongoCollections = require('../config/mongoCollections');
-
 const { ObjectId } = require('mongodb');
 const posts = mongoCollections.posts;
 const comments = mongoCollections.comments;

@@ -32,7 +32,7 @@
                     <br/>
                     <div class="panel panel-success">
                         <div class="panel-body">
-                            <span class="PostTopic">{{postInfo.topic}}</span>
+                            <span class="PostTopic" id="PostTopic" value={{postInfo._id}}>{{postInfo.topic}}</span>
                             <span class="post-glyphicon">
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{postInfo.likeCount.length}}</span>
                             &nbsp;
@@ -77,7 +77,7 @@
                                 <form method="post">
                                     <div class="form-group">
                                         <label for="message-text" class="control-label">Your comment</label>
-                                        <textarea class="form-control" rows="7" id="message-text"></textarea>
+                                        <textarea id="newComment"class="form-control" rows="7" id="message-text"></textarea>
                                     </div>
                                 </form>
                             </div>
@@ -91,5 +91,18 @@
             </div>
         {{/if}}
     </div>
+
+<script type="text/javascript">
+    //postid
+    //content
+    $('#addComment').click(function () {
+        $.post("http://localhost:3000/posts/addComment", {"postId": $('#PostTopic').val(), "content": $('#newComment').val()}, function (response) {
+
+        })
+        var Timeout = setTimeout(function () {
+            window.location.reload();
+        }, 1300)
+    })
+</script>
 </body>
 </html>

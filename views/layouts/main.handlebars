@@ -95,7 +95,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {{#if userLogin}}
-                            <span id="userNAME">Hello, {{userLogin.username}}.</span>
+                            <span id="userNAME"><a href="http://localhost:3000/users/account">Hello, </a>{{userLogin.username}}.</span>&nbsp;&nbsp;
                             <button type="button" onclick="window.location.href='localhost:3000/signout'" class="btn btn-default navbar-btn">Sign out</button>
                         {{else}}
                             <button type="button" onclick="window.location.href='localhost:3000/signin'" class="btn btn-default navbar-btn">Sign in</button>

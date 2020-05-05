@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading postTopic" value={{this._id}}>{{this.topic}}</h4>
+                            <h4 class="media-heading postTopic"><a id="jumpToPost" value={{this._id}} href="#">{{this.topic}}</a></h4>
                             {{this.content}}
                         </div>
                     </div>
@@ -225,11 +225,9 @@
             // clearTimeout(Timeout);
         }
 
-
-
-<script type="text/javascript">
-    $('.postTopic').click(function () {
-        window.location.href = `localhost:3000/posts/`+ $(this).val();
+    $('#jumpToPost').click(function () {
+        var url = `localhost:3000/posts/${$(this).val()}`;
+        $(this).attr('href', url)
     })
 </script>
 </body>

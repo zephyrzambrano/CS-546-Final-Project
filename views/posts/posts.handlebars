@@ -97,11 +97,10 @@
     //content
     $('#addComment').click(function () {
         $.post("http://localhost:3000/posts/addComment", {"postId": $('#PostTopic').val(), "content": $('#newComment').val()}, function (response) {
-
+            var Timeout = setTimeout(function () {
+                window.location.reload();
+            }, 1300)
         })
-        var Timeout = setTimeout(function () {
-            window.location.reload();
-        }, 1300)
     })
 </script>
 </body>

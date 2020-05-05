@@ -34,69 +34,72 @@
                 <ul class="nav navbar-nav">
                     <li><a href="#"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span></a></li>
                 </ul>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <form class="navbar-form navbar-left" method="get" action="./search">
+                    <!--  Search  -->
+                    <form class="navbar-form navbar-left">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search Here">
+                            <input id="searchContent" type="text" class="form-control" placeholder="Search Here">
                         </div>
-                        <button type="submit" class="btn btn-default">Search</button>
+                        <button class="btn btn-default"><a id="searchButton" href="http://localhost:3000/homePage">Search</a></button>
+
                     </form>
+
                     <ul class="nav navbar-nav">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gender <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="localhost:3000/homePage/search?searchString=Men">Men</a></li>
-                                <li><a href="#">Women</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Men">Men</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Women">Women</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Kids</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Kids">Kids</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Outdoor <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Hike</a></li>
-                                <li><a href="#">Swim</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Travel">Travel</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Hike">Hike</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Swim">Swim</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Sports</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Sports">Sports</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Indoor <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Party</a></li>
-                                <li><a href="#">Yoga</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Party">Party</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Yoga">Yoga</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Sleepwear</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Sleepwear">Sleepwear</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Formal <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Suit</a></li>
-                                <li><a href="#">Dress</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Suit">Suit</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Dress">Dress</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Ceremony</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Ceremony">Ceremony</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Seasons <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Spring</a></li>
-                                <li><a href="#">Summer</a></li>
-                                <li><a href="#">autumn</a></li>
-                                <li><a href="#">Winter</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Spring">Spring</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Summer">Summer</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Autumn">autumn</a></li>
+                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Winter">Winter</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        {{#if username}}
-                            <span id="userNAME">Hello, {{username}}.</span>
-                            <button type="button" onclick= "window.location.href='./signout'" class="btn btn-default navbar-btn">Sign out</button>
+                        {{#if userLogin}}
+                            <span id="userNAME">Hello, {{userLogin.username}}.</span>
+                            <button type="button" onclick="window.location.href='localhost:3000/signout'" class="btn btn-default navbar-btn">Sign out</button>
                         {{else}}
-                            <button type="button" onclick= "window.location.href='/users/signin'" class="btn btn-default navbar-btn">Sign in</button>
-                            <button type="button" onclick= "window.location.href='/users/signup'" class="btn btn-default navbar-btn">Sign up</button>
+                            <button type="button" onclick="window.location.href='localhost:3000/signin'" class="btn btn-default navbar-btn">Sign in</button>
+                            <button type="button" onclick="window.location.href='localhost:3000/signup'" class="btn btn-default navbar-btn">Sign up</button>
                         {{/if}}
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -146,6 +149,13 @@
                 }
                 $page.scrollTop(distance)
             }, interval)
+        })
+
+
+        $('#searchContent').change(function () {
+            var url = `http://localhost:3000/homePage/search?searchString=${$("#searchContent").val()}`;
+            console.log(url);
+            $('#searchButton').attr('href', url)
         })
     </script>
     </body>

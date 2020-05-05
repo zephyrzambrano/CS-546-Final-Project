@@ -37,9 +37,9 @@ router.get('/tag', async (req, res) => { // √
             throw "need tag info";
         if (!req.query.searchTag)
             throw "need a tag";
-        console.log(req.query.searchTag);
+        // console.log(req.query.searchTag);
         let postArr = await postData.getPostByOneTag(req.query.searchTag);
-        console.log(postArr);
+        // console.log(postArr);
         // res.send(postArr);
         res.render("home/home.handlebars",{
             postArr

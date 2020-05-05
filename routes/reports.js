@@ -5,6 +5,15 @@ const reportData = data.reports;
 
 module.exports = router;
 
+
+router.get("/form", async (req, res) => {
+  // if (!req.session.user) {		//if not logged in, redirect to the homepage
+	// 	return res.redirect('/homePage');
+	// }
+    res.render('reports/report-form');
+});
+
+
 router.get("/:id", async (req, res) => {
     try {
       const report = await reportData.getReport(req.params.id);

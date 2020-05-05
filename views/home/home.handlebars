@@ -180,21 +180,11 @@
 <!--else-->
     </main>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script type="text/javascript">
-    // $('.postTopic').click(function () {
-    //     window.location.href = `localhost:3000/posts/`+ $(this).val();
-    // })
-
     // This is to transport data in "Add new post"
-
-    console.log("aaaaaaaaaaa");
-    // console.log($('#addNewPostButton'));
-
     $('#addNewPostButton').click(function () {
-        // alert("submit");
-        // var f = $('#static-form').serializeArray()
-        // console.log(f);
 
         var form = document.getElementById('static-form');
         var formData = new FormData(form);
@@ -236,6 +226,10 @@
         }
 
 
+
+<script type="text/javascript">
+    $('.postTopic').click(function () {
+        window.location.href = `localhost:3000/posts/`+ $(this).val();
     })
 </script>
 </body>

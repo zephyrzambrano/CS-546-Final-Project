@@ -93,10 +93,10 @@
                     <ul class="nav navbar-nav navbar-right">
                         {{#if username}}
                             <span id="userNAME">Hello, {{username}}.</span>
-                            <button type="button" class="btn btn-default navbar-btn">Sign out</button>
+                            <button type="button" onclick= "window.location.href='./signout'" class="btn btn-default navbar-btn">Sign out</button>
                         {{else}}
-                            <button type="button" class="btn btn-default navbar-btn">Sign in</button>
-                            <button type="button" class="btn btn-default navbar-btn">Sign up</button>
+                            <button type="button" onclick= "window.location.href='/users/signin'" class="btn btn-default navbar-btn">Sign in</button>
+                            <button type="button" onclick= "window.location.href='/users/signup'" class="btn btn-default navbar-btn">Sign up</button>
                         {{/if}}
                     </ul>
                 </div><!-- /.navbar-collapse -->

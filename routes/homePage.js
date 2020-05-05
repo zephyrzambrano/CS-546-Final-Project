@@ -27,6 +27,7 @@ router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲�
     }
 });
 
+
 router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通get请求，返回重新渲染网页，就像之前一样
     try {
         let userLogin = null;
@@ -40,6 +41,7 @@ router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通ge
             throw "need a tag";
         console.log(req.query.searchTag);
         let postArr = await postData.getPostByOneTag(req.query.searchTag);
+
         // console.log(postArr);
         // res.send(postArr);
         res.render('home/home.handlebars', { postArr, userLogin });

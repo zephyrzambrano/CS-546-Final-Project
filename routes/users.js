@@ -6,13 +6,14 @@ const saltRounds = 5;
 const userData = data.users;
 
 router.get('/account', async (req, res) => {
-    if (!req.session.user) {		//if not logged in, redirect to the homepage
+    if (!req.session.userId) {		//if not logged in, redirect to the homepage
 		return res.redirect('/homePage');
 	}
 	try{
-		const {userId} = req.session.user;  
-		const{username, nickname,password,posts}=await userData.getUserById(userId);// should determine posts
-    	res.render('users/useraccount',{username: username, nickname: nickname, password: password, 'post-list':posts});
+		const userId = req.session.userId;  
+		// const{username, nickname,password,posts}=await userData.getUserById(userId);// should determine posts
+		const userLogin = await userData.getUserById(userId);
+    	res.render('users/useraccount',{username: userLogin.username, nickname: userLogin.nickname, password: userLogin.password, 'post-list':userLogin.posts, userLogin});
 	}catch(e){
 		res.status(404).json({ error: 'User not found' });
 	}
@@ -20,14 +21,14 @@ router.get('/account', async (req, res) => {
 });
 
 router.get('/signin', async (req, res) => {
-	if (req.session.user) {		//if logged in, redirect to the homepage
+	if (req.session.userId) {		//if logged in, redirect to the homepage
 		return res.redirect('/homePage');
 	}
     res.render('home/signin');
 });
 
 router.post('/signin', async (req, res) => {
-	if (req.session.user) {		//if logged in, redirect to the homepage
+	if (req.session.userId) {		//if logged in, redirect to the homepage
 		return res.redirect('/homePage');
 	}
 	const { username, password } = req.body;
@@ -38,8 +39,8 @@ router.post('/signin', async (req, res) => {
         {
 			if(await bcrypt.compare(password, x.password))   
             {
-				req.session.user = {userId: x._id.toHexString()}; 
-                return res.redirect('/users/account');
+				req.session.userId = x._id.toHexString(); 
+                return res.redirect('/homePage');
 			}
             break;
         }
@@ -48,7 +49,7 @@ router.post('/signin', async (req, res) => {
 });
 
 router.get('/signup', async (req, res) => {
-    if (req.session.user) {		//if logged in, redirect to the homepage
+    if (req.session.userId) {		//if logged in, redirect to the homepage
 		return res.redirect('/homePage');
 	}
 	res.render('home/signup');
@@ -75,7 +76,7 @@ router.post('/signup', async (req, res) => {
 		}
   		const hash = await bcrypt.hash(password[0], saltRounds);
 		const newUser = await userData.createUser(username,hash,nickname);
-		req.session.user = {userId: newUser._id.toHexString()}; 
+		req.session.userId = newUser._id.toHexString(); 
         return res.redirect('/homePage');
 	}catch(e)
 	{
@@ -84,7 +85,7 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/signout', async (req, res) => {
-	if (!req.session.user) {		//if not logged in, redirect to the homepage
+	if (!req.session.userId) {		//if not logged in, redirect to the homepage
 		return res.redirect('/homePage');
 	}
 	req.session.destroy();
@@ -93,7 +94,7 @@ router.get('/signout', async (req, res) => {
 
 router.post('/account', async (req, res) => { //patch _ edit username,nickname,password
 	let { username, password,nickname } = req.body;
-	const {userId} = req.session.user; 
+	const userId = req.session.userId; 
 	let oldUser;
 	try {
 		oldUser = await userData.getUserById(userId);
@@ -122,7 +123,7 @@ router.post('/account', async (req, res) => { //patch _ edit username,nickname,p
 		const oldNickname = oldUser.nickname;
 		const oldPassword = oldUser.password;
 		const oldPosts = oldUser.posts;
-		res.status(404).render('users/useraccount',{username: oldUsername, nickname: oldNickname, password: oldPassword, 'post-list':oldPosts, message:e});
+		res.status(404).render('users/useraccount',{username: oldUsername, nickname: oldNickname, password: oldPassword, 'post-list':oldPosts, message:e, userLogin: oldUser});
 	}
 });
 

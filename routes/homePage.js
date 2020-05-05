@@ -66,24 +66,25 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
                 throw "need userId to create post"
             if (!fields.content)
                 throw "need content to create post"
-            if (!fields.tagArr || !Array.isArray(fields.tagArr))
+            if (!fields.tagArr)
+                throw "need a tagArr String to create post";
+            let tagArr=JSON.parse(fields.tagArr);
+            if(!Array.isArray(tagArr))
                 throw "need a tagArr to create post";
-
             let photoArr = [];
             if (files.photo1)
-                photoArr.push(files.photo1.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public"+files.photo1.path.split('public')[1]);
             if (files.photo2)
-                photoArr.push(files.photo2.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public"+files.photo2.path.split('public')[1]);
             if (files.photo3)
-                photoArr.push(files.photo3.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public"+files.photo3.path.split('public')[1]);
 
-            files.xxx.path.split('public')[1];
             let newPost = await postData.createPost(
                 fields.topic,
                 fields.userId,
                 fields.content,
                 photoArr,
-                fields.tagArr
+                tagArr
             )
             res.send(newPost);
         } catch (error) {

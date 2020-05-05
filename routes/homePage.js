@@ -5,6 +5,7 @@ const postData = data.posts;
 const userData = data.users;
 const commentData = data.comments;
 const formidable = require('formidable');
+const path = require("path");
 
 
 router.get('/', async (req, res) => { // √
@@ -67,43 +68,49 @@ router.get("/search", async (req, res) => { // √
     }
 })
 
-router.post('/createPost', async (req, res) => {//这是靠谱写法
-    const form = new formidable.IncomingForm();//创建formidable解析器
-    form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
-    form.keepExtensions = true;//保留后缀名
-    form.parse(req, async (err, fields, files) => {
-        try {
-            if (!fields)
-                throw "need data to create post";
-            if (!fields.topic)
-                throw "need topic to create post "
-            if (!fields.userId)
-                throw "need userId to create post"
-            if (!fields.content)
-                throw "need content to create post"
-            if (!fields.tagArr || !Array.isArray(fields.tagArr))
-                throw "need a tagArr to create post";
 
-            let photoArr = [];
-            if (files.photo1)
-                photoArr.push(files.photo1.path.split('public')[1]);
-            if (files.photo2)
-                photoArr.push(files.photo2.path.split('public')[1]);
-            if (files.photo3)
-                photoArr.push(files.photo3.path.split('public')[1]);
+router.post('/createPost', async (req, res) => {//这是靠谱写法
+    const form = new formidable.IncomingForm();//创建formidable解析器
+    form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
+    form.keepExtensions = true;//保留后缀名
+    form.parse(req, async (err, fields, files) => {
+        console.log(err);
+        console.log(fields);
+        console.log(files);
+        res.send("ok");
+        // try {
+        //     if (!fields)
+        //         throw "need data to create post";
+        //     if (!fields.topic)
+        //         throw "need topic to create post "
+        //     if (!fields.userId)
+        //         throw "need userId to create post"
+        //     if (!fields.content)
+        //         throw "need content to create post"
+        //     if (!fields.tagArr)
+        //         throw "need a tagArr String to create post";
+        //     let tagArr=JSON.parse(fields.tagArr);
+        //     if(!Array.isArray(tagArr))
+        //         throw "need a tagArr to create post";
+        //     let photoArr = [];
+        //     if (files.photo1)
+        //         photoArr.push("http://localhost:3000/public"+files.photo1.path.split('public')[1]);
+        //     if (files.photo2)
+        //         photoArr.push("http://localhost:3000/public"+files.photo2.path.split('public')[1]);
+        //     if (files.photo3)
+        //         photoArr.push("http://localhost:3000/public"+files.photo3.path.split('public')[1]);
 
-            files.xxx.path.split('public')[1];
-            let newPost = await postData.createPost(
-                fields.topic,
-                fields.userId,
-                fields.content,
-                photoArr,
-                fields.tagArr
-            )
-            res.send(newPost);
-        } catch (error) {
-            res.status(404).send(error);
-        }
+        //     let newPost = await postData.createPost(
+        //         fields.topic,
+        //         fields.userId,
+        //         fields.content,
+        //         photoArr,
+        //         tagArr
+        //     )
+        //     res.send(newPost);
+        // } catch (error) {
+        //     res.status(404).send(error);
+        // }
     })
 });
 

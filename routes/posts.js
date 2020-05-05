@@ -14,6 +14,29 @@ router.get('/', async (req, res) => {
             if (req.session.userId)
                 userLogin = await userData.getUserById(req.session.userId);
         }
+
+        // res.send({ postInfo, commentsInfo, userLogin});
+        res.render('posts/posts.handlebars',{
+            postInfo,
+            commentsInfo,
+            userLogin
+        });
+    } catch (error) {
+        res.status(404).json({ error: 'Post not found' });
+    }
+});
+
+router.post('/like', async (req, res) => {
+    try {
+        if (!req.body)
+            throw "need userId and postId";
+        if (!req.body.postId)
+            throw "need postId";
+        if (!req.body.userId)
+            throw "need userId";
+        let updatedPost = await postData.addLikeCount(req.body.postId, req.body.userId);
+        res.send(updatedPost);
+
         let postArr = await postData.getAllPost();
         for (let i = 0; i < postArr.length; i++) {
             let temp = await userData.getUserById(postArr[i].userId);
@@ -21,6 +44,7 @@ router.get('/', async (req, res) => {
         }
         // res.send({ postArr, userLogin });
         res.render('home/home.handlebars',{postArr,userLogin});
+
     } catch (error) {
         res.status(404).send(error);
     }

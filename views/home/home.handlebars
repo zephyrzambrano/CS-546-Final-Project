@@ -77,13 +77,13 @@
         <br/>
         <br/>
         <!-- Add new Post -->
-        {{#if userLogin}}
+<!--if-->
             <div id="addNewPost">
-                <form id="static-form" method="post" action="./home">
-                    <div class="row">
+                <form id="static-form" method="post" action="http://localhost:3000/homePage/createPost" enctype="multipart/form-data">
+                        <div class="row">
                         <h4 id="Guide">Add new Post here.</h4>
                         <div class="col-sm-8">
-                            <input name="topic" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
+                            <input name="topic" type="text" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
                         </div>
                         <br/>
                         <br/>
@@ -91,6 +91,7 @@
                             <textarea name="content" class="form-control" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
                         </div>
                         <div class="all-checkbox col-sm-4">
+                            <br/>
                             <p>
                                 <label class="checkbox-inline">
                                     <input name="tag" type="checkbox" id="check1" value="Men">
@@ -131,35 +132,35 @@
                             </p>
                             <p>
                                 <label class="checkbox-inline">
-                                    <input name="Sleepwear" type="checkbox" id="check10" value="Sleepwear">
+                                    <input name="tag" type="checkbox" id="check10" value="Sleepwear">
                                     <label for="check10">Sleepwear</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Suit" type="checkbox" id="check11" value="Suit">
+                                    <input name="tag" type="checkbox" id="check11" value="Suit">
                                     <label for="check11">Suit</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Dress" type="checkbox" id="check12" value="Dress">
+                                    <input name="tag" type="checkbox" id="check12" value="Dress">
                                     <label for="check12">Dress</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Ceremony" type="checkbox" id="check14" value="Ceremony">
+                                    <input name="tag" type="checkbox" id="check14" value="Ceremony">
                                     <label for="check14">Ceremony</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Spring" type="checkbox" id="check15" value="Spring">
+                                    <input name="tag" type="checkbox" id="check15" value="Spring">
                                     <label for="check15">Spring</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Summer" type="checkbox" id="check16" value="Summer">
+                                    <input name="tag" type="checkbox" id="check16" value="Summer">
                                     <label for="check16">Summer</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Autumn" type="checkbox" id="check17" value="Autumn">
+                                    <input name="tag" type="checkbox" id="check17" value="Autumn">
                                     <label for="check17">Autumn</label>
                                 </label>
                                 <label class="checkbox-inline">
-                                    <input name="Winter" type="checkbox" id="check18" value="Winter">
+                                    <input name="tag" type="checkbox" id="check18" value="Winter">
                                     <label for="check18">Winter</label>
                                 </label>
                             </p>
@@ -170,18 +171,63 @@
                     <div>
                         <label class="btn btn-default fileinput-button">
                             <span>Choose photos</span>
-                            <input name="photoArr" id="addImg" type="file" accept="image/png,image/jpg" multiple="multiple">
+                            <input name="photoArr" id="addImg" type="file" accept="image/png,image/jpg" multiple>
                         </label>
-                        <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Submit</button>
+                        <input id="addNewPostButton" name="submit" type="button" class="btn btn-primary" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
                     </div>
                 </form>
             </div>
-        {{else}}
-            <h3>You must sign in to add new post.</h3>
-        {{/if}}
+<!--else-->
     </main>
 </div>
-<script type="javascript">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script type="text/javascript">
+    // This is to transport data in "Add new post"
+    $('#addNewPostButton').click(function () {
+
+        var form = document.getElementById('static-form');
+        var formData = new FormData(form);
+        var xhr = new XMLHttpRequest();//创建 Ajax 对象
+
+        var tagArr = [];
+
+        $('input[type="checkbox"]:checked').each(function(index) {
+            tagArr[index] = $(this).val();
+        })
+
+        let JSONData = JSON.stringify(tagArr);
+        formData.set('tagArr', JSONData);
+
+        formData.delete('tag');
+
+        var file = document.getElementById('addImg')
+        // 当用户选择文件的时候
+        file.onchange = function () {
+            for(let i = 0; i < this.files.length; i++){
+                formData.append('photo'+ i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
+            }
+        }
+        // console.log(formData.get('topic'));
+        // console.log(formData.get('content'));
+        // console.log(formData.get('tagArr'));
+
+        xhr.open('post', 'http://localhost:3000/homePage/createPost');
+        xhr.send(formData);
+
+        xhr.onload = function () {//获取服务器端给与客户端的响应数据
+            console.log(xhr.responseText);
+            alert("Successed!")
+            var Timeout = setTimeout(function(){
+                window.location.reload();
+            }, 1300);
+
+            // clearTimeout(Timeout);
+        }
+
+
+
+<script type="text/javascript">
     $('.postTopic').click(function () {
         window.location.href = `localhost:3000/posts/`+ $(this).val();
     })

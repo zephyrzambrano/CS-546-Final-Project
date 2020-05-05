@@ -37,4 +37,8 @@ $('#addComment').click(function () {
             response.commentInfo;
         })
         window.location.reload()
+    window.location.reload()
+    window.location.reload()
+    window.location.reload()
+    window.location.reload()
     })

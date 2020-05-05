@@ -16,10 +16,10 @@ async function main() {
     let u3_userid = u3._id.toHexString();
     let u4=await users.createUser("un04@gmail.com","pw0404","nn04");
     //add posts to u1
-    let p1 = await posts.createPost("im topic01",u1_userid ,"im content01",["/images/burton01.jpg","/images/burton02.jpg"],["tagA","tagB","tagC"]);
+    let p1 = await posts.createPost("im topic01",u1_userid ,"im content01",["http://localhost:3000/public/images/burton01.jpg","http://localhost:3000/public/images/burton02.jpg"],["Men","Sleepwear","Spring"]);
     let p1_postid= p1._id.toHexString();
-    let p2 = await posts.createPost("im topic02",u1_userid ,"im content02",["\images\danner_boots.jpg","\images\danner_boots01.jpg","\images\danner_boots03.jpg"],["tagD","tagB","tagC"]);
-    let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["photo01,photo03"],["tagA","tagD","tagC"]); 
+    let p2 = await posts.createPost("im topic02",u1_userid ,"im content02",["http://localhost:3000/public/images/danner_boots.jpg","http://localhost:3000/public/images/danner_boots01.jpg","http://localhost:3000/public/images/danner_boots03.jpg"],["Women","Dress"]);
+    let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["http://localhost:3000/public/images/supreme01.jpg"],["Kid","Winter"]); 
     //add comment to p1
     let c1=await comments.addComment(p1_postid,u2_userid,"im comment content01");
     let c2=await comments.addComment(p1_postid,u3_userid,"im comment content02");

@@ -57,10 +57,12 @@
             <div class="col-sm-12">
                 {{#each postArr}}
                     <div class="media post-part">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object user-Pic" src="../../public/images/" alt="UserPic">
-                            </a>
+                        <div class="media-left ">
+                            <div class="photoContainer">
+                                <a href="#">
+                                    <img class="media-object user-Pic" src="http://localhost:3000/public/images/burton01.jpg" alt="UserPic">
+                                </a>
+                            </div>
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading postTopic" value={{this._id}}>{{this.topic}}</h4>

@@ -7,46 +7,61 @@ const commentData = data.comments;
 const formidable = require('formidable');
 
 
-router.get('/', async (req, res) => {
-    try {
-        let userLogin = null;
+router.get('/', async (req, res) => { // √
+    try {
+        // console.log("aaa");
+        let userLogin = null;
         if(req.session){
-            if (req.session.userId)
-                userLogin = await userData.getUserById(req.session.userId);
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
         }
-        let postArr = await postData.getAllPost();
-        for (let i = 0; i < postArr.length; i++) {
-            let temp = await userData.getUserById(postArr[i].userId);
-            postArr[i].userNickname = temp.nickname;
+        let postArr = await postData.getAllPost();
+        for (let i = 0; i < postArr.length; i++) {
+            let temp = await userData.getUserById(postArr[i].userId);
+            postArr[i].userNickname = temp.nickname;
         }
-        // res.send({ postArr, userLogin });
-        res.render('home/home.handlebars',{postArr,userLogin});
-    } catch (error) {
+        // res.send({ postArr, userLogin });
+        // console.log(Array.isArray(postArr))
+         res.render('home/home.handlebars',{
+            postArr,
+            userLogin
+        });
+    } catch (error) {
         res.status(404).send(error);
     }
 });
 
-router.post('/multTags', async (req, res) => {
-    try {
-        if (!req.body)
-            throw "need tags";
-        if (!req.body.tagArr || !Array.isArray(req.body.tagArr))
-            throw "need a tag Array";
-        // console.log(req.body.tagArr);
-        let postArr = await postData.getPostByMultTag(req.body.tagArr)
-        res.send(postArr);
-    } catch (error) {
+router.get('/tag', async (req, res) => { // √
+    try {
+        if (!req.query)
+            throw "need tag info";
+        if (!req.query.searchTag)
+            throw "need a tag";
+        console.log(req.query.searchTag);
+        let postArr = await postData.getPostByOneTag(req.query.searchTag);
+        console.log(postArr);
+        // res.send(postArr);
+        res.render("home/home.handlebars",{
+            postArr
+        })
+    } catch (error) {
         res.status(404).send(error);
     }
 });
-router.get("/search", async (req, res) => {
+
+router.get("/search", async (req, res) => { // √
     try {
+        // console.log("------------")
         if (!req.query)
             throw "need string to search";
         if (!req.query.searchString)
             throw "need string to search!";
         let postArr = await postData.getPostByString(req.query.searchString);
-        res.send(postArr);
+        // console.log(postArr)
+        // res.send(postArr);
+        res.render('home/home.handlebars',{
+            postArr
+        });
     } catch (error) {
         res.status(404).send(error);
     }
@@ -66,25 +81,24 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
                 throw "need userId to create post"
             if (!fields.content)
                 throw "need content to create post"
-            if (!fields.tagArr)
-                throw "need a tagArr String to create post";
-            let tagArr=JSON.parse(fields.tagArr);
-            if(!Array.isArray(tagArr))
+            if (!fields.tagArr || !Array.isArray(fields.tagArr))
                 throw "need a tagArr to create post";
+
             let photoArr = [];
             if (files.photo1)
-                photoArr.push("http://localhost:3000/public"+files.photo1.path.split('public')[1]);
+                photoArr.push(files.photo1.path.split('public')[1]);
             if (files.photo2)
-                photoArr.push("http://localhost:3000/public"+files.photo2.path.split('public')[1]);
+                photoArr.push(files.photo2.path.split('public')[1]);
             if (files.photo3)
-                photoArr.push("http://localhost:3000/public"+files.photo3.path.split('public')[1]);
+                photoArr.push(files.photo3.path.split('public')[1]);
 
+            files.xxx.path.split('public')[1];
             let newPost = await postData.createPost(
                 fields.topic,
                 fields.userId,
                 fields.content,
                 photoArr,
-                tagArr
+                fields.tagArr
             )
             res.send(newPost);
         } catch (error) {

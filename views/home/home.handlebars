@@ -55,20 +55,22 @@
         <!-- Posts list here -->
         <div class="row">
             <div class="col-sm-12">
-                {{#each posts}}
+                {{#each postArr}}
                     <div class="media post-part">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object user-Pic" src={{posts.photoArr.[0]}} alt="UserPic">
-                            </a>
+                        <div class="media-left ">
+                            <div class="photoContainer">
+                                <a href="#">
+                                    <img class="media-object user-Pic" src="http://localhost:3000/public/images/burton01.jpg" alt="UserPic">
+                                </a>
+                            </div>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">{{posts.topic}}</h4>
-                            {{posts.content}}
+                            <h4 class="media-heading postTopic" value={{this._id}}>{{this.topic}}</h4>
+                            {{this.content}}
                         </div>
                     </div>
                 {{else}}
-                    <h2>There is no result.</h2>
+                        <h2>There is no post.</h2>
                 {{/each}}
             </div>
         </div>
@@ -86,7 +88,7 @@
                         <br/>
                         <br/>
                         <div class="col-sm-8">
-                            <textarea name="content" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
+                            <textarea name="content" class="form-control" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
                         </div>
                         <div class="all-checkbox col-sm-4">
                             <p>
@@ -179,5 +181,10 @@
         {{/if}}
     </main>
 </div>
+<script type="javascript">
+    $('.postTopic').click(function () {
+        window.location.href = `localhost:3000/posts/`+ $(this).val();
+    })
+</script>
 </body>
 </html>

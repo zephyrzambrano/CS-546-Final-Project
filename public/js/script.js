@@ -17,8 +17,11 @@ formData.set('tag', JSONData);
 var file = document.getElementById('addImg')
 // 当用户选择文件的时候
 file.onchange = function () {
-    formData.append('photoArr', this.files[0]); // 将用户选择的二进制文件追加到表单对象中
+    for(let i = 0; i < this.files.length; i++){
+        formData.append('photo'+ i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
+    }
 }
+
 xhr.open('post', '/createPost');
 xhr.send(formData);
 
@@ -50,3 +53,11 @@ $('#tag-Men').click(function () {
         response.postArr;
     })
 })
+
+// This is to add comment in post page
+$('#addComment').click(function () {
+        $.post('localhost:3000/post/addComment',{postId: postInfo._id, userId: postInfo.userId, commentContent: $('#message-text').val()}, function (response) {
+            response.commentInfo;
+        })
+        window.location.reload()
+    })

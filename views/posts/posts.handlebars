@@ -44,15 +44,51 @@
                             <br/>
                             <br/>
                         </div>
-                        {{#each commentsInfo}}
-                            <ul class="list-group">
+                        {{#if commentInfo}}
+                        <ul class="list-group">
+                            {{#each commentsInfo}}
                                 <li class="list-group-item"><h6>{{commentsInfo.userNickname}}:<span class="post-time">{{commentsInfo.date}}</span></h6>{{commentsInfo.content}}</li>
+                            {{/each}}
+                        </ul>
+                        {{else}}
+                            <ul class="list-group">
+                                <li class="list-group-item">No Comments.</li>
                             </ul>
-                        {{/each}}
+                        {{/if}}
                     </div>
                 </div>
             {{/if}}
         </div>
+
+        <!--Add new comment-->
+        {{#if userLogin}}
+            <div id="addNewComment">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Add comment</button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Add your comment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post">
+                                    <div class="form-group">
+                                        <label for="message-text" class="control-label">Your comment</label>
+                                        <textarea class="form-control" rows="7" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button id="addComment" type="button" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
     </div>
 </body>
 </html>

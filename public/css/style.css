@@ -9,7 +9,12 @@
 
 .user-Pic {
     width: 85px;
+    height: auto;
+}
+.photoContainer {
+    width: 85px;
     height: 85px;
+    overflow: hidden;
 }
 
 .footer {
@@ -169,4 +174,8 @@
 
 .glyphicon:hover {
     cursor: pointer;
+}
+
+#addNewComment {
+    float: right;
 }

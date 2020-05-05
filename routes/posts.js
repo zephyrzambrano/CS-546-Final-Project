@@ -11,8 +11,10 @@ router.use(express.json());
 router.get('/:id', async (req, res) => {
     try {
         let userLogin=null;
-        if(req.session.userId)
-            userLogin=await userData.getUserById(req.session.userId);
+        if(req.session){
+            if(req.session.userId)
+                userLogin=await userData.getUserById(req.session.userId);
+        }
         await postData.addViewCount(req.params.id);//Each time this address is accessed, viewCount++
         let postInfo = await postData.getPostById(req.params.id);
         let commentsInfo = [];

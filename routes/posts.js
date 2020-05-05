@@ -22,8 +22,12 @@ router.get('/:id', async (req, res) => {
             thisComment.userNickname = commentCreaterInfo.nickname;
             commentsInfo.push(thisComment);
         }
-        res.json({ postInfo, commentsInfo, userLogin});
-        // res.render('home/home.handlebars',{ postInfo, commentsInfo, userLogin});
+        // res.send({ postInfo, commentsInfo, userLogin});
+        res.render('posts/posts.handlebars',{
+            postInfo,
+            commentsInfo,
+            userLogin
+        });
     } catch (error) {
         res.status(404).json({ error: 'Post not found' });
     }

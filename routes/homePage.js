@@ -5,81 +5,111 @@ const postData = data.posts;
 const userData = data.users;
 const commentData = data.comments;
 const formidable = require('formidable');
+const path = require("path");
 
 
-router.get('/', async (req, res) => {
-    try {
-        let userLogin = null;
-        if (req.session.userId)
-            userLogin = await userData.getUserById(req.session.userId);
-        let postArr = await postData.getAllPost();
-        for (let i = 0; i < postArr.length; i++) {
-            let temp = await userData.getUserById(postArr[i].userId);
-            postArr[i].userNickname = temp.nickname;
+router.get('/', async (req, res) => { // √
+    try {
+        // console.log("aaa");
+        let userLogin = null;
+        if(req.session){
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
         }
-        res.send({ postArr, userLogin });
-        // res.render('home/home.handlebars',{postArr,userLogin});
-    } catch (error) {
+        let postArr = await postData.getAllPost();
+        for (let i = 0; i < postArr.length; i++) {
+            let temp = await userData.getUserById(postArr[i].userId);
+            postArr[i].userNickname = temp.nickname;
+        }
+        // res.send({ postArr, userLogin });
+        // console.log(Array.isArray(postArr))
+         res.render('home/home.handlebars',{
+            postArr,
+            userLogin
+        });
+    } catch (error) {
         res.status(404).send(error);
     }
 });
 
-router.post('/multTags', async (req, res) => {
-    try {
-        if (!req.body)
-            throw "need tags";
-        if (!req.body.tagArr || !Array.isArray(req.body.tagArr))
-            throw "need a tag Array";
-        // console.log(req.body.tagArr);
-        let postArr = await postData.getPostByMultTag(req.body.tagArr)
-        res.send(postArr);
-    } catch (error) {
+router.get('/tag', async (req, res) => { // √
+    try {
+        if (!req.query)
+            throw "need tag info";
+        if (!req.query.searchTag)
+            throw "need a tag";
+        console.log(req.query.searchTag);
+        let postArr = await postData.getPostByOneTag(req.query.searchTag);
+        console.log(postArr);
+        // res.send(postArr);
+        res.render("home/home.handlebars",{
+            postArr
+        })
+    } catch (error) {
         res.status(404).send(error);
     }
 });
-router.get("/search", async (req, res) => {
+
+router.get("/search", async (req, res) => { // √
     try {
+        // console.log("------------")
         if (!req.query)
             throw "need string to search";
         if (!req.query.searchString)
             throw "need string to search!";
         let postArr = await postData.getPostByString(req.query.searchString);
-        res.send(postArr);
+        // console.log(postArr)
+        // res.send(postArr);
+        res.render('home/home.handlebars',{
+            postArr
+        });
     } catch (error) {
         res.status(404).send(error);
     }
 })
 
-router.post('/createPost', async (req, res) => {//这是靠谱写法
-    const form = new formidable.IncomingForm();//创建formidable解析器
-    form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
-    form.keepExtensions = true;//保留后缀名
-    form.parse(req, async(err, fields, files) => {
-        try {
-            if (!fields)
-                throw "need data to create post";
-            if (!fields.topic)
-                throw "need topic to create post "
-            if (!fields.userId)
-                throw "need userId to create post"
-            if (!fields.content)
-                throw "need content to create post"
-            if (!fields.photoArr || !Array.isArray(fields.photoArr))
-                throw "need a photo array to create post";
-            if (!fields.tagArr || !Array.isArray(fields.tagArr))
-                throw "need a tagArr to create post";
-            let newPost = await postData.createPost(
-                fields.topic,
-                fields.userId,
-                fields.content,
-                fields.photoArr,
-                fields.tagArr
-            )
-            res.send(newPost);
-        } catch (error) {
-            res.status(404).send(error);
-        }
+router.post('/createPost', async (req, res) => {//这是靠谱写法
+    const form = new formidable.IncomingForm();//创建formidable解析器
+    form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
+    form.keepExtensions = true;//保留后缀名
+    form.parse(req, async (err, fields, files) => {
+        console.log(err);
+        console.log(fields);
+        console.log(files);
+        res.send("ok");
+        // try {
+        //     if (!fields)
+        //         throw "need data to create post";
+        //     if (!fields.topic)
+        //         throw "need topic to create post "
+        //     if (!fields.userId)
+        //         throw "need userId to create post"
+        //     if (!fields.content)
+        //         throw "need content to create post"
+        //     if (!fields.tagArr)
+        //         throw "need a tagArr String to create post";
+        //     let tagArr=JSON.parse(fields.tagArr);
+        //     if(!Array.isArray(tagArr))
+        //         throw "need a tagArr to create post";
+        //     let photoArr = [];
+        //     if (files.photo1)
+        //         photoArr.push("http://localhost:3000/public"+files.photo1.path.split('public')[1]);
+        //     if (files.photo2)
+        //         photoArr.push("http://localhost:3000/public"+files.photo2.path.split('public')[1]);
+        //     if (files.photo3)
+        //         photoArr.push("http://localhost:3000/public"+files.photo3.path.split('public')[1]);
 
+        //     let newPost = await postData.createPost(
+        //         fields.topic,
+        //         fields.userId,
+        //         fields.content,
+        //         photoArr,
+        //         tagArr
+        //     )
+        //     res.send(newPost);
+        // } catch (error) {
+        //     res.status(404).send(error);
+        // }
     })
 });
 
@@ -99,7 +129,7 @@ module.exports = router;
     //             throw "need a photo array to create post";
     //         if (!req.body.tagArr || !Array.isArray(req.body.tagArr))
     //             throw "need a tagArr to create post";
-    
+
     //         let newPost = await postData.createPost(
     //             req.body.topic,
     //             req.body.userId,

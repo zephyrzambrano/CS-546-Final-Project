@@ -9,16 +9,27 @@
 
 .user-Pic {
     width: 85px;
+    height: auto;
+}
+.photoContainer {
+    width: 85px;
     height: 85px;
+    overflow: hidden;
 }
 
 .footer {
+    position:relative;
     height: 80px;
     background-color: #f4f3f3;
     text-align: center;
     font-size: 12px;
     line-height: 18px;
     padding-top: 20px;
+    /*left: 0px;*/
+    /*right: 0px;*/
+    bottom: 0px;
+    width: 100%;
+    /*height: 100%;*/
 }
 
 .footer a {
@@ -133,7 +144,7 @@
 
 .all-checkbox label:hover {
     color: #b52818;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .panel-body {
@@ -173,4 +184,9 @@
 
 #addNewComment {
     float: right;
+}
+
+#searchButton {
+    text-decoration: none;
+    color: #b52818;
 }

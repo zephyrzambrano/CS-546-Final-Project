@@ -1,5 +1,4 @@
 const mongoCollections = require('../config/mongoCollections');
-
 const { ObjectId } = require('mongodb');
 const posts = mongoCollections.posts;
 const comments = mongoCollections.comments;
@@ -45,7 +44,7 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
         likeCount: [],
         dislikeCount: [],
         viewCount: 0,
-        date: new Date()
+        date: new Date().toLocaleDateString()
     }
     let insertInfo = await postCollection.insertOne(newPost);
     if (insertInfo.insertedCount === 0)

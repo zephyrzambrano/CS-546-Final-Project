@@ -28,7 +28,7 @@ async function addComment(postId, userId, content) {
         postId: postId,
         userId: userId,
         content: content,
-        date: new Date()
+        date: new Date().toLocaleDateString()
     }
     let insertInfo = await commentCollection.insertOne(newComment);
     if (insertInfo === null)

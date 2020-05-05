@@ -18,12 +18,15 @@
 }
 
 .footer {
+    position:relative;
     height: 80px;
     background-color: #f4f3f3;
     text-align: center;
     font-size: 12px;
     line-height: 18px;
     padding-top: 20px;
+    bottom: 0px;
+    width: 100%;
 }
 
 .footer a {
@@ -138,7 +141,7 @@
 
 .all-checkbox label:hover {
     color: #b52818;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .panel-body {
@@ -178,4 +181,9 @@
 
 #addNewComment {
     float: right;
+}
+
+#searchButton {
+    text-decoration: none;
+    color: #b52818;
 }

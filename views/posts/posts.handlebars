@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="post-imgs col-sm-9">
                             {{#each postInfo.photoArr}}
-                                <img class="PostImg" src={{postInfo.photoArr}}>
+                                <img class="PostImg" src={{this}}>
                                 <br/>
                                 <br/>
                             {{/each}}
@@ -25,18 +25,18 @@
                 <div class="col-sm-8">
                     <h4>
                         {{#each postInfo.tagArr}}
-                            <span class="label label-success">{{postInfo.tagArr}}</span>
+                            <span class="label label-success">{{this}}</span>
                         {{/each}}
                     </h4>
-                    <h4><div class="post-time">02/03/20</div></h4>
+                    <h4><div class="post-time">{{postInfo.date}}</div></h4>
                     <br/>
                     <div class="panel panel-success">
                         <div class="panel-body">
                             <span class="PostTopic">{{postInfo.topic}}</span>
                             <span class="post-glyphicon">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{postInfo.likeCount}}</span>
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">{{postInfo.likeCount.length}}</span>
                             &nbsp;
-                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">{{postInfo.dislikeCount}}</span>
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">{{postInfo.dislikeCount.length}}</span>
                         </span>
                         </div>
                         <div class="panel-footer">
@@ -44,10 +44,11 @@
                             <br/>
                             <br/>
                         </div>
-                        {{#if commentInfo}}
+
+                        {{#if commentsInfo}}
                         <ul class="list-group">
                             {{#each commentsInfo}}
-                                <li class="list-group-item"><h6>{{commentsInfo.userNickname}}:<span class="post-time">{{commentsInfo.date}}</span></h6>{{commentsInfo.content}}</li>
+                                <li class="list-group-item"><h6>{{this.userNickname}}:<span class="post-time">{{this.date}}</span></h6>{{this.content}}</li>
                             {{/each}}
                         </ul>
                         {{else}}

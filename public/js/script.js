@@ -1,29 +1,6 @@
 
-// This is to transport data in "Add new post"
-var form = document.getElementById('static-form');
-var formData = new FormData(form);
 
-formData.get('topic');
-formData.get('content');
 
-$('input[type="checkbox"]:checked').each(function(index) {
-    var tagArr = [];
-    tagArr[index] = $(this).val();
-})
-
-let JSONData = JSON.stringify(tagArr);
-formData.set('tag', JSONData);
-
-var file = document.getElementById('addImg')
-// 当用户选择文件的时候
-file.onchange = function () {
-    for(let i = 0; i < this.files.length; i++){
-        formData.append('photo'+ i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-    }
-}
-
-xhr.open('post', '/createPost');
-xhr.send(formData);
 
 
 // This is to add like or dislike counts in post page
@@ -49,7 +26,7 @@ $("#dislikeCount").click(function() {
 
 // This is search by categories
 $('#tag-Men').click(function () {
-    $.post('localhost:3000/search', {searchString: $('#tag-Men').text()}, function (response) {
+    $.post('localhost:3000/homePage/search', {searchString: $('#tag-Men').text()}, function (response) {
         response.postArr;
     })
 })

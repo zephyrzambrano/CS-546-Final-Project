@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const router = express.Router();
 const data = require("../data");
 const postData = data.posts;
@@ -7,98 +8,105 @@ const commentData = data.comments;
 const formidable = require('formidable');
 
 
-router.get('/', async (req, res) => { // √
-    try {
-        // console.log("aaa");
-        let userLogin = null;
-        if(req.session){
-            if (req.session.userId)
-                userLogin = await userData.getUserById(req.session.userId);
+router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲染完整的post 数组信息，数组内每个元素包含post详细信息与创建此post的userNickname
+    try {
+        let userLogin = null;
+        if (req.session) {
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
         }
-        let postArr = await postData.getAllPost();
-        for (let i = 0; i < postArr.length; i++) {
-            let temp = await userData.getUserById(postArr[i].userId);
-            postArr[i].userNickname = temp.nickname;
+        let postArr = await postData.getAllPost();
+        for (let i = 0; i < postArr.length; i++) {
+            let temp = await userData.getUserById(postArr[i].userId);
+            postArr[i].userNickname = temp.nickname;
         }
-        // res.send({ postArr, userLogin });
-        // console.log(Array.isArray(postArr))
-         res.render('home/home.handlebars',{
-            postArr,
-            userLogin
-        });
-    } catch (error) {
+        // res.send({ postArr, userLogin });
+        res.render('home/home.handlebars', { postArr, userLogin });
+    } catch (error) {
         res.status(404).send(error);
     }
 });
 
-router.get('/tag', async (req, res) => { // √
-    try {
-        if (!req.query)
-            throw "need tag info";
-        if (!req.query.searchTag)
-            throw "need a tag";
-        // console.log(req.query.searchTag);
-        let postArr = await postData.getPostByOneTag(req.query.searchTag);
+
+router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通get请求，返回重新渲染网页，就像之前一样
+    try {
+        let userLogin = null;
+        if (req.session) {
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
+        }
+        if (!req.query)
+            throw "need tagInfo";
+        if (!req.query.searchTag)
+            throw "need a tag";
+        console.log(req.query.searchTag);
+        let postArr = await postData.getPostByOneTag(req.query.searchTag);
+
         // console.log(postArr);
         // res.send(postArr);
-        res.render("home/home.handlebars",{
-            postArr
-        })
-    } catch (error) {
+        res.render('home/home.handlebars', { postArr, userLogin });
+    } catch (error) {
         res.status(404).send(error);
     }
 });
 
-router.get("/search", async (req, res) => { // √
+router.get("/search", async (req, res) => {//通过主页浏览框输入发送普通get请求，返回重新渲染网页，就像之前一样
     try {
-        // console.log("------------")
+        let userLogin = null;
+        if (req.session) {
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
+        }
         if (!req.query)
             throw "need string to search";
         if (!req.query.searchString)
             throw "need string to search!";
         let postArr = await postData.getPostByString(req.query.searchString);
-        // console.log(postArr)
-        // res.send(postArr);
-        res.render('home/home.handlebars',{
-            postArr
-        });
+        res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {
         res.status(404).send(error);
     }
 })
 
-router.post('/createPost', async (req, res) => {//这是靠谱写法
+router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax请求（但还是会刷新网页），返回重新渲染一个网页，包含了最新的post
+    let userLogin = null;
+    if (req.session) {
+        if (req.session.userId)
+            userLogin = await userData.getUserById(req.session.userId);
+    }
     const form = new formidable.IncomingForm();//创建formidable解析器
     form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
     form.keepExtensions = true;//保留后缀名
     form.parse(req, async (err, fields, files) => {
+        // console.log(err);
+        // console.log(fields);
+        // console.log(files);
         try {
             if (!fields)
                 throw "need data to create post";
-            if (!fields.topic)
+            if (!fields.topic)//标题
                 throw "need topic to create post "
-            if (!fields.userId)
-                throw "need userId to create post"
-            if (!fields.content)
+            if (!fields.content)//文本内容
                 throw "need content to create post"
-            if (!fields.tagArr || !Array.isArray(fields.tagArr))
+            if (!fields.tagArr)//标签数组
+                throw "need a tagArr String to create post";
+            let tagArr = JSON.parse(fields.tagArr);
+            if (!Array.isArray(tagArr))
                 throw "need a tagArr to create post";
-
             let photoArr = [];
             if (files.photo1)
-                photoArr.push(files.photo1.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public" + files.photo1.path.split('public')[1]);
             if (files.photo2)
-                photoArr.push(files.photo2.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public" + files.photo2.path.split('public')[1]);
             if (files.photo3)
-                photoArr.push(files.photo3.path.split('public')[1]);
+                photoArr.push("http://localhost:3000/public" + files.photo3.path.split('public')[1]);
 
-            files.xxx.path.split('public')[1];
             let newPost = await postData.createPost(
                 fields.topic,
-                fields.userId,
+                req.session.userId,
                 fields.content,
                 photoArr,
-                fields.tagArr
+                tagArr
             )
             res.send(newPost);
         } catch (error) {
@@ -108,31 +116,3 @@ router.post('/createPost', async (req, res) => {//这是靠谱写法
 });
 
 module.exports = router;
-
-// router.post('/createPost', async (req, res) => {//这里写的有问题，要上传文件的话需要配合前端使用formidable和FormData进行上传
-    //     try {
-    //         if (!req.body)
-    //             throw "need data to create post";
-    //         if (!req.body.topic)
-    //             throw "need topic to create post "
-    //         if (!req.body.userId)
-    //             throw "need userId to create post"
-    //         if (!req.body.content)
-    //             throw "need content to create post"
-    //         if (!req.body.photoArr || !Array.isArray(req.body.photoArr))
-    //             throw "need a photo array to create post";
-    //         if (!req.body.tagArr || !Array.isArray(req.body.tagArr))
-    //             throw "need a tagArr to create post";
-
-    //         let newPost = await postData.createPost(
-    //             req.body.topic,
-    //             req.body.userId,
-    //             req.body.content,
-    //             req.body.photoArr,
-    //             req.body.tagArr
-    //         )
-    //         res.send(newPost);
-    //     } catch (error) {
-    //         res.status(404).send(error);
-    //     }
-    // });

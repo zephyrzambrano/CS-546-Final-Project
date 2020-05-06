@@ -196,7 +196,7 @@
     file.onchange = function () {
         for (let i = 0; i < this.files.length; i++) {
             formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-            console.log(formData.get('photo'+i));
+            {{!-- console.log(formData.get('photo'+i)); --}}
         }
     }
     }

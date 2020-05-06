@@ -8,22 +8,21 @@ const postData = data.posts;
 module.exports = router;
 
 
-router.get("/form", async (req, res) => {
-  if (!req.session.userId) {		//if not logged in, redirect to the homepage
-    return res.redirect('/homePage');
+router.get("/form", async (req, res) => {
+  if (!req.session.userId) {    //if not logged in, redirect to the homepage
+    return res.redirect('/homePage');
   }
-  
-
 
   try{
-    const userId = req.session.userId;
-    const userLogin = await userData.getUserById(userId);
-    // const post = await postData.getPostById(postId);
-    const mockTopic = await postData.getPostById("5eb31c9d7df56b0600570962");//mock
-    res.render('reports/report-form',{userLogin,'reported-post':mockTopic.topic});
-    // res.render('reports/report-form',{userLogin,'reported-post':post.topic});
+    const userId = req.session.userId;
+    const userLogin = await userData.getUserById(userId);
+    const postId = req.query.id;
+
+
+    const post = await postData.getPostById(postId);
+    res.render('reports/report-form',{userLogin,'reported-post':post.topic, 'postId': postId});
   }catch(e){
-    res.status(404).json({ error: e });
+    res.status(404).json({ error: e });
   }
 });
 

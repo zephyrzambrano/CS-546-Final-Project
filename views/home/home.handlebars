@@ -65,7 +65,7 @@
                             </div>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading postTopic" value={{this._id}}>{{this.topic}}</h4>
+                            <h4 class="media-heading postTopic"><a class="jumpToPost" id={{this._id}} href="#">{{this.topic}}</a></h4>
                             {{this.content}}
                         </div>
                     </div>
@@ -188,11 +188,11 @@
 
         var form = document.getElementById('static-form');
         var formData = new FormData(form);
-        var xhr = new XMLHttpRequest();//创建 Ajax 对象
+        var xhr = new XMLHttpRequest();//创建 Ajax 对象
 
         var tagArr = [];
 
-        $('input[type="checkbox"]:checked').each(function(index) {
+        $('input[type="checkbox"]:checked').each(function (index) {
             tagArr[index] = $(this).val();
         })
 
@@ -204,8 +204,8 @@
         var file = document.getElementById('addImg')
         // 当用户选择文件的时候
         file.onchange = function () {
-            for(let i = 0; i < this.files.length; i++){
-                formData.append('photo'+ i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
+            for (let i = 0; i < this.files.length; i++) {
+                formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
             }
         }
         // console.log(formData.get('topic'));
@@ -215,21 +215,30 @@
         xhr.open('post', 'http://localhost:3000/homePage/createPost');
         xhr.send(formData);
 
-        xhr.onload = function () {//获取服务器端给与客户端的响应数据
+        xhr.onload = function () {//获取服务器端给与客户端的响应数据
             console.log(xhr.responseText);
-            alert("Successed!")
-            var Timeout = setTimeout(function(){
+            alert("Succed!")
+            var Timeout = setTimeout(function () {
                 window.location.reload();
             }, 1300);
 
             // clearTimeout(Timeout);
         }
+    })
 
+    $('.jumpToPost').click(function () {
 
+        var url = `http://localhost:3000/posts/${$(this).attr("id")}`;
 
-<script type="text/javascript">
-    $('.postTopic').click(function () {
-        window.location.href = `localhost:3000/posts/`+ $(this).val();
+        console.log(url);
+        var ID = $(this).attr("id");
+        console.log(ID);
+
+        var selector = `#${ID}`
+
+        // console.log($(selector));
+        // window.location.href = url;
+        $(selector).attr('href', url);
     })
 </script>
 </body>

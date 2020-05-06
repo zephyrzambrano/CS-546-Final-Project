@@ -19,7 +19,7 @@ router.get("/form", async (req, res) => {
     const userId = req.session.userId;
     const userLogin = await userData.getUserById(userId);
     // const post = await postData.getPostById(postId);
-    const mockTopic = await postData.getPostById("5eb2227cc74479564c3d93cc");//mock
+    const mockTopic = await postData.getPostById("5eb31c9d7df56b0600570962");//mock
     res.render('reports/report-form',{userLogin,'reported-post':mockTopic.topic});
     // res.render('reports/report-form',{userLogin,'reported-post':post.topic});
   }catch(e){
@@ -30,7 +30,7 @@ router.get("/form", async (req, res) => {
 router.post("/form", async (req, res) => {
   const userId = req.session.userId;
   const userLogin = await userData.getUserById(userId);
-  const mockTopic = await postData.getPostById("5eb2227cc74479564c3d93cc");//mock
+  const mockTopic = await postData.getPostById("5eb31c9d7df56b0600570962");//mock
   //const post = await postData.getPostById(postId);
     try
     {
@@ -41,7 +41,7 @@ router.post("/form", async (req, res) => {
         {
           reason=[reason];
         }
-        await reportData.addReport(userId,"5eb2227cc74479564c3d93cc",reason); //mock postId
+        await reportData.addReport(userId,"5eb31c9d7df56b0600570962",reason); //mock postId
         // await reportData.addReport(userId,post._id,reason);
         res.render('reports/report-submitted',{userLogin});
         return;
@@ -68,12 +68,26 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  router.get("/", async (req, res) => {
+//   router.get("/", async (req, res) => {
+//     try {
+//       const reportsList = await reportData.getAllReports();
+//       res.json(reportsList);
+//     } catch (e) {
+//       res.status(500).send();
+//     }
+// });
+router.get("/", async (req, res) => {
+  let userInfo = userData.getUserById(req.session.userId)
+  if (userInfo.Admin) {
     try {
       const reportsList = await reportData.getAllReports();
       res.json(reportsList);
     } catch (e) {
       res.status(500).send();
     }
+  }
+  else
+    res.send('you dont have access to this page');
+
 });
 

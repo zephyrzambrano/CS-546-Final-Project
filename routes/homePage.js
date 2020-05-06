@@ -39,7 +39,7 @@ router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通ge
             throw "need tagInfo";
         if (!req.query.searchTag)
             throw "need a tag";
-        console.log(req.query.searchTag);
+        // console.log(req.query.searchTag);
         let postArr = await postData.getPostByOneTag(req.query.searchTag);
 
         // console.log(postArr);
@@ -94,25 +94,21 @@ router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax�
             if (!Array.isArray(tagArr))
                 throw "need a tagArr to create post";
             let photoArr = [];
-            console.log(files);
-            console.log("------------");
-            console.log(files.photo1);
-            console.log("------------");
-            console.log(files.photo2);
-            // if (files.photo1)
-            //     photoArr.push("http://localhost:3000/public" + files.photo1.path.split('public')[1]);
-            // if (files.photo2)
-            //     photoArr.push("http://localhost:3000/public" + files.photo2.path.split('public')[1]);
-            // if (files.photo3)
-            //     photoArr.push("http://localhost:3000/public" + files.photo3.path.split('public')[1]);
-            //
-            // let newPost = await postData.createPost(
-            //     fields.topic,
-            //     req.session.userId,
-            //     fields.content,
-            //     photoArr,
-            //     tagArr
-            // )
+
+            if (files.photo0)
+                photoArr.push("http://localhost:3000/public/images/" + files.photo0.path.split('images\\')[1]);
+            if (files.photo1)
+                photoArr.push("http://localhost:3000/public/images/" + files.photo1.path.split('images\\')[1]);
+            if (files.photo2)
+                photoArr.push("http://localhost:3000/public/images/" + files.photo2.path.split('images\\')[1]);
+            // console.log(photoArr);
+            let newPost = await postData.createPost(
+                fields.topic,
+                req.session.userId,
+                fields.content,
+                photoArr,
+                tagArr
+            )
             res.send(newPost);
         } catch (error) {
             res.status(404).send(error);

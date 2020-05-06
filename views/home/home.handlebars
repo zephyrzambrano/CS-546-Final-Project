@@ -188,42 +188,35 @@
 <script type="text/javascript">
     // This is to transport data in "Add new post"
     var form = document.getElementById('static-form');
-    var formData = new FormData(form);
 
-
+    if(form){
+        var formData = new FormData(form);
+    
     var file = document.getElementById('addImg')
     // 当用户选择文件的时候
     file.onchange = function () {
         for (let i = 0; i < this.files.length; i++) {
             formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-            console.log(formData.get('photo'+i));
+
         }
     }
-
+    }
+    
     $('#addNewPostButton').click(function () {
 
         var xhr = new XMLHttpRequest();//创建 Ajax 对象
 
         var tagArr = [];
-
         $('input[type="checkbox"]:checked').each(function (index) {
             tagArr[index] = $(this).val();
         })
-
         let JSONData = JSON.stringify(tagArr);
-        formData.set('tagArr', JSONData);
 
+        formData.set('tagArr', JSONData);
         formData.set("topic", $('#topicId').val());
         formData.set("content", $('#contentId').val());
-
         formData.delete('tag');
-
-        console.log(formData);
-
-
-        // console.log(formData.get('topic'));
-        // console.log(formData.get('content'));
-        // console.log(formData.get('tagArr'));
+        formData.delete('photoArr');
 
         xhr.open('post', 'http://localhost:3000/homePage/createPost');
         xhr.send(formData);
@@ -234,8 +227,6 @@
             var Timeout = setTimeout(function () {
                 window.location.reload();
             }, 1000);
-
-            // clearTimeout(Timeout);
         }
     })
 

@@ -22,7 +22,8 @@ async function createUser(username, password, nickname) { //tested
         password: password, // string
         nickname: nickname,  // string
         posts: [], // array of postIds as strings
-        comments: [] // array of commentIds as strings
+        comments: [], // array of commentIds as strings
+        Admin: false
     };
     const newInsertInformation = await userCollection.insertOne(newUser);
     if (newInsertInformation.insertedCount === 0) throw 'Insert failed!';
@@ -45,6 +46,23 @@ async function getAllUsers() {//tested
     const userCollection = await users();
     const userList = await userCollection.find({}).toArray();
     return userList;
+};
+
+async function setAdminAccess(userId) {
+    if (!userId || typeof userId !== "string")
+        throw 'you should input a string as the userId';
+
+    let userObjId = ObjectId.createFromHexString(userId);
+    let userCollection = await users();
+
+    let userUpdateInfo = {
+        Admin:true
+    };
+    let updatedInfo = await userCollection.updateOne({ _id: userObjId }, { $set: userUpdateInfo });
+    if (updatedInfo.modifiedCount === 0) {
+        throw 'could not set Admin access successfully';
+    }
+    return this.getUserById(userId);
 };
 
 async function editPassword(userId, password) {
@@ -176,6 +194,8 @@ async function removeCommentFromUser(userId, commentId) { // commentId is passed
 };
 
 
+
+
 module.exports = {
     createUser,
     getUserById,
@@ -184,7 +204,8 @@ module.exports = {
     editPassword,
     editNickname,
     addPostToUser,
-    removePostFromUser
+    removePostFromUser,
+    setAdminAccess
     // addCommentToUser,
     // removeCommentFromUser
 }

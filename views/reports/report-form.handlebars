@@ -12,18 +12,21 @@ Report form database data:
 -->
 
 <h1>Report Form</h1>
+{{#unless status}}
+<p>{{message}}</p>
+{{/unless}}
 
 <p>Post you are reporting: {{reported-post}}</p>  
 
 <p>Reason for reporting this post:</p>
-<form action="/" method="post" id="reason">
-    <input type="checkbox" id="reason1" name="reason1" value="reason1">
+<form action="/reports/form" method="post" id="reason">
+    <input type="checkbox" id="reason1" name="reason" value="Spam">
     <label for="vehicle2">Spam</label><br>
-    <input type="checkbox" id="reason2" name="reason2" value="reason2">
+    <input type="checkbox" id="reason2" name="reason" value="Abusive comments">
     <label for="vehicle3">Abusive comments</label><br>
-    <input type="checkbox" id="reason3" name="reason3" value="reason3">
+    <input type="checkbox" id="reason3" name="reason" value="Innappropriate language">
     <label for="vehicle3">Innappropriate language</label><br>
-    <input type="checkbox" id="reason4" name="reason4" value="reason4">
+    <input type="checkbox" id="reason4" name="reason" value="Off topic">
     <label for="vehicle3">Off topic</label><br>
     <input type="submit" value="Submit Report" class="button">
 </form>

@@ -54,7 +54,7 @@ async function addReport(userId,postId,reason)
         const insertInfo = await reportCollection.insertOne(newReport);
         if (insertInfo.insertedCount === 0) throw 'Could not add report';
         const newId = insertInfo.insertedId;
-        const reportt = await this.getReport(newId);
+        const reportt = await this.getReportById(newId);
         return reportt;
     }
     else{

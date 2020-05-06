@@ -39,7 +39,7 @@ router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通ge
             throw "need tagInfo";
         if (!req.query.searchTag)
             throw "need a tag";
-        console.log(req.query.searchTag);
+        // console.log(req.query.searchTag);
         let postArr = await postData.getPostByOneTag(req.query.searchTag);
 
         // console.log(postArr);

@@ -9,7 +9,7 @@ async function main() {
     await db.dropDatabase();
     //add users
 
-    let u1=await users.createUser("un01@gmail.com","pw0101","nn01");
+    // let u1=await users.createUser("un01@gmail.com","pw0101","nn01");
 
     let u1=await users.createUser("un01@gmail.com","pw0101","nn01");  
 
@@ -24,7 +24,7 @@ async function main() {
     let p1_postid= p1._id.toHexString();
     let p2 = await posts.createPost("im topic02",u1_userid ,"im content02",["http://localhost:3000/public/images/danner_boots.jpg","http://localhost:3000/public/images/danner_boots01.jpg","http://localhost:3000/public/images/danner_boots03.jpg"],["Women","Dress"]);
 
-    let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["http://localhost:3000/public/images/supreme01.jpg"],["Kid","Winter"]);
+    // let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["http://localhost:3000/public/images/supreme01.jpg"],["Kid","Winter"]);
 
     let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["http://localhost:3000/public/images/supreme01.jpg"],["Kid","Winter"]); 
 

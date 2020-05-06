@@ -187,3 +187,12 @@
     text-decoration: none;
     color: #b52818;
 }
+
+.jumpToPost {
+    text-decoration: none;
+    color: #b52818;
+}
+.jumpToPost:hover {
+    text-decoration: none;
+    color: #b52818;
+}

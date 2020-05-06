@@ -17,47 +17,34 @@ router.get("/form", async (req, res) => {
     const userId = req.session.userId;
     const userLogin = await userData.getUserById(userId);
     const postId = req.query.id;
-
-
     const post = await postData.getPostById(postId);
     res.render('reports/report-form',{userLogin,'reported-post':post.topic, 'postId': postId});
   }catch(e){
     res.status(404).json({ error: e });
   }
 });
-
 router.post("/form", async (req, res) => {
   const userId = req.session.userId;
   const userLogin = await userData.getUserById(userId);
-  const mockTopic = await postData.getPostById("5eb31c9d7df56b0600570962");//mock
-  //const post = await postData.getPostById(postId);
+  const postId=req.body.postId;
+  const post = await postData.getPostById(postId);
     try
     {
-      if(Object.keys(req.body).length!=0)
-      {
+      
         let reason = req.body.reason;
         if(typeof reason == "string")
         {
           reason=[reason];
         }
-        await reportData.addReport(userId,"5eb31c9d7df56b0600570962",reason); //mock postId
-        // await reportData.addReport(userId,post._id,reason);
+        await reportData.addReport(userId,postId,reason);
         res.render('reports/report-submitted',{userLogin});
         return;
-      }
-      else
-      {
-        throw `Error: You must select a reason for reporting a post!`;
-      }
     }
     catch(e)
     {
-      res.render('reports/report-form',{noReason:true, message:e, userLogin,'reported-post':mockTopic.topic});//mock postTopic
-      // res.render('reports/report-form',{noReason:true, message:e, userLogin,'reported-post':post.topic});
+      res.render('reports/report-form',{noReason:true, message:e, userLogin,'reported-post':post.topic, 'postId': postId});
     } 
 });
-
-
 router.get("/:id", async (req, res) => {
     try {
       const report = await reportData.getReport(req.params.id);
@@ -66,15 +53,6 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ message: "Report not found" });
     }
   });
-
-//   router.get("/", async (req, res) => {
-//     try {
-//       const reportsList = await reportData.getAllReports();
-//       res.json(reportsList);
-//     } catch (e) {
-//       res.status(500).send();
-//     }
-// });
 router.get("/", async (req, res) => {
   let userInfo = userData.getUserById(req.session.userId)
   if (userInfo.Admin) {

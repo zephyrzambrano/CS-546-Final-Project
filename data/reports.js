@@ -39,7 +39,7 @@ async function addReport(userId,postId,reason)
 {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id for report';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id for report';
-    if (!reason || !Array.isArray(reason)) throw 'You must provide reason array for the report';
+    if (!reason || !Array.isArray(reason)) throw ' You must select at least a reason for reporting';
 
     const reportCollection = await reports();
     // check if the user has already reported 

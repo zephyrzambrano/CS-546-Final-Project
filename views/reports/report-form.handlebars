@@ -53,6 +53,7 @@ Report form database data:
 <body>
     <div class="container">
         <div class="row">
+            <p class="aaa" id={{postId}}>The post you are reporting:{{reported-post}}</p>
             <div class="all-checkbox reportCheckbox col-sm-4">
                 <br/>
                 <form action="/reports/form" method="post" id="reason">
@@ -79,12 +80,13 @@ Report form database data:
                             <input type="checkbox" id="reason4" name="reason" value="Off topic">
                             <label for="reason4">Off topic</label><br>
                         </label>
+                        <input hidden="hidden" name="postId" value={{postId}}>
                     </p>
                     {{#unless status}}
                     <p>{{message}}</p>
                     {{/unless}}
                     <br/>
-                    <input type="submit" value="Submit Report" class="reportSubmit button btn btn-danger">
+                    <input id="reportSubmit" type="submit" value="Submit Report" class="reportSubmit button btn btn-danger">
                 </form>
             </div>
         </div>
@@ -94,8 +96,6 @@ Report form database data:
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript">
-
-    </script>
+    
 </body>
 </html>

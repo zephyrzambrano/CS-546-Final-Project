@@ -94,20 +94,25 @@ router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax�
             if (!Array.isArray(tagArr))
                 throw "need a tagArr to create post";
             let photoArr = [];
-            if (files.photo1)
-                photoArr.push("http://localhost:3000/public" + files.photo1.path.split('public')[1]);
-            if (files.photo2)
-                photoArr.push("http://localhost:3000/public" + files.photo2.path.split('public')[1]);
-            if (files.photo3)
-                photoArr.push("http://localhost:3000/public" + files.photo3.path.split('public')[1]);
-
-            let newPost = await postData.createPost(
-                fields.topic,
-                req.session.userId,
-                fields.content,
-                photoArr,
-                tagArr
-            )
+            console.log(files);
+            console.log("------------");
+            console.log(files.photo1);
+            console.log("------------");
+            console.log(files.photo2);
+            // if (files.photo1)
+            //     photoArr.push("http://localhost:3000/public" + files.photo1.path.split('public')[1]);
+            // if (files.photo2)
+            //     photoArr.push("http://localhost:3000/public" + files.photo2.path.split('public')[1]);
+            // if (files.photo3)
+            //     photoArr.push("http://localhost:3000/public" + files.photo3.path.split('public')[1]);
+            //
+            // let newPost = await postData.createPost(
+            //     fields.topic,
+            //     req.session.userId,
+            //     fields.content,
+            //     photoArr,
+            //     tagArr
+            // )
             res.send(newPost);
         } catch (error) {
             res.status(404).send(error);

@@ -60,7 +60,7 @@
                         <div class="media-left ">
                             <div class="photoContainer">
                                 <a href="#">
-                                    <img class="media-object user-Pic" src="http://localhost:3000/public/images/burton01.jpg" alt="UserPic">
+                                    <img class="media-object user-Pic" src={{this.photoArr.[0]}} alt="UserPic">
                                 </a>
                             </div>
                         </div>
@@ -77,117 +77,131 @@
         <br/>
         <br/>
         <!-- Add new Post -->
-<!--if-->
+    {{#if userLogin}}
             <div id="addNewPost">
-                <form id="static-form" method="post" action="http://localhost:3000/homePage/createPost" enctype="multipart/form-data">
-                        <div class="row">
-                        <h4 id="Guide">Add new Post here.</h4>
-                        <div class="col-sm-8">
-                            <input name="topic" type="text" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
-                        </div>
-                        <br/>
-                        <br/>
-                        <div class="col-sm-8">
-                            <textarea name="content" class="form-control" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
-                        </div>
-                        <div class="all-checkbox col-sm-4">
-                            <br/>
-                            <p>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check1" value="Men">
-                                    <label for="check1">Men</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check2" value="Women">
-                                    <label for="check2">Women</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check3" value="Kids">
-                                    <label for="check3">Kids</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check4" value="Travel">
-                                    <label for="check4">Travel</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check5" value="Hike">
-                                    <label for="check5">Hike</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check6" value="Swim">
-                                    <label for="check6">Camp</label>
-                                </label>&nbsp;
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check7" value="Sports">
-                                    <label for="check7">Sports</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check8" value="Party">
-                                    <label for="check8">Party</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check9" value="Yoga">
-                                    <label for="check9">Yoga</label>
-                                </label>
-                            </p>
-                            <p>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check10" value="Sleepwear">
-                                    <label for="check10">Sleepwear</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check11" value="Suit">
-                                    <label for="check11">Suit</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check12" value="Dress">
-                                    <label for="check12">Dress</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check14" value="Ceremony">
-                                    <label for="check14">Ceremony</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check15" value="Spring">
-                                    <label for="check15">Spring</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check16" value="Summer">
-                                    <label for="check16">Summer</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check17" value="Autumn">
-                                    <label for="check17">Autumn</label>
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input name="tag" type="checkbox" id="check18" value="Winter">
-                                    <label for="check18">Winter</label>
-                                </label>
-                            </p>
-                        </div>
+            <form id="static-form" method="post" action="http://localhost:3000/homePage/createPost" enctype="multipart/form-data">
+                <div class="row">
+                    <h4 id="Guide">Add new Post here.</h4>
+                    <div class="col-sm-8">
+                        <input name="topic" type="text" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
                     </div>
-
                     <br/>
-                    <div>
-                        <label class="btn btn-default fileinput-button">
-                            <span>Choose photos</span>
-                            <input name="photoArr" id="addImg" type="file" accept="image/png,image/jpg" multiple>
-                        </label>
-                        <input id="addNewPostButton" name="submit" type="button" class="btn btn-primary" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <br/>
+                    <div class="col-sm-8">
+                        <textarea name="content" class="form-control" id="contentId" cols="74" rows="6" placeholder="Say something..." value=""></textarea>
                     </div>
-                </form>
-            </div>
-<!--else-->
+                    <div class="all-checkbox col-sm-4">
+                        <br/>
+                        <p>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check1" value="Men">
+                                <label for="check1">Men</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check2" value="Women">
+                                <label for="check2">Women</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check3" value="Kids">
+                                <label for="check3">Kids</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check4" value="Travel">
+                                <label for="check4">Travel</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check5" value="Hike">
+                                <label for="check5">Hike</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check6" value="Swim">
+                                <label for="check6">Camp</label>
+                            </label>&nbsp;
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check7" value="Sports">
+                                <label for="check7">Sports</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check8" value="Party">
+                                <label for="check8">Party</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check9" value="Yoga">
+                                <label for="check9">Yoga</label>
+                            </label>
+                        </p>
+                        <p>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check10" value="Sleepwear">
+                                <label for="check10">Sleepwear</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check11" value="Suit">
+                                <label for="check11">Suit</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check12" value="Dress">
+                                <label for="check12">Dress</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check14" value="Ceremony">
+                                <label for="check14">Ceremony</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check15" value="Spring">
+                                <label for="check15">Spring</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check16" value="Summer">
+                                <label for="check16">Summer</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check17" value="Autumn">
+                                <label for="check17">Autumn</label>
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="tag" type="checkbox" id="check18" value="Winter">
+                                <label for="check18">Winter</label>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+
+                <br/>
+                <div>
+                    <label class="btn btn-default fileinput-button">
+                        <span>Choose photos</span>
+                        <input name="photoArr" id="addImg" type="file" accept="image/jpg, image/png, image/jpeg, image/gif, image/tiff" multiple>
+                    </label>
+                    <input id="addNewPostButton" name="submit" type="button" class="btn btn-primary" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
+                </div>
+            </form>
+        </div>
+    {{else}}
+        <h4>You must Login to add new post here.</h4>
+    {{/if}}
+
     </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script type="text/javascript">
     // This is to transport data in "Add new post"
+    var form = document.getElementById('static-form');
+    var formData = new FormData(form);
+
+
+    var file = document.getElementById('addImg')
+    // 当用户选择文件的时候
+    file.onchange = function () {
+        for (let i = 0; i < this.files.length; i++) {
+            formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
+            console.log(formData.get('photo'+i));
+        }
+    }
+
     $('#addNewPostButton').click(function () {
 
-        var form = document.getElementById('static-form');
-        var formData = new FormData(form);
         var xhr = new XMLHttpRequest();//创建 Ajax 对象
 
         var tagArr = [];
@@ -199,15 +213,14 @@
         let JSONData = JSON.stringify(tagArr);
         formData.set('tagArr', JSONData);
 
+        formData.set("topic", $('#topicId').val());
+        formData.set("content", $('#contentId').val());
+
         formData.delete('tag');
 
-        var file = document.getElementById('addImg')
-        // 当用户选择文件的时候
-        file.onchange = function () {
-            for (let i = 0; i < this.files.length; i++) {
-                formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-            }
-        }
+        console.log(formData);
+
+
         // console.log(formData.get('topic'));
         // console.log(formData.get('content'));
         // console.log(formData.get('tagArr'));
@@ -217,15 +230,16 @@
 
         xhr.onload = function () {//获取服务器端给与客户端的响应数据
             console.log(xhr.responseText);
-            alert("Succed!")
+            alert("Succeed!")
             var Timeout = setTimeout(function () {
                 window.location.reload();
-            }, 1300);
+            }, 1000);
 
             // clearTimeout(Timeout);
         }
     })
 
+    //link to certain post
     $('.jumpToPost').click(function () {
 
         var url = `http://localhost:3000/posts/${$(this).attr("id")}`;

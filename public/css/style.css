@@ -185,7 +185,7 @@
 
 #searchButton {
     text-decoration: none;
-    color: #b52818;
+    color: #000000;
 }
 
 .jumpToPost {
@@ -195,4 +195,12 @@
 .jumpToPost:hover {
     text-decoration: none;
     color: #b52818;
+}
+
+.normalButton {
+    background-color: #b52818;
+}
+
+.errorMsg {
+    visibility: visible;
 }

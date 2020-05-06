@@ -57,7 +57,7 @@ async function createPost(topic, userId, content, photoArr, tagArr) {//This func
     return postCreated;
 }
 
-async function getAllPost(){
+async function getAllPost() {
     let postCollection = await posts();
     let postsGoal = await postCollection.find({}).toArray();;
     return postsGoal;
@@ -118,17 +118,27 @@ async function addLikeCount(postId, userId) {
     if (!userId || typeof userId !== "string") throw 'You must provide an user id';
     let postObjId = ObjectId.createFromHexString(postId);
     let postGoal = await getPostById(postId);
-    if (postGoal.likeCount.indexOf(userId) !== -1)
-        throw "the user has already liked it";
     if (postGoal.dislikeCount.indexOf(userId) !== -1)
         throw "the user has already disliked it";
-    postGoal.likeCount.push(userId);
-    let postCollection = await posts();
-    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { likeCount: postGoal.likeCount } });
-    if (updatedInfo.modifiedCount === 0) {
-        throw 'could not add the likeCount successfully';
+    if (postGoal.likeCount.indexOf(userId) !== -1) {
+        let index = postGoal.likeCount.indexOf(userId);
+        postGoal.likeCount.splice(index, 1);
+        let postCollection = await posts();
+        let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { likeCount: postGoal.likeCount } });
+        if (updatedInfo.modifiedCount === 0) {
+            throw 'could not cancel the likeCount successfully';
+        }
+        return await getPostById(postId);
     }
-    return await getPostById(postId);
+    else {
+        postGoal.likeCount.push(userId);
+        let postCollection = await posts();
+        let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { likeCount: postGoal.likeCount } });
+        if (updatedInfo.modifiedCount === 0) {
+            throw 'could not add the likeCount successfully';
+        }
+        return await getPostById(postId);
+    }
 }
 
 async function addDislikeCount(postId, userId) {
@@ -136,17 +146,27 @@ async function addDislikeCount(postId, userId) {
     if (!userId || typeof userId !== "string") throw 'You must provide an user id';
     let postObjId = ObjectId.createFromHexString(postId);
     let postGoal = await getPostById(postId);
-    if (postGoal.dislikeCount.indexOf(userId) !== -1)
-        throw "the user has already disliked it";
     if (postGoal.likeCount.indexOf(userId) !== -1)
         throw "the user has already liked it";
-    postGoal.dislikeCount.push(userId);
-    let postCollection = await posts();
-    let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { dislikeCount: postGoal.dislikeCount } });
-    if (updatedInfo.modifiedCount === 0) {
-        throw 'could not add the dislike successfully';
+    if (postGoal.dislikeCount.indexOf(userId) !== -1) {
+        let index = postGoal.dislikeCount.indexOf(userId);
+        postGoal.dislikeCount.splice(index, 1);
+        let postCollection = await posts();
+        let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { dislikeCount: postGoal.dislikeCount } });
+        if (updatedInfo.modifiedCount === 0) {
+            throw 'could not cancel the dislikeCount successfully';
+        }
+        return await getPostById(postId);
     }
-    return await getPostById(postId);
+    else {
+        postGoal.dislikeCount.push(userId);
+        let postCollection = await posts();
+        let updatedInfo = await postCollection.updateOne({ _id: postObjId }, { $set: { dislikeCount: postGoal.dislikeCount } });
+        if (updatedInfo.modifiedCount === 0) {
+            throw 'could not add the dislike successfully';
+        }
+        return await getPostById(postId);
+    }
 }
 
 async function addViewCount(postId) {

@@ -51,7 +51,7 @@ router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通ge
 });
 
 router.get("/search", async (req, res) => {//通过主页浏览框输入发送普通get请求，返回重新渲染网页，就像之前一样
-    try {
+    try { // search?searchString=xxxx
         let userLogin = null;
         if (req.session) {
             if (req.session.userId)

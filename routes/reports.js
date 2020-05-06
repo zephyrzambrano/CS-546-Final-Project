@@ -68,12 +68,26 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  router.get("/", async (req, res) => {
+//   router.get("/", async (req, res) => {
+//     try {
+//       const reportsList = await reportData.getAllReports();
+//       res.json(reportsList);
+//     } catch (e) {
+//       res.status(500).send();
+//     }
+// });
+router.get("/", async (req, res) => {
+  let userInfo = userData.getUserById(req.session.userId)
+  if (userInfo.Admin) {
     try {
       const reportsList = await reportData.getAllReports();
       res.json(reportsList);
     } catch (e) {
       res.status(500).send();
     }
+  }
+  else
+    res.send('you dont have access to this page');
+
 });
 

@@ -94,6 +94,7 @@ router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax�
             if (!Array.isArray(tagArr))
                 throw "need a tagArr to create post";
             let photoArr = [];
+
             if (files.photo0)
                 photoArr.push("http://localhost:3000/public/images/" + files.photo0.path.split('images\\')[1]);
             if (files.photo1)

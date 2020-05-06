@@ -188,6 +188,7 @@
 <script type="text/javascript">
     // This is to transport data in "Add new post"
     var form = document.getElementById('static-form');
+
     if(form){
         var formData = new FormData(form);
     
@@ -196,12 +197,11 @@
     file.onchange = function () {
         for (let i = 0; i < this.files.length; i++) {
             formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-            {{!-- console.log(formData.get('photo'+i)); --}}
+
         }
     }
     }
     
-
     $('#addNewPostButton').click(function () {
 
         var xhr = new XMLHttpRequest();//创建 Ajax 对象
@@ -223,7 +223,7 @@
 
         xhr.onload = function () {//获取服务器端给与客户端的响应数据
             console.log(xhr.responseText);
-            alert("Succed!")
+            alert("Succeed!")
             var Timeout = setTimeout(function () {
                 window.location.reload();
             }, 1000);

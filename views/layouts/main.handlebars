@@ -32,7 +32,7 @@
                     </button>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span></a></li>
+                    <li><a href="http://localhost:3000/homePage"><span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span></a></li>
                 </ul>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <input id="searchContent" type="text" class="form-control" placeholder="Search Here">
                         </div>
-                        <button class="btn btn-default"><a id="searchButton" href="http://localhost:3000/homePage">Search</a></button>
+                        <a id="searchButton" href="http://localhost:3000/homePage" class="btn btn-danger">Search</a>
 
                     </form>
 
@@ -130,7 +130,7 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <!--    <script src="../../public/js/script.js"></script>-->
-    <!-- to Top -->
+
     <script type="text/javascript">
         // set action for '#to-top'
         $('#to-top').click(function () {
@@ -152,10 +152,15 @@
         })
 
 
-        $('#searchContent').change(function () {
-            var url = `http://localhost:3000/homePage/search?searchString=${$("#searchContent").val()}`;
-            console.log(url);
-            $('#searchButton').attr('href', url)
+        $('#searchButton').click(function () {
+            let typeIn = $('#searchContent').val();
+            var url;
+            if(typeIn){
+                url = `http://localhost:3000/homePage/search?searchString=${typeIn}`;
+            }else {
+                url = "http://localhost:3000/homePage";
+            }
+            $('#searchButton').prop('href', url)
         })
     </script>
     </body>

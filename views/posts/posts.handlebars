@@ -61,10 +61,12 @@
             {{/if}}
         </div>
 
+
         <!--Add new comment-->
         {{#if userLogin}}
             <div id="addNewComment">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Add comment</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Add comment</button>&nbsp;&nbsp;
+                <button id="ReportThisPost" type="button" class="btn btn-danger">Report</button>
 
                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                     <div class="modal-dialog" role="document">
@@ -100,7 +102,13 @@
         $.post("http://localhost:3000/posts/addComment", {"postId": $('#PostTopic').val(), "content": $('#newComment').val()}, function (response) {
             var Timeout = setTimeout(function () {
                 window.location.reload();
-            }, 1300)
+            }, 1000)
+        })
+    })
+
+    $('#ReportThisPost').click(function () {
+        $.get("http://localhost:3000/reports/form",{"postId": $('#PostTopic').val()},function () {
+            window.location.href = "http://localhost:3000/reports/form"
         })
     })
 </script>

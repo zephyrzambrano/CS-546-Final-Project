@@ -87,6 +87,23 @@ router.post('/editConetent', async (req, res) => {//（目前还在讨论）浏�
     }
 });
 
+router.get('/delete/:id',async (req, res) =>{//浏览器端发一个ajax的get请求
+    try{
+        if(!req.session) throw 'you dont have session to delete the post'
+        if(!req.session.userId) throw 'you dont have userId in session to delete the post'
+        if(!req.params.id) throw 'you dont have postId to delete the post'
+        let postInfo=await postData.getPostById(req.params.id);
+        if(postInfo.userId!==req.session.userId) throw "the request maker's userId !== the post's userId"//判断用户一致性
+        let postDelte=await postData.removePost(req.params.id);
+        if(postDelte)
+            res.send(true);//服务端返回true说明删除成功，浏览器重新刷新网页。
+        else
+        res.send(false);//服务端返回false说明删除失败，服务端需要alert一个警告告知用户，并重新刷新网页。
+    }catch{
+        res.status(404).send(error);
+    }
+})
+
 router.post('/addComment', async (req, res) => {//发送一个Ajax的post请求，包含postId与commmet content，返回新的comment信息
     try {
         if (!req.session)

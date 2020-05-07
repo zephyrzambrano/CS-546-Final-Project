@@ -37,12 +37,13 @@ router.post("/form", async (req, res) => {
           reason=[reason];
         }
         await reportData.addReport(userId,postId,reason);
-        res.render('reports/report-submitted',{userLogin});
+        // res.render('reports/report-submitted',{userLogin});
+        res.render('reports/report-form',{success:"Report successfully submitted!", userLogin,'reported-post':post.topic, 'postId': postId});
         return;
     }
     catch(e)
     {
-      res.render('reports/report-form',{noReason:true, message:e, userLogin,'reported-post':post.topic, 'postId': postId});
+      res.render('reports/report-form',{message:e, userLogin,'reported-post':post.topic, 'postId': postId});
     } 
 });
 router.get("/:id", async (req, res) => {

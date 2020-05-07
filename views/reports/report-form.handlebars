@@ -85,9 +85,14 @@ Report form database data:
                     {{#unless status}}
                     <p>{{message}}</p>
                     {{/unless}}
+                    {{#unless status}}
+                    <p>{{success}}</p>
+                    {{/unless}}
                     <br/>
                     <input id="reportSubmit" type="submit" value="Submit Report" class="reportSubmit button btn btn-danger">
                 </form>
+                
+                <a href="/homePage">Go back to home page</a>
             </div>
         </div>
     </div>

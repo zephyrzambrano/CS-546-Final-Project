@@ -14,6 +14,12 @@ async function getCommentById(id) {
     return commentGoal;
 }
 
+async function getAllComments() {
+    let commentCollection = await comments();
+    let allComments = await commentCollection.find({}).toArray();
+    return allComments;
+}
+
 async function addComment(postId, userId, content) {
 
     if (!postId || typeof postId !== "string")
@@ -63,6 +69,7 @@ async function removeComment(postId, commentId) {
 module.exports={
     getCommentById,
     addComment,
-    removeComment
+    removeComment,
+    getAllComments
 }
 

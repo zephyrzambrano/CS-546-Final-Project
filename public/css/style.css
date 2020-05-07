@@ -384,3 +384,9 @@
 #postTip {
     text-align: center;
 }
+
+.viewCount {
+    text-align: right;
+    font-size: 10px;
+    color: #a4a4a4;
+}

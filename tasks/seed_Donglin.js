@@ -16,15 +16,15 @@ async function main() {
     let u3_userid = u3._id.toHexString();
     let u4=await users.createUser("un04@gmail.com","$2a$10$ad7Epy4AAPfrmRruDCwocu8Kq1lpRYTIj/fiQJ5qI/qGkvv0Ng3r6","nn04");//pw0404
     let u4_userid = u4._id.toHexString();
-    let u5=await users.createUser("un05@gmail.com","$2a$10$32lqGi/sY3G6IEnbDOwC5e1.6OLlu92Kkc/sYNR38240vfeJBwEkm","nn04");//pw0505
+    let u5=await users.createUser("un05@gmail.com","$2a$10$32lqGi/sY3G6IEnbDOwC5e1.6OLlu92Kkc/sYNR38240vfeJBwEkm","nn05");//pw0505
     let u5_userid = u5._id.toHexString();
-    let u6=await users.createUser("un04@gmail.com","$2a$10$ZoH1i.W07uN/8OjP1vZGf.AAMFtp/eExMdzfzlrcb7VP9GX0MvfCm","nn04");//pw0606
+    let u6=await users.createUser("un06@gmail.com","$2a$10$ZoH1i.W07uN/8OjP1vZGf.AAMFtp/eExMdzfzlrcb7VP9GX0MvfCm","nn06");//pw0606
     let u6_userid = u6._id.toHexString();
     
     //add posts to u1
     let p1 = await posts.createPost("im topic01",u1_userid ,"im content01",["http://localhost:3000/public/images/MS056S-898-1.jpg","http://localhost:3000/public/images/MS056S-898-3.jpg"],["Men","Party","Spring"]);
     let p1_postid= p1._id.toHexString();
-    let p2 = await posts.createPost("im topic02",u1_userid ,"im content02",["http://localhost:3000/public/images/2019-07-03 072318.png","http://localhost:3000/public/images/2019-07-04 144325.png","http://localhost:3000/public/images/2019-07-04 230337.png"],["Women","Summer","Ceremony"]);
+    let p2 = await posts.createPost("im topic02",u1_userid ,"im content02",["http://localhost:3000/public/images/072318.png","http://localhost:3000/public/images/144325.png","http://localhost:3000/public/images/230337.png"],["Women","Summer","Ceremony"]);
 
     let p3 = await posts.createPost("im topic03",u1_userid,"im content03",["http://localhost:3000/public/images/20170116133733.jpg","http://localhost:3000/public/images/3B7902A37177F9CF90584F582F07DDEB.jpg"],["Men","Autumn","Ceremony"]); 
     //add comment to p1

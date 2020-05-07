@@ -53,46 +53,48 @@ Report form database data:
 <body>
     <div class="container">
         <div class="row">
-            <p class="aaa" id={{postId}}>The post you are reporting:{{reported-post}}</p>
+            <p class="aaa" id={{postId}}>The post you are reporting: <a href='http://localhost:3000/posts/postInfo/{{postId}}' class="reported">{{reported-post}}</a></p>
             <div class="all-checkbox reportCheckbox col-sm-4">
+                <br/>
+                <h4 id="Whyreport">Why Do you want to report this post?</h4>
                 <br/>
                 <form action="/reports/form" method="post" id="reason">
                     <p>
                         <label class="checkbox-inline">
                             <input type="checkbox" id="reason1" name="reason" value="Spam">
-                            <label for="reason1">Spam</label><br>
+                            <label class="reportTips" for="reason1">Spam</label><br>
                         </label>
                     </p>
                     <p>
                         <label class="checkbox-inline">
                             <input type="checkbox" id="reason2" name="reason" value="Abusive comments">
-                            <label for="reason2">Abusive comments</label><br>
+                            <label class="reportTips" for="reason2">Abusive comments</label><br>
                         </label>
                     </p>
                     <p>
                         <label class="checkbox-inline">
                             <input type="checkbox" id="reason3" name="reason" value="Innappropriate language">
-                            <label for="reason3">Innappropriate language</label><br>
+                            <label class="reportTips" for="reason3">Innappropriate language</label><br>
                         </label>
                     </p>
                     <p>
                         <label class="checkbox-inline">
                             <input type="checkbox" id="reason4" name="reason" value="Off topic">
-                            <label for="reason4">Off topic</label><br>
+                            <label class="reportTips" for="reason4">Off topic</label><br>
                         </label>
                         <input hidden="hidden" name="postId" value={{postId}}>
                     </p>
                     {{#unless status}}
-                    <p>{{message}}</p>
+                    <p class="wrongMsg">{{message}}</p>
                     {{/unless}}
                     {{#unless status}}
-                    <p>{{success}}</p>
+                    <p class="rightMsg">{{success}}</p>
                     {{/unless}}
                     <br/>
-                    <input id="reportSubmit" type="submit" value="Submit Report" class="reportSubmit button btn btn-danger">
+                    <input id="reportSubmit" type="submit" value="Submit Report" class="reportSubmit button btn">
                 </form>
-                
-                <a href="/homePage">Go back to home page</a>
+                <br/>
+                <a id="goBack" href="/homePage"><span class="glyphicon glyphicon-arrow-left"> </span> Go back to home page</a>
             </div>
         </div>
     </div>

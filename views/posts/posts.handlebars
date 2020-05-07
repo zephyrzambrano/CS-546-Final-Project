@@ -12,14 +12,15 @@
 <body>
     <div class="container">
         <div class="row">
-            <!--            {{#if postInfo}}-->
+            {{#if postInfo}}
             <div class="col-sm-4">
                 <div class="row">
                     <div class="post-imgs col-sm-9">
                         {{#each postInfo.photoArr}}
                         <img class="PostImg" src={{this}}>
-                        <br />
-                        <br />
+                        <br/>
+                        <br/>
+                        <br/>
                         {{/each}}
                     </div>
                 </div>
@@ -27,14 +28,14 @@
             <div class="col-sm-8">
                 <h4>
                     {{#each postInfo.tagArr}}
-                    <span class="label label-success">{{this}}</span>
+                    <span class="label label-danger">{{this}}</span>
                     {{/each}}
                 </h4>
                 <h4>
                     <div class="post-time">{{postInfo.date}}</div>
                 </h4>
                 <br />
-                <div class="panel panel-success">
+                <div class="panel panel-danger">
                     <div class="panel-body">
                         <span class="PostTopic" id={{postInfo._id}}>{{postInfo.topic}}</span>
                         <span class="post-glyphicon">
@@ -55,7 +56,7 @@
                     <ul class="list-group">
                         {{#each commentsInfo}}
                         <li class="list-group-item">
-                            <h6>{{this.userNickname}}:<span class="post-time">{{this.date}}</span></h6>{{this.content}}
+                            <h6><span class="commentUser">{{this.userNickname}}:</span><span class="post-time">{{this.date}}</span></h6>{{this.content}}
                         </li>
                         {{/each}}
                     </ul>
@@ -65,45 +66,47 @@
                     </ul>
                     {{/if}}
                 </div>
+                <span id="twoButtonsinPost">
+                    <!--Add new comment-->
+                    {{#if userLogin}}
+                        <div id="addNewComment">
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal"
+                            data-whatever="@getbootstrap">Add comment</button>&nbsp;&nbsp;
+                    <a id="ReportThis" class="btn AllButton" href="">Report</a>
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="bbb" method="post" action="http://localhost:3000/posts/addComment">
+                                        <div class="form-group">
+                                            <input hidden="hidden" name="postId" value={{postInfo._id}}>
+                                            <label for="message-text" class="control-label"></label>
+                                            <textarea name="commentContent" class="form-control" rows="7"
+                                                      id="message-text" placeholder="Say something about this post."></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button id="addComment" type="submit" class="btn AllButton">Add</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {{/if}}
+            </span>
             </div>
             {{/if}}
         </div>
 
 
-        <!--Add new comment-->
-        {{#if userLogin}}
-        <div id="addNewComment">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal"
-                data-whatever="@getbootstrap">Add comment</button>&nbsp;&nbsp;
-            <a id="ReportThis" class="btn btn-danger" href="">Report</a>
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="exampleModalLabel">Add your comment</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form id="bbb" method="post" action="http://localhost:3000/posts/addComment">
-                                <div class="form-group">
-                                    <input hidden="hidden" name="postId" value={{postInfo._id}}>
-                                    <label for="message-text" class="control-label">Your comment</label>
-                                    <textarea name="commentContent" class="form-control" rows="7"
-                                        id="message-text"></textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button id="addComment" type="submit" class="btn btn-primary">Add</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/if}}
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>

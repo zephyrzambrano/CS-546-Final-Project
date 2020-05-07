@@ -24,20 +24,20 @@
             <br/>
             <form action="/users/account" method="post">
                 <div class="form-group">
-                    <label for="username">Your Username:</label>
-                    <p> {{username}}</p>
+                    <label class="noPost" for="username">Your Username:</label>
+                    <p class="usercenterName"> {{username}}</p>
                     <input type="email" class="form-control" id="username" name="username" placeholder="Your new Username">
                     <br>
-                    <input type="submit" class="form-control button btn btn-danger" value="Update Username">
+                    <input type="submit" id="upUButton" class="form-control button btn btn-danger" value="Update Username">
                     <br>
                 </div>
             </form>
-            <div class="SucMsg">
+            <div class="rightMsg">
                 {{#unless status}}
                 <p>{{success1}}</p >
                 {{/unless}}
             </div>
-            <div class="errorMsg">
+            <div class="wrongMsg">
                 {{#unless status}}
                     <p>{{message1}}</p>
                 {{/unless}}
@@ -50,20 +50,20 @@
             <br/>
             <form action="/users/account" method="post">
                 <div class="form-group">
-                    <label for="nickname">Your Nickname:</label>
-                    <p> {{nickname}}</p>
+                    <label class="noPost" for="nickname">Your Nickname:</label>
+                    <p class="usercenterName"> {{nickname}}</p>
                     <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Your new Nickname">
                     <br>
-                    <input type="submit" class="form-control button btn btn-danger" value="Update Nickname">
+                    <input type="submit" id="upNButton" class="form-control button btn btn-danger" value="Update Nickname">
                     <br>
                 </div>
             </form>
-            <div class="SucMsg">
+            <div class="rightMsg">
                 {{#unless status}}
                 <p>{{success2}}</p >
                 {{/unless}}
             </div>
-            <div class="errorMsg">
+            <div class="wrongMsg">
                 {{#unless status}}
                     <p>{{message2}}</p>
                 {{/unless}}
@@ -76,21 +76,21 @@
             <br/>
             <form action="/users/account" method="post">
                 <div class="form-group">
-                    <label for="password">New Password:</label><br>
+                    <label class="noPost" for="password">New Password:</label><br>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Your new Password">
                     <br>
-                    <label for="password">Confirm Password:</label><br>
+                    <label class="noPost" for="Cpassword">Confirm Password:</label><br>
                     <input type="password" class="form-control" id="Cpassword" name="Cpassword" placeholder="Confirm new Password">
                     <br>
-                    <input type="submit" class="form-control button btn btn-danger" value="Update Password">
+                    <input type="submit" id="upPButton" class="form-control button btn" value="Update Password">
                 </div>
             </form>
-            <div class="SucMsg">
+            <div class="rightMsg">
                 {{#unless status}}
                 <p>{{success3}}</p >
                 {{/unless}}
             </div>
-            <div class="errorMsg">
+            <div class="wrongMsg">
                 {{#unless status}}
                     <p>{{message3}}</p>
                 {{/unless}}
@@ -98,7 +98,7 @@
         </div>
     </div>
 
-    <div class="errorMsg">
+    <div class="wrongMsg">
         {{#unless status}}
             <p>{{message4}}</p>
         {{/unless}}
@@ -109,45 +109,48 @@
     <p><h3>Your Posts:</h3></p>
     <div class="row">
         <input hidden="hidden" id="position" value="0">
-        <div class="col-sm-6 col-md-4">
         {{#if post-list}}
-            {{#each post-list}}
-                    <div class="thumbnail">
-                        <img src={{this.photoArr.[0]}}>
-                        <div class="caption">
-                            <h3><a href='http://localhost:3000/posts/postInfo/{{this._id}}'>{{this.topic}}</a></h3>
-                            <p>{{this.content}}</p>
-                            <button type="button" class="btn btn-default" data-toggle="modal" data-target='#{{this._id}}1'>
-                                Edit
-                            </button>&nbsp;&nbsp;
+        {{#each post-list}}
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <div class="usercenterPic-container">
+                    <img class="usercenterPic" src={{this.photoArr.[0]}}>
+                </div>
+                <div class="caption">
+                    <h3><a href='http://localhost:3000/posts/postInfo/{{this._id}}' class="usercenterTopic">{{this.topic}}</a></h3>
+                    <p>{{this.content}}</p>
+                    <p class="ButtonContainer">
+                        <button class="btn usercenterBu" onmouseover="this.style.backgroundColor='#962618',this.style.color='#FFFFFF'" onmouseout="this.style.backgroundColor='#b52818', this.style.color='#FFFFFF';" data-toggle="modal" data-target='#{{this._id}}1'>
+                            Edit
+                        </button>&nbsp;&nbsp;
+                        <input class="userDeleteButton btn btn-default" type="button" name={{this._id}} value="Delete">
 
-                            <div class="modal fade" id='{{this._id}}1' tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form method="post" action="http://localhost:3000/posts/editContent">
-                                            <div class="modal-header">
-                                                <input hidden="hidden" name="postId" value={{this._id}}>
-                                                <label for={{this._id}} class="control-label">Type in new content for this topic:</label>
-                                                <textarea name="newContent" class="form-control" rows="7" id={{this._id}}></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger">Save</button>
-                                            </div>
-                                        </form>
-                                    </div>
+                        <div class="modal fade" id='{{this._id}}1' tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form method="post" action="http://localhost:3000/posts/editContent">
+                                        <div class="modal-header">
+                                            <input hidden="hidden" name="postId" value={{this._id}}>
+                                            <label for={{this._id}} class="control-label"></label>
+                                            <textarea name="newContent" class="form-control" rows="7" id={{this._id}} placeholder="Type in new content for this post."></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Save</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <form>
-                                <input class="userDeleteButton btn btn-danger" name={{this._id}} value="Delete">
-                            </form>
                         </div>
-                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
             {{/each}}
         {{else}}
-            <h3>You don't have any post now!</h3>
+            <h3 id="postTip">You don't have any post now!</h3>
         {{/if}}
-        </div>
+
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>

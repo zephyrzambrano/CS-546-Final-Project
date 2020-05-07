@@ -66,22 +66,25 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading postTopic"><a class="jumpToPost" id={{this._id}} href="#">{{this.topic}}</a></h4>
-                            {{this.content}}
+                            <p class="AllContent">{{this.content}}</p>
                         </div>
                     </div>
                 {{else}}
-                        <h2>There is no post.</h2>
+                        <div>
+                            <h2 class="noPost">Oops! No post.</h2>
+                        </div>
                 {{/each}}
             </div>
         </div>
         <br/>
+        <hr>
         <br/>
         <!-- Add new Post -->
     {{#if userLogin}}
             <div id="addNewPost">
             <form id="static-form" method="post" action="http://localhost:3000/homePage/createPost" enctype="multipart/form-data">
                 <div class="row">
-                    <h4 id="Guide">Add new Post here.</h4>
+                    <h4 id="Guide">Add new Post here</h4>
                     <div class="col-sm-8">
                         <input name="topic" type="text" id="topicId" class="form-control" placeholder="Topic" value="" aria-describedby="basic-addon1">
                     </div>
@@ -92,6 +95,7 @@
                     </div>
                     <div class="all-checkbox col-sm-4">
                         <br/>
+                        <p class="noPost">Choose "tags" for your post</p>
                         <p>
                             <label class="checkbox-inline">
                                 <input name="tag" type="checkbox" id="check1" value="Men">
@@ -173,14 +177,13 @@
                         <span>Choose photos</span>
                         <input name="photoArr" id="addImg" type="file" accept="image/jpg, image/png, image/jpeg, image/gif, image/tiff" multiple>
                     </label>
-                    <input id="addNewPostButton" name="submit" type="button" class="btn btn-primary" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
+                    <input id="addNewPostButton" name="submit" type="button" class="btn AllButton" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
                 </div>
             </form>
-        </div>
     {{else}}
-        <h4>You must Login to add new post here.</h4>
+        <h4 class="noPost" id="addnewPosttip">You must Login to add new post here.</h4>
     {{/if}}
-
+    </div>
     </main>
 </div>
 

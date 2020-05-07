@@ -19,7 +19,7 @@ router.get('/account', async (req, res) => {
 			const onePost = await postData.getPostById(x);
 			posts.push(onePost);
 		}
-		res.render('users/useraccount',{username: userLogin.username, nickname: userLogin.nickname, password: userLogin.password, 'post-list':posts, userLogin});
+		res.render('users/useraccount',{username: userLogin.username, nickname: userLogin.nickname, 'post-list':posts, userLogin});
 	}catch(e){
 		res.status(404).json({ error: 'User not found' });
 	}
@@ -138,7 +138,7 @@ router.post('/account', async (req, res) => { //patch _ edit username,nickname,p
 			const onePost = await postData.getPostById(x);
 			posts.push(onePost);
 		}
-		res.render('users/useraccount',{username: updatedUser.username, nickname: updatedUser.nickname, password: updatedUser.password, 'post-list':posts, success1:success1,success2:success2,success3:success3, userLogin: updatedUser});
+		res.render('users/useraccount',{username: updatedUser.username, nickname: updatedUser.nickname, 'post-list':posts, success1:success1,success2:success2,success3:success3, userLogin: updatedUser});
 	} catch (e) { 
 		let message1;
 		let message2;
@@ -153,14 +153,13 @@ router.post('/account', async (req, res) => { //patch _ edit username,nickname,p
 		if(e =="You have to submit different inputs before pushing button")message4="You have to submit different inputs before pushing button";
 		const oldUsername = oldUser.username;
 		const oldNickname = oldUser.nickname;
-		const oldPassword = oldUser.password;
 		
 		for(let x of oldUser.posts)
 		{
 			const onePost = await postData.getPostById(x);
 			posts.push(onePost);
 		}
-		res.status(404).render('users/useraccount',{username: oldUsername, nickname: oldNickname, password: oldPassword, 'post-list':posts, message1:message1, message2:message2, message3:message3, message4:message4, userLogin: oldUser});
+		res.status(404).render('users/useraccount',{username: oldUsername, nickname: oldNickname, 'post-list':posts, message1:message1, message2:message2, message3:message3, message4:message4, userLogin: oldUser});
 	}
 });
 

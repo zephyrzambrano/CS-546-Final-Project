@@ -38,7 +38,6 @@ router.post("/form", async (req, res) => {
           reason=[reason];
         }
         await reportData.addReport(userId,postId,reason);
-        // res.render('reports/report-submitted',{userLogin});
         res.render('reports/report-form',{success:"Report successfully submitted!", userLogin,'reported-post':post.topic, 'postId': postId});
         return;
     }

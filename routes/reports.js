@@ -4,6 +4,7 @@ const data = require("../data");
 const reportData = data.reports;
 const userData = data.users;
 const postData = data.posts;
+const commentData = data.comments;
 
 module.exports = router;
 

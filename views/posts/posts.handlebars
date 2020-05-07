@@ -11,8 +11,12 @@
 
 <body>
     <div class="container">
+        <div class="viewCount">
+            <p>{{postInfo.viewCount}} Read</p>
+        </div>
         <div class="row">
             {{#if postInfo}}
+
             <div class="col-sm-4">
                 <div class="row">
                     <div class="post-imgs col-sm-9">
@@ -104,9 +108,6 @@
             </div>
             {{/if}}
         </div>
-
-
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>

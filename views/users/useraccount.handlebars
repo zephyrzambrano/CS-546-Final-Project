@@ -136,9 +136,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <form method="post" action="http://localhost:3000/posts/delete">
-<!--                                <input hidden="hidden" name="id" >-->
-                                <button type="submit" class="userDeleteButton btn btn-danger" value={{this._id}}>Delete</button>
+                            <form>
+                                <button class="userDeleteButton btn btn-danger" value={{this._id}}>Delete</button>
                             </form>
                     </div>
                 </div>
@@ -153,20 +152,10 @@
         delBtns[i].onclick = function () {
             var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:3000/posts/delete');
-            // xhr.setRequestHeader('Content-Type', 'application/json');
             let thisPostId = this.value;
-            console.log(thisPostId);
-            // xhr.send(JSON.stringify({postId: thisPostId}));
-
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             let s = `postId=${thisPostId}`;
             xhr.send(s);
-
-            window.location.href = "http://localhost:3000/users/account";
-            xhr.onload = function () {//获取服务器端给与客户端的响应数据
-                console.log(xhr.responseText);
-                console.log(xhr.status);
-            }
         }
     }
 </script>

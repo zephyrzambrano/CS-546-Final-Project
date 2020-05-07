@@ -46,6 +46,24 @@ router.post("/form", async (req, res) => {
       res.render('reports/report-form',{message:e, userLogin,'reported-post':post.topic, 'postId': postId});
     } 
 });
+
+router.get('/stastic', async(req,res)=>{
+  let userInfo = userData.getUserById(req.session.userId)
+  if (userInfo.Admin) {
+    try {
+      let allPosts = await postData.getAllPost();
+      let allUsers = await userData.getAllUsers();
+      let allRepots=await reportData.getAllReports();
+      let allComments=await commentData.getAllComments();
+      res.render('reports/stastic.handlebars'),{allPosts,allRepots,allUsers,allComments};
+    } catch (error) {
+      res.status(404).send(error);
+    }
+  }
+  else
+    res.status(404).send('you dont have access to stastic page');
+})
+
 router.get("/:id", async (req, res) => {
     try {
       const report = await reportData.getReport(req.params.id);
@@ -60,12 +78,13 @@ router.get("/", async (req, res) => {
     try {
       const reportsList = await reportData.getAllReports();
       res.json(reportsList);
-    } catch (e) {
-      res.status(500).send();
+    } catch (error) {
+      res.status(404).send(error);
     }
   }
   else
-    res.send('you dont have access to this page');
-
+    res.status(404).send('you dont have access to report list page');
 });
+
+
 

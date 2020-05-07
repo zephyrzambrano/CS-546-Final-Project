@@ -108,13 +108,15 @@
     <hr/>
     <p><h3>Your Posts:</h3></p>
     <div class="row">
-        {{#each post-list}}
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src={{this.photoArr.[0]}}>
-                    <div class="caption">
-                        <h3>{{this.topic}}</h3>
-                        <p>{{this.content}}</p>
+        <input hidden="hidden" id="position" value="0">
+        <div class="col-sm-6 col-md-4">
+        {{#if post-list}}
+            {{#each post-list}}
+                    <div class="thumbnail">
+                        <img src={{this.photoArr.[0]}}>
+                        <div class="caption">
+                            <h3><a href='http://localhost:3000/posts/postInfo/{{this._id}}'>{{this.topic}}</a></h3>
+                            <p>{{this.content}}</p>
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target='#{{this._id}}1'>
                                 Edit
                             </button>&nbsp;&nbsp;
@@ -137,27 +139,44 @@
                                 </div>
                             </div>
                             <form>
-                                <button class="userDeleteButton btn btn-danger" value={{this._id}}>Delete</button>
+                                <input class="userDeleteButton btn btn-danger" name={{this._id}} value="Delete">
                             </form>
+                        </div>
                     </div>
-                </div>
-            </div>
-        {{/each}}
+            {{/each}}
+        {{else}}
+            <h3>You don't have any post now!</h3>
+        {{/if}}
+        </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<!--<script src="../../public/js/carhartl-jquery-cookie-92b7715"></script>-->
 <script type="text/javascript">
     let delBtns = document.getElementsByClassName('userDeleteButton');
 
     for(let i = 0; i < delBtns.length; i++){
         delBtns[i].onclick = function () {
+
+            $('#position').val(document.documentElement.scrollTop);
+
             var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:3000/posts/delete');
-            let thisPostId = this.value;
+            let thisPostId = this.name;
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             let s = `postId=${thisPostId}`;
             xhr.send(s);
+
+            xhr.onload = function () {//获取服务器端给与客户端的响应数据
+                console.log(xhr.responseText);
+                // alert("Succeed!")
+                var Timeout = setTimeout(function () {
+                    window.location.reload();
+                }, 500);
+            }
         }
     }
+
 </script>
 </body>
 </html>

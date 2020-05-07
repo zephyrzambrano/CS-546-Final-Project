@@ -115,7 +115,7 @@
                             </label>&nbsp;
                             <label class="checkbox-inline">
                                 <input name="tag" type="checkbox" id="check6" value="Swim">
-                                <label for="check6">Camp</label>
+                                <label for="check6">Swim</label>
                             </label>&nbsp;
                             <label class="checkbox-inline">
                                 <input name="tag" type="checkbox" id="check7" value="Sports">
@@ -223,10 +223,10 @@
 
         xhr.onload = function () {//获取服务器端给与客户端的响应数据
             console.log(xhr.responseText);
-            alert("Succeed!")
+            // alert("Succeed!")
             var Timeout = setTimeout(function () {
                 window.location.reload();
-            }, 1000);
+            }, 700);
         }
     })
 

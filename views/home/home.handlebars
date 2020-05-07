@@ -233,7 +233,7 @@
     //link to certain post
     $('.jumpToPost').click(function () {
 
-        var url = `http://localhost:3000/posts/${$(this).attr("id")}`;
+        var url = `http://localhost:3000/posts/postInfo/${$(this).attr("id")}`;
 
         console.log(url);
         var ID = $(this).attr("id");

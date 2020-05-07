@@ -92,18 +92,17 @@ router.post('/editContent', async (req, res) => {//（目前还在讨论）浏�
 
 router.post('/delete',async (req, res) =>{//浏览器端发一个ajax的get请求
     try{
-        console.log(req.body.postId);
         if(!req.session) throw 'you dont have session to delete the post'
         if(!req.session.userId) throw 'you dont have userId in session to delete the post'
-        // if(!req.body.postId) throw 'you dont have postId to delete the post'
+        if(!req.body.postId) throw 'you dont have postId to delete the post'
         let postInfo=await postData.getPostById(req.body.postId);
+        console.log(postInfo);
         if(postInfo.userId!==req.session.userId) throw "the request maker's userId !== the post's userId"//判断用户一致性
-        let postDelte = await postData.removePost(req.body.postId);
-        console.log(postDelte);
-        if(postDelte)
-            res.send(true);
-        else
-            res.send(false);
+        let postDelete = await postData.removePost(req.body.postId);
+        // if(postDelte)
+        //     res.send(true);
+        // else
+        //     res.send(false);
     }catch(error){
         res.status(404).send(error);
     }

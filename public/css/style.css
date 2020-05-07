@@ -7,13 +7,14 @@
     float: left;
 }
 
+/*Photos in postlist of home page*/
 .user-Pic {
-    width: 85px;
+    width: 200px;
     height: auto;
 }
 .photoContainer {
-    width: 85px;
-    height: 85px;
+    width: 120px;
+    height: 120px;
     overflow: hidden;
 }
 
@@ -55,9 +56,11 @@
     position: relative;
     padding-left: 25%;
 }
-
+/*add new post guide in home page*/
 #Guide {
     padding-left: 18px;
+    font-weight: bold;
+    color: #b52818;
 }
 
 .fileinput-button {
@@ -149,13 +152,18 @@
 }
 
 .PostTopic {
-    line-height: 2px;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #b52818;
+}
+.commentUser {
+    font-size: 1.2em;
     font-weight: bold;
 }
 
 .PostImg {
-    height: 200px;
-    width: auto;
+    height: auto;
+    width: 180px;
     transition: all 0.6s;
 }
 
@@ -164,6 +172,10 @@
 }
 
 .post-imgs {
+    width: 320px;
+    height: auto;
+    overflow: hidden;
+    padding-top: 20px;
     padding-left: 100px;
 }
 
@@ -172,6 +184,8 @@
 }
 
 .post-time {
+    font-size: 1.1em;
+    color: #9c9c9c;
     float: right;
 }
 
@@ -179,28 +193,194 @@
     cursor: pointer;
 }
 
-#addNewComment {
-    float: right;
+.panel-danger {
+    border: rgba(70, 8, 10, 0.18) solid;
+}
+
+#twoButtonsinPost {
+    text-align: right;
 }
 
 #searchButton {
     text-decoration: none;
-    color: #000000;
+    background-color: #b52818;
+    color: white;
 }
 
+/*search Button in main*/
+#searchButton:hover {
+    text-decoration: none;
+    background-color: #962618;
+}
+.dropdown-menu>li>a:hover {
+    color: #ffffff;
+    background-color: #b52818;
+}
+/*user name*/
+#userNAME{
+    font-size: 18px;
+    color: #7a787a;
+}
+#userNAME>a {
+    /*line-height: 10px;*/
+    font-size: 18px;
+    text-decoration: none;
+    color: #b52818;
+}
+/*All formal Buttons style*/
+.AllButton {
+     background-color: #b52818;
+     color: white;
+ }
+.AllButton:hover {
+    color: white;
+    background-color: #962618;
+}
+/*Post topic in home page*/
 .jumpToPost {
+    font-size: 30px;
     text-decoration: none;
     color: #b52818;
 }
 .jumpToPost:hover {
     text-decoration: none;
+    color: #962618;
+}
+/*All post content in home page*/
+.AllContent {
+    font-size: 20px;
+    color: #7e7e7e;
+}
+#addNewPost {
+    background-color: rgba(102, 10, 8, 0.03);
+    padding-bottom: 20px;
+    border-radius: 10px;
+    border: rgba(159, 43, 50, 0.09) solid;
+}
+/*no post info*/
+.noPost{
+    font-weight: bold;
     color: #b52818;
 }
-
+/*All wrong message*/
+.wrongMsg {
+    color: red;
+}
+/*All right msg*/
+.rightMsg{
+    color: #44b01e;
+}
+.welcome{
+    font-size: 2em;
+    color: #b52818;
+}
 .normalButton {
     background-color: #b52818;
 }
 
+#addnewPosttip {
+    width: auto;
+    text-align: center;
+}
+
 .errorMsg {
     visibility: visible;
+}
+
+#goBack {
+    text-decoration: none;
+    font-size: large;
+    color: #b52818;
+}
+#goBack:hover {
+    color: #962618;
+}
+
+.aaa {
+    font-size: 1.8em;
+}
+
+.reported {
+    color: #b52818;
+    text-decoration: none;
+}
+.reported:hover {
+    text-decoration: none;
+    color: #962618;
+}
+
+#Whyreport {
+    font-size: 1.7em;
+}
+
+.reportTips {
+    font-size: 20px;
+}
+
+#reportSubmit {
+    background-color: #b52818;
+    color: white;
+}
+#reportSubmit:hover {
+    background-color: #962618;
+}
+
+#upUButton {
+    background-color: #b52818;
+    color: white;
+}
+#upUButton:hover {
+    background-color: #962618;
+}
+
+#upNButton {
+    background-color: #b52818;
+    color: white;
+}
+#upNButton:hover {
+    background-color: #962618;
+}
+
+#upPButton {
+    background-color: #b52818;
+    color: white
+}
+#upPButton:hover {
+    background-color: #962618;
+}
+
+.usercenterName {
+    font-size: 1.2em;
+}
+
+.usercenterPic {
+    width: 350px;
+    height: auto;
+}
+
+/*.usercenterPic-container {*/
+/*    */
+/*}*/
+
+.usercenterTopic {
+    font-size: large;
+    text-decoration: none;
+    color: #b52818;
+}
+.usercenterTopic:hover {
+    text-decoration: none;
+    color: #962618;
+}
+
+.ButtonContainer {
+    text-align: center;
+}
+
+.usercenterBu {
+    background-color: #b52818;
+    color: white;
+}
+
+#postTip {
+    text-align: center;
 }

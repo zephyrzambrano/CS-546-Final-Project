@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <input id="searchContent" type="text" class="form-control" placeholder="Search Here">
                         </div>
-                        <a id="searchButton" href="http://localhost:3000/homePage" class="btn btn-danger">Search</a>
+                        <a id="searchButton" href="http://localhost:3000/homePage" class="btn">Search</a>
 
                     </form>
 
@@ -49,7 +49,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gender <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="http://localhost:3000/homePage/tag?searchTag=Men">Men</a></li>
+                                <li class="mainA"><a href="http://localhost:3000/homePage/tag?searchTag=Men">Men</a></li>
                                 <li><a href="http://localhost:3000/homePage/tag?searchTag=Women">Women</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="http://localhost:3000/homePage/tag?searchTag=Kids">Kids</a></li>
@@ -95,11 +95,13 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {{#if userLogin}}
-                            <span id="userNAME"><a href="/users/account">Hello, {{userLogin.nickname}}</a></span>&nbsp;
-                            <button type="button" onclick="window.location.href='/users/signout'" class="btn btn-default navbar-btn">Sign out</button>
+                            <span>
+                                <span id="userNAME">Hello, <a href="/users/account"> {{userLogin.nickname}}</a></span>&nbsp;&nbsp;
+                            </span>
+                            <button type="button" onclick="window.location.href='/users/signout'" class="btn AllButton navbar-btn">Sign out</button>
                         {{else}}
                             <button type="button" onclick="window.location.href='/users/signin'" class="btn btn-default navbar-btn">Sign in</button>
-                            <button type="button" onclick="window.location.href='/users/signup'" class="btn btn-default navbar-btn">Sign up</button>
+                            <button type="button" onclick="window.location.href='/users/signup'" class="btn AllButton navbar-btn">Sign up</button>
                         {{/if}}
                     </ul>
                 </div><!-- /.navbar-collapse -->

@@ -16,14 +16,16 @@
             <br>
             <form id="signin-form" method="post" action="/users/signin">
                 <div class="form-group">
-                    <p for="text1">Username:</p>
-                    <input type="email" class="form-control" id="signinUserName" name="username" placeholder="Your username">
+                    <p class="welcome">Welcome back!</p>
+                    <br/>
+                    <p class="noPost" for="text1">Your Username:</p>
+                    <input type="email" class="form-control" id="signinUserName" name="username" placeholder="username@xxx.com">
                     <br>
-                    <p for="text1">Password:</p>
-                    <input type="password" class="form-control" id="signinPassword" name="password" placeholder="Your password">
+                    <p class="noPost" for="text1">Your Password:</p>
+                    <input type="password" class="form-control" id="signinPassword" name="password" placeholder="Password">
                     <br>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success">Sign in</button>
+                        <button type="submit" class="btn AllButton">Sign in</button>
                     </div>
                     {{#unless status}}
                         <p class="wrongMsg">{{message}}</p>

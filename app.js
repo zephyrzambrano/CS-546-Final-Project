@@ -22,7 +22,10 @@ app.use(
         name: 'AuthCookie',
         secret: 'some secret string!',
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
+        cookie: { 
+        maxAge: 604800000// expire after 1 week
+    },
     })
 );
 

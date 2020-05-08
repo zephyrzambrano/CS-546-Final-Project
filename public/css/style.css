@@ -1,5 +1,16 @@
 .img-ad {
     width: 100%;
+    height: auto;
+}
+
+.item {
+    overflow: hidden;
+    /*width: 1029px;*/
+}
+
+.right{
+    right: 200px;
+    /*width: 80%;*/
 }
 
 .post-part {
@@ -169,6 +180,12 @@
 
 .PostImg:hover {
     transform: scale(1.3);
+}
+
+.alert {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
 }
 
 .post-imgs {
@@ -389,4 +406,8 @@
     text-align: right;
     font-size: 10px;
     color: #a4a4a4;
+}
+
+.glyphicon {
+    color: #b52818;
 }

@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <!--body-->
     <div class="container">
         <div class="viewCount">
             <p>{{postInfo.viewCount}} Read</p>
@@ -41,13 +42,19 @@
                 <br />
                 <div class="panel panel-danger">
                     <div class="panel-body">
-                        <span class="PostTopic" id={{postInfo._id}}>{{postInfo.topic}}</span>
+                        <span class="PostTopic" id={{postInfo._id}}>{{postInfo.nickName}}:{{postInfo.topic}}</span>
                         <span class="post-glyphicon">
-                            <span id="likeCountId" class="glyphicon glyphicon-thumbs-up"
-                                aria-hidden="true">{{postInfo.likeCount.length}}</span>
-                            &nbsp;
-                            <span id="dislikeCountId" class="glyphicon glyphicon-thumbs-down"
-                                aria-hidden="true">{{postInfo.dislikeCount.length}}</span>
+                            {{#if userLogin}}
+                                <span id="likeCountId" class="glyphicon glyphicon-thumbs-up"
+                                      aria-hidden="true">{{postInfo.likeCount.length}}</span>
+                                <span id="dislikeCountId" class="glyphicon glyphicon-thumbs-down"
+                                      aria-hidden="true">{{postInfo.dislikeCount.length}}</span>
+                            {{else}}
+                                <span id="likeCountN" class="glyphicon glyphicon-thumbs-up"
+                                      aria-hidden="true">{{postInfo.likeCount.length}}</span>
+                                <span id="dislikeCountN" class="glyphicon glyphicon-thumbs-down"
+                                      aria-hidden="true">{{postInfo.dislikeCount.length}}</span>
+                            {{/if}}
                         </span>
                     </div>
                     <div class="panel-footer">
@@ -104,7 +111,8 @@
                     </div>
                 </div>
                     {{/if}}
-            </span>
+                    <div hidden id="likeTip" class="alert alert-danger" role="alert">Login to like/dislike this post.</div>
+                </span>
             </div>
             {{/if}}
         </div>
@@ -121,9 +129,15 @@
             $(this).attr('href', url);
         })
 
+        $('#likeCountN, #dislikeCountN').click(function () {
+            $('#likeTip').show();
+            let timeOut = setTimeout(function () {
+                $('#likeTip').hide();
+            }, 2500)
+        })
+
         $('#likeCountId').click(function () {
             //console.log($('.PostTopic').attr('id'));
-
             $.get("http://localhost:3000/posts/like", { postId: ID }, function (response) {
                 $('#likeCountId').text(response.likeCount.length);
             })
@@ -131,9 +145,8 @@
 
         $('#dislikeCountId').click(function () {
             //console.log($('.PostTopic').attr('id'));
-
-            $.get("http://localhost:3000/posts/dislike", { postId: ID }, function (response) {
-                $('#dislikeCountId').text(response.likeCount.length);
+            $.get("http://localhost:3000/posts/dislike", {postId: ID}, function (response) {
+                $('#dislikeCountId').text(response.dislikeCount.length);
             })
         })
     </script>

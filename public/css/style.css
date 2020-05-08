@@ -1,5 +1,16 @@
 .img-ad {
     width: 100%;
+    height: auto;
+}
+
+.item {
+    overflow: hidden;
+    /*width: 1029px;*/
+}
+
+.right{
+    right: 200px;
+    /*width: 80%;*/
 }
 
 .post-part {
@@ -389,4 +400,8 @@
     text-align: right;
     font-size: 10px;
     color: #a4a4a4;
+}
+
+.glyphicon {
+    color: #b52818;
 }

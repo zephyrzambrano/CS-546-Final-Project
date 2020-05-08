@@ -133,7 +133,7 @@
             //console.log($('.PostTopic').attr('id'));
 
             $.get("http://localhost:3000/posts/dislike", { postId: ID }, function (response) {
-                $('#dislikeCountId').text(response.likeCount.length);
+                $('#dislikeCountId').text(response.dislikeCount.length);
             })
         })
     </script>

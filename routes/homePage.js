@@ -20,6 +20,9 @@ router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲�
             let temp = await userData.getUserById(postArr[i].userId);
             postArr[i].userNickname = temp.nickname;
         }
+        postArr.sort((a,b)=>{
+            return (b.viewCount-a.viewCount);
+        })
         // res.send({ postArr, userLogin });
         res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {

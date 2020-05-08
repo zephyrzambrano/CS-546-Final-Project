@@ -17,6 +17,8 @@ router.get('/postInfo/:id', async (req, res) => {//浏览器端发送一个普�
         }
         await postData.addViewCount(req.params.id);//Each time this address is accessed, viewCount++
         let postInfo = await postData.getPostById(req.params.id);
+        let temp = await userData.getUserById(postInfo.userId);
+        postInfo.nickname = temp.nickname;
         let commentsInfo = [];
         for (let i = 0; i < postInfo.commentIdArr.length; i++) {
             let thisComment = await commentData.getCommentById(postInfo.commentIdArr[i]);

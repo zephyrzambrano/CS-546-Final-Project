@@ -438,3 +438,8 @@
 .timeline-Viewport {
     height: 1000px;
 }
+
+.commentDelete {
+    position: relative;
+    text-align: right;
+}

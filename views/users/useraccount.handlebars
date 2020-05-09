@@ -144,9 +144,7 @@
 
     for(let i = 0; i < delBtns.length; i++){
         delBtns[i].onclick = function () {
-
-            $('#position').val(document.documentElement.scrollTop);
-
+            // $('#position').val(document.documentElement.scrollTop);
             var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:3000/posts/delete');
             let thisPostId = this.name;

@@ -47,21 +47,28 @@ router.post("/form", async (req, res) => {
     } 
 });
 
-router.get('/stastic', async(req,res)=>{
-  let userInfo = userData.getUserById(req.session.userId)
-  if (userInfo.Admin) {
-    try {
-      let allPosts = await postData.getAllPost();
-      let allUsers = await userData.getAllUsers();
-      let allRepots=await reportData.getAllReports();
-      let allComments=await commentData.getAllComments();
-      res.render('reports/stastic.handlebars'),{allPosts,allRepots,allUsers,allComments};
-    } catch (error) {
-      res.status(404).send(error);
+router.get('/statistic', async (req, res) => {
+  if (req.session && req.session.userId) {
+    let userInfo = await userData.getUserById(req.session.userId)
+    console.log(userInfo);
+    if (userInfo.Admin) {
+      try {
+        let allPosts = await postData.getAllPost();
+        let allUsers = await userData.getAllUsers();
+        let allRepots = await reportData.getAllReports();
+        let allComments = await commentData.getAllComments();
+        res.render('reports/stastic.handlebars'), { allPosts, allRepots, allUsers, allComments };
+      } catch (error) {
+        res.status(404).send(error);
+      }
     }
+    else
+      res.redirect('/homePage');
+    // res.status(404).send('you dont have access to statistic page');
   }
   else
-    res.status(404).send('you dont have access to stastic page');
+    res.redirect('/homePage');
+  // res.status(404).send('you dont have session to statistic page');
 })
 
 router.get("/:id", async (req, res) => {
@@ -72,19 +79,25 @@ router.get("/:id", async (req, res) => {
       res.status(404).json({ message: "Report not found" });
     }
   });
+
 router.get("/", async (req, res) => {
-  let userInfo = userData.getUserById(req.session.userId)
-  if (userInfo.Admin) {
-    try {
-      const reportsList = await reportData.getAllReports();
-      res.json(reportsList);
-    } catch (error) {
-      res.status(404).send(error);
+  if (req.session && req.session.userId) {
+    let userInfo = await userData.getUserById(req.session.userId)
+    if (userInfo.Admin) {
+      try {
+        const reportsList = await reportData.getAllReports();
+        res.json(reportsList);
+      } catch (error) {
+        res.status(404).send(error);
+      }
     }
+    else
+      res.redirect('/homePage');
+    // res.status(404).send('you dont have access to report list page');
   }
   else
-    res.status(404).send('you dont have access to report list page');
+    res.redirect('/homePage');
+  // res.status(404).send('you dont have session to report list page');
 });
-
 
 

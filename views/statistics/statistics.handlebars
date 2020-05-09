@@ -14,24 +14,16 @@
         <div class="tab-content">
             <!--all users-->
             <div role="tabpanel" class="tab-pane active" id="users">
-                {{#each allUSers}}
+                {{#each allUsers}}
                     <div class="row">
                         <p>Username: {{this.username}}</p>
                         <p>nickname: {{this.nickname}}</p>
                         <p>Posts:
                         <ul>
-                            {{#each posts}}
-                                <li>{{this.topic}}</li>
+                            {{#each this.posts}}
+                                <li>{{this}}</li>
                             {{/each}}
                         </ul>
-                        </p>
-                        <p>Comments:
-                        <ul>
-                            {{#each this.comments}}
-                                <li>{{this.content}}</li>
-                            {{/each}}
-                        </ul>
-                        </p>
                     </div>
                     <hr/>
                 {{/each}}
@@ -43,7 +35,7 @@
                         <div class="media-left ">
                             <div class="photoContainer">
                                 <a href='http://localhost:3000/posts/postInfo/{{this._id}}'>
-                                    <img class="media-object user-Pic" src={{this.photos.[0]}} alt="UserPic">
+                                    <img class="media-object user-Pic" src={{this.photoArr.[0]}} alt="UserPic">
                                 </a>
                             </div>
                         </div>
@@ -61,16 +53,6 @@
                         <li>{{this.content}}</li>
                     {{/each}}
                 </ul>
-            </div>
-            <!--all reports-->
-            <div role="tabpanel" class="tab-pane" id="reports">
-                {{#each allReports}}
-                    <p>{{this.userId}}</p>
-                    <p><a href='http://localhost:3000/posts/postInfo/{{this.postId}}'>{{this.postId}}</a></p>
-                    {{#each this.reasons}}
-                        <li>this.reasons</li>
-                    {{/each}}
-                {{/each}}
             </div>
         </div>
     </div>

@@ -62,8 +62,21 @@ async function addReport(userId,postId,reason)
     };
 }
 
+async function removeReport(reportId) {
+    if (!reportId || typeof reportId !== "string") throw 'You must provide a reportId id';
+
+    let reportObjId = ObjectId.createFromHexString(reportId);
+    const reportCollection = await reports()
+    let deletionInfo = await reportCollection.removeOne({ _id: reportObjId });
+    if (deletionInfo.deletedCount === 0) {
+        throw `Could not delete the band with id of ${id}`;
+    }
+    return true;
+}
+
 module.exports = {
     getAllReports,
     getReportById,
-    addReport
+    addReport,
+    removeReport
 }

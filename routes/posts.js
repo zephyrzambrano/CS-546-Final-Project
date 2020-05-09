@@ -135,6 +135,7 @@ router.post('/addComment', async (req, res) => {//发送一个post请求，添�
 
 router.post('/deleteComment', async (req, res) => {
     try {
+        console.log("aaaaa");
         if (!req.session)
             throw "you don't have the cookie to delete the comment"
         if (!req.session.userId)

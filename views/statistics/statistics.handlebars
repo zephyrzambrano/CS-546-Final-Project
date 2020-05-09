@@ -1,0 +1,78 @@
+<body>
+<br/>
+<div class="container-fluid">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+        <li role="presentation"><a href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts</a></li>
+        <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
+        <li role="presentation"><a href="#reports" aria-controls="reports" role="tab" data-toggle="tab">Reports</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="container-fluid">
+        <div class="tab-content">
+            <!--all users-->
+            <div role="tabpanel" class="tab-pane active" id="users">
+                {{#each allUSers}}
+                    <div class="row">
+                        <p>Username: {{this.username}}</p>
+                        <p>nickname: {{this.nickname}}</p>
+                        <p>Posts:
+                        <ul>
+                            {{#each posts}}
+                                <li>{{this.topic}}</li>
+                            {{/each}}
+                        </ul>
+                        </p>
+                        <p>Comments:
+                        <ul>
+                            {{#each this.comments}}
+                                <li>{{this.content}}</li>
+                            {{/each}}
+                        </ul>
+                        </p>
+                    </div>
+                    <hr/>
+                {{/each}}
+            </div>
+            <!--all posts-->
+            <div role="tabpanel" class="tab-pane" id="posts">
+                {{#each allPosts}}
+                    <div class="media post-part">
+                        <div class="media-left ">
+                            <div class="photoContainer">
+                                <a href='http://localhost:3000/posts/postInfo/{{this._id}}'>
+                                    <img class="media-object user-Pic" src={{this.photos.[0]}} alt="UserPic">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading postTopic"><a class="jumpToPost" id={{this._id}} href='http://localhost:3000/posts/postInfo/{{this._id}}'>{{this.topic}}</a></h4>
+                            <p class="AllContent">{{this.content}}</p>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <!--all comments-->
+            <div role="tabpanel" class="tab-pane" id="comments">
+                <ul>
+                    {{#each allComments}}
+                        <li>{{this.content}}</li>
+                    {{/each}}
+                </ul>
+            </div>
+            <!--all reports-->
+            <div role="tabpanel" class="tab-pane" id="reports">
+                {{#each allReports}}
+                    <p>{{this.userId}}</p>
+                    <p><a href='http://localhost:3000/posts/postInfo/{{this.postId}}'>{{this.postId}}</a></p>
+                    {{#each this.reasons}}
+                        <li>this.reasons</li>
+                    {{/each}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+</body>

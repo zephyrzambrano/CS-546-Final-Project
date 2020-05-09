@@ -8,25 +8,25 @@ async function main() {
     const db = await connection();
     await db.dropDatabase();
     //add users
-    let u1 = await users.createUser("un01@gmail.com", "$2a$10$S47.YnORnIZRLpMOSOINm.eUL4FoSLBFaWfk7qWT65.0c7unyjzGi", "Donglin");  //pw0101,Donglin
+    let u1 = await users.createUser("un01@gmail.com", "$2a$10$S47.YnORnIZRLpMOSOINm.eUL4FoSLBFaWfk7qWT65.0c7unyjzGi", "Donglin");
     let u1_userid = u1._id.toHexString();
     let u1_admin = await users.setAdminAccess(u1_userid);//set user1 as Admin
-    let u2 = await users.createUser("un02@gmail.com", "$2a$10$0A53QP0G0oeux7RFlNUqHuK7j5GU3zJjgYj3IQk02s4SznXUmcBLS", "Yaolin");//pw0202,Yaolin
+    let u2 = await users.createUser("un02@gmail.com", "$2a$10$0A53QP0G0oeux7RFlNUqHuK7j5GU3zJjgYj3IQk02s4SznXUmcBLS", "Yaolin");
     let u2_userid = u2._id.toHexString();
     let u2_admin = await users.setAdminAccess(u2_userid);//set user2 as Admin
-    let u3 = await users.createUser("un03@gmail.com", "$2a$10$2hDMVORERcJpQYDxhckLpeLtdOveKhEyFKeHFAfA4Qq6D62e4KfSe", "Jiayi");//pw0303,Jiayi
+    let u3 = await users.createUser("un03@gmail.com", "$2a$10$2hDMVORERcJpQYDxhckLpeLtdOveKhEyFKeHFAfA4Qq6D62e4KfSe", "Jiayi");
     let u3_userid = u3._id.toHexString();
     let u3_admin = await users.setAdminAccess(u3_userid);//set user3 as Admin
-    let u4 = await users.createUser("un04@gmail.com", "$2a$10$ad7Epy4AAPfrmRruDCwocu8Kq1lpRYTIj/fiQJ5qI/qGkvv0Ng3r6", "Zephyr");//pw0404,Zephyr
+    let u4 = await users.createUser("un04@gmail.com", "$2a$10$ad7Epy4AAPfrmRruDCwocu8Kq1lpRYTIj/fiQJ5qI/qGkvv0Ng3r6", "Zephyr");
     let u4_userid = u4._id.toHexString();
     let u4_admin = await users.setAdminAccess(u4_userid);//set user4 as Admin
-    let u5 = await users.createUser("un05@gmail.com", "$2a$10$32lqGi/sY3G6IEnbDOwC5e1.6OLlu92Kkc/sYNR38240vfeJBwEkm", "nn05");//pw0505
+    let u5 = await users.createUser("un05@gmail.com", "$2a$10$32lqGi/sY3G6IEnbDOwC5e1.6OLlu92Kkc/sYNR38240vfeJBwEkm", "nn05");
     let u5_userid = u5._id.toHexString();
-    let u6 = await users.createUser("un06@gmail.com", "$2a$10$ZoH1i.W07uN/8OjP1vZGf.AAMFtp/eExMdzfzlrcb7VP9GX0MvfCm", "nn06");//pw0606
+    let u6 = await users.createUser("un06@gmail.com", "$2a$10$ZoH1i.W07uN/8OjP1vZGf.AAMFtp/eExMdzfzlrcb7VP9GX0MvfCm", "nn06");
     let u6_userid = u6._id.toHexString();
-    let u7 = await users.createUser("un07@gmail.com", "$2a$10$vdXj7OW0b/rFJI3u1m/9QO1wVdVD5gWKaeBIk8t7hfVlTkokZlERy", "nn07");//pw0707
+    let u7 = await users.createUser("un07@gmail.com", "$2a$10$vdXj7OW0b/rFJI3u1m/9QO1wVdVD5gWKaeBIk8t7hfVlTkokZlERy", "nn07");
     let u7_userid = u7._id.toHexString();
-    let u8 = await users.createUser("un08@gmail.com", "$2a$10$9I1P3X89WLNzHRaTNRDJEuIPJl90TavRC8Gecy0p6bCf1WX7Nih66", "nn08");//pw0808
+    let u8 = await users.createUser("un08@gmail.com", "$2a$10$9I1P3X89WLNzHRaTNRDJEuIPJl90TavRC8Gecy0p6bCf1WX7Nih66", "nn08");
     let u8_userid = u8._id.toHexString();
 
     //u1 create posts

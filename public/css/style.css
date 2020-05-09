@@ -47,11 +47,24 @@
 
 .footer a {
     text-decoration: none;
-    color: #3c3c3c;
+    color: #b52818;
 }
 
 .footer a:hover {
+    text-decoration: none;
     color: #b52818;
+}
+
+.footerButton {
+    color: #b52818;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    border: 0px;
+}
+
+.footerButton:hover {
+    color: #962618;
 }
 
 #to-top {

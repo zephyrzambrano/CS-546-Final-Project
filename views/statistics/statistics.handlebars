@@ -3,27 +3,27 @@
 <div class="container-fluid">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
-        <li role="presentation"><a href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts</a></li>
-        <li role="presentation"><a href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
-        <li role="presentation"><a href="#reports" aria-controls="reports" role="tab" data-toggle="tab">Reports</a></li>
+        <li role="presentation" class="active"><a style="color: #b52818;font-size: large" href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+        <li role="presentation"><a style="color: #b52818;font-size: large" href="#posts" aria-controls="posts" role="tab" data-toggle="tab">Posts</a></li>
+        <li role="presentation"><a style="color: #b52818;font-size: large" href="#comments" aria-controls="comments" role="tab" data-toggle="tab">Comments</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="container-fluid">
+        <br/>
         <div class="tab-content">
             <!--all users-->
-            <div role="tabpanel" class="tab-pane active" id="users">
+            <div style="padding-left: 30px" role="tabpanel" class="tab-pane active" id="users">
                 {{#each allUsers}}
                     <div class="row">
-                        <p>Username: {{this.username}}</p>
-                        <p>nickname: {{this.nickname}}</p>
-                        <p>Posts:
-                        <ul>
+                        <p style="font-size: 20px">Username: <span style="color: #b52818">{{this.username}}</span></p>
+                        <p style="font-size: 20px">Nickname: {{this.nickname}}</p>
+                        <p style="font-size: 20px">PostId-List:
+                        <ol>
                             {{#each this.posts}}
-                                <li>{{this}}</li>
+                                <li style="font-size: 20px">{{this}}</li>
                             {{/each}}
-                        </ul>
+                        </ol>
                     </div>
                     <hr/>
                 {{/each}}
@@ -48,11 +48,12 @@
             </div>
             <!--all comments-->
             <div role="tabpanel" class="tab-pane" id="comments">
-                <ul>
+                <ol>
                     {{#each allComments}}
-                        <li>{{this.content}}</li>
+                        <li style="font-size: large">{{this.content}}</li>
+                        <hr/>
                     {{/each}}
-                </ul>
+                </ol>
             </div>
         </div>
     </div>

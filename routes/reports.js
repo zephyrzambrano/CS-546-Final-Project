@@ -49,26 +49,22 @@ router.post("/form", async (req, res) => {
 
 router.get('/statistic', async (req, res) => {
   if (req.session && req.session.userId) {
-    let userInfo = await userData.getUserById(req.session.userId)
-    console.log(userInfo);
-    if (userInfo.Admin) {
+    let userLogin = await userData.getUserById(req.session.userId)
+    if (userLogin.Admin) {
       try {
         let allPosts = await postData.getAllPost();
         let allUsers = await userData.getAllUsers();
-        let allRepots = await reportData.getAllReports();
         let allComments = await commentData.getAllComments();
-        res.render('reports/stastic.handlebars'), { allPosts, allRepots, allUsers, allComments };
+        res.render('statistics/statistics',{ allPosts,allUsers, allComments,userLogin });
       } catch (error) {
         res.status(404).send(error);
       }
     }
     else
       res.redirect('/homePage');
-    // res.status(404).send('you dont have access to statistic page');
   }
   else
     res.redirect('/homePage');
-  // res.status(404).send('you dont have session to statistic page');
 })
 
 router.get("/:id", async (req, res) => {
@@ -82,11 +78,11 @@ router.get("/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   if (req.session && req.session.userId) {
-    let userInfo = await userData.getUserById(req.session.userId)
-    if (userInfo.Admin) {
+    let userLogin = await userData.getUserById(req.session.userId);
+    if (userLogin.Admin) {
       try {
         const reportList = await reportData.getAllReports();
-        res.render('reports/reportList',{reportList});
+        res.render('reports/reportList',{reportList,userLogin});
       } catch (error) {
         res.status(404).send(error);
       }

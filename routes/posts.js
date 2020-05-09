@@ -8,28 +8,29 @@ const commentData = data.comments;
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
-router.get('/postInfo/:id', async (req, res) => {//浏览器端发送一个普通的get请求，网址包含postId，返回渲染一个完整的posts网页（包含帖子内容和评论）
-    try {
-        let userLogin = null;
-        if (req.session) {
-            if (req.session.userId)
-                userLogin = await userData.getUserById(req.session.userId);
+router.get('/postInfo/:id', async (req, res) => {//浏览器端发送一个普通的get请求，网址包含postId，返回渲染一个完整的posts网页（包含帖子内容和评论）
+    try {
+        let userLogin = null;
+        if (req.session) {
+            if (req.session.userId)
+                userLogin = await userData.getUserById(req.session.userId);
         }
-        await postData.addViewCount(req.params.id);//Each time this address is accessed, viewCount++
-        let postInfo = await postData.getPostById(req.params.id);
-        let temp = await userData.getUserById(postInfo.userId);
-        postInfo.nickname = temp.nickname;
-        let commentsInfo = [];
-        for (let i = 0; i < postInfo.commentIdArr.length; i++) {
-            let thisComment = await commentData.getCommentById(postInfo.commentIdArr[i]);
-            let commentCreaterInfo = await userData.getUserById(thisComment.userId);
-            thisComment.userNickname = commentCreaterInfo.nickname;
+        await postData.addViewCount(req.params.id);//Each time this address is accessed, viewCount++
+        let postInfo = await postData.getPostById(req.params.id);
+        let temp = await userData.getUserById(postInfo.userId);
+        postInfo.nickname = temp.nickname;
+        let commentsInfo = [];
+        for (let i = 0; i < postInfo.commentIdArr.length; i++) {
+            let thisComment = await commentData.getCommentById(postInfo.commentIdArr[i]);
+            let commentCreaterInfo = await userData.getUserById(thisComment.userId);
+            thisComment.userNickname = commentCreaterInfo.nickname;
             commentsInfo.push(thisComment);
         }
-        // res.json({ postInfo, commentsInfo, userLogin});
-        res.render('posts/posts.handlebars', { postInfo, commentsInfo, userLogin });
-    } catch (error) {
-        res.status(404).json({ error: 'Post not found' });
+        // res.json({ postInfo, commentsInfo, userLogin});
+        res.render('posts/posts.handlebars', { postInfo, commentsInfo, userLogin });
+    } catch (error) {
+        res.redirect('/homePage')
+        // res.status(404).json({ error: 'Post not found' });
     }
 });
 

@@ -85,8 +85,8 @@ router.get("/", async (req, res) => {
     let userInfo = await userData.getUserById(req.session.userId)
     if (userInfo.Admin) {
       try {
-        const reportsList = await reportData.getAllReports();
-        res.json(reportsList);
+        const reportList = await reportData.getAllReports();
+        res.render('reports/reportList',{reportList});
       } catch (error) {
         res.status(404).send(error);
       }

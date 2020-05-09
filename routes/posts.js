@@ -4,6 +4,7 @@ const data = require("../data");
 const postData = data.posts;
 const userData = data.users;
 const commentData = data.comments;
+const reportData = data.reports;
 
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
@@ -132,5 +133,48 @@ router.post('/addComment', async (req, res) => {//发送一个post请求，添�
     }
 });
 
+router.post('/removeReport', async (req, res) => {//浏览器端发一个ajax的get请求
+    try {
+        //console.log(req.body.reportId);
+        if (!req.session) throw 'you dont have session to delete the post'
+        if (!req.session.userId) throw 'you dont have userId in session to delete the report'
+        if (!req.body.reportId) throw 'you dont have reportId in body to delete the report'
+        let deletePerson = await userData.getUserById(req.session.userId)
+        let postDelete = null;
+        if (deletePerson.admin === false)
+            res.send("no access!!!")
+        else {
+            //res.send(req.body.reportId)
+            // postDelete = await postData.removePost(req.body.postId);
+            reportDelete = await reportData.removeReport(req.body.reportId);
+            res.send(reportDelete);
+        }
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+})
+
+router.post('/removeReportAndPost', async (req, res) => {//浏览器端发一个ajax的get请求
+    try {
+        //console.log(req.body.reportId);
+        if (!req.session) throw 'you dont have session to delete the post'
+        if (!req.session.userId) throw 'you dont have userId in session to delete the report'
+        if (!req.body.reportId) throw 'you dont have reportId in body to delete the report'
+        let deletePerson = await userData.getUserById(req.session.userId)
+        let postDelete = null;
+        if (deletePerson.admin === false)
+            res.send("no access!!!")
+        else {
+            //res.send(req.body.reportId,req.body.postId)
+            postDelete = await postData.removePost(req.body.postId);
+            reportDelete = await reportData.removeReport(req.body.reportId);
+            res.send(true);
+        }
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+})
 
 module.exports = router;

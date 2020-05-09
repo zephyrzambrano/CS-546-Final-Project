@@ -26,7 +26,8 @@ router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲�
         // res.send({ postArr, userLogin });
         res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {
-        res.status(404).send(error);
+        res.redirect('/homePage');
+        // res.status(404).send(error);
     }
 });
 
@@ -67,7 +68,8 @@ router.get("/search", async (req, res) => {//通过主页浏览框输入发送�
         let postArr = await postData.getPostByString(req.query.searchString);
         res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {
-        res.status(404).send(error);
+        res.redirect('/homePage')
+        // res.status(404).send(error);
     }
 })
 

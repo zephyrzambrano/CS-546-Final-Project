@@ -1,4 +1,11 @@
 <body>
+    {{#if userLogin.Admin}}
+    <div>
+        <h1>Welcome! Honorable administrator</h1>
+        <button id="toReportList">ReportList</button>
+        <button id="toStatistic">Statistic</button>
+    </div>
+    {{/if}}
 <div class="container">
     <div class="row">
         <div class="col-sm-4">
@@ -137,6 +144,20 @@
 
     </div>
 </div>
+<script>
+        let toReportList = document.getElementById("toReportList");
+        if (toReportList) {
+            toReportList.onclick = function () {
+                window.location.href = "http://localhost:3000/reports";
+            }
+        }
+        let toStatistic = document.getElementById("toStatistic");
+        if (toStatistic) {
+            toStatistic.onclick = function () {
+                window.location.href = "http://localhost:3000/reports/statistic";
+            }
+        }
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <!--<script src="../../public/js/carhartl-jquery-cookie-92b7715"></script>-->
 <script type="text/javascript">

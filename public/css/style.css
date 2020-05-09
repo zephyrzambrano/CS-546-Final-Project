@@ -167,7 +167,7 @@
 }
 
 .PostTopic {
-    font-size: 1.4em;
+    font-size: 1.2em;
     font-weight: bold;
     color: #b52818;
 }
@@ -259,7 +259,7 @@
 }
 /*Post topic in home page*/
 .jumpToPost {
-    font-size: 30px;
+    font-size: 25px;
     text-decoration: none;
     color: #b52818;
 }
@@ -269,7 +269,7 @@
 }
 /*All post content in home page*/
 .AllContent {
-    font-size: 20px;
+    font-size: 17px;
     color: #7e7e7e;
 }
 #addNewPost {
@@ -414,4 +414,8 @@
 
 .glyphicon {
     color: #b52818;
+}
+
+.timeline-Viewport {
+    height: 1000px;
 }

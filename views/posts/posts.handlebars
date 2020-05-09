@@ -146,14 +146,16 @@
         })
 
         let currentUser = $('.addCommentButton').attr('id');
+        console.log((currentUser));
 
         $('.commentDeleteButton').each(function () {
+            console.log($(this).attr('name'));
             if($(this).attr('name') == currentUser){
                 // console.log("aaa");
-                $('.commentDeleteButton').show();
+                $(this).show();
             } else {
                 // console.log("bbb");
-                $('.commentDeleteButton').hide();
+                $(this).hide();
             }
         })
 

@@ -13,8 +13,6 @@ const constructorMethod = app => {
     app.use("/homePage", homePageRoutes);
 
     app.get('/', (req, res) => {
-        // res.sendFile(path.resolve('static/placeholder.html'));
-        // res.render("home/home");
         res.redirect('http://localhost:3000/homePage');
     });
 

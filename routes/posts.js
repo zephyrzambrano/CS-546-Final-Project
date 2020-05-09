@@ -133,6 +133,25 @@ router.post('/addComment', async (req, res) => {//发送一个post请求，添�
     }
 });
 
+router.post('/deleteComment', async (req, res) => {
+    try {
+        if (!req.session)
+            throw "you don't have the cookie to delete the comment"
+        if (!req.session.userId)
+            throw "login first,then delete commnet"
+        if (!req.body)
+            throw "need info to delete the comment";
+        if (!req.body.postId)
+            throw "need postId to delete the comment";
+        if (!req.body.commentId)
+            throw "need commentId to create the comment";
+        await commentData.removeComment(req.body.postId,req.body.commentId);
+        res.redirect("http://localhost:3000/posts/postInfo/"+req.body.postId);
+    } catch (error) {
+        res.status(404).send(error);
+    }
+});
+
 router.post('/removeReport', async (req, res) => {//浏览器端发一个ajax的get请求
     try {
         //console.log(req.body.reportId);

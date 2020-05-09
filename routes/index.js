@@ -13,7 +13,7 @@ const constructorMethod = app => {
     app.use("/homePage", homePageRoutes);
 
     app.get('/', (req, res) => {
-        res.redirect('/homePage');
+        res.redirect('http://localhost:3000/homePage');
     });
 
     app.use("*", (req, res) => {

@@ -9,23 +9,21 @@
 
 <body>
     <div>
-        <h1>The Report List</h1>
-        <span>----------------------------------------------------------------------------------------------------------------</span>
+        <h1 style="text-align: center; color: #b52818">The Report List</h1>
+        <br/>
     </div>
     <div>
         {{#each reportList}}
         <ul>
-            <li>reportId:<span>{{this._id}}</span>
-                <span>--------------</span>
-                Reporter's userId : {{this.userId}}
-                <span>--------------</span>
-                postId : <a href="http://localhost:3000/posts/postInfo/{{this.postId}}"><span>{{this.postId}}</span></a>
-                <span>--------------</span>
-                Reason : {{this.reasons}}<br>
-                <button class="deleteBtn">delete report</button>
-                <button class="deleteBtnSuper">delete post </button>
-            </li>
-            <p>-----------------------------------------------------------------------------------------------------</p>
+            <li class="reportList" hidden>ReportId: {{this._id}}</li>
+            <li class="reportList">Reporter's userId: {{this.userId}}</li>
+            <li class="reportList">PostId: <a href='http://localhost:3000/posts/postInfo/{{this.postId}}'><span>{{this.postId}}</span></a></li>
+            <li class="reportList">Reasons: {{this.reasons}}</li>
+            <br/>
+            <div style="text-align: center">
+                <button class="deleteBtn btn btn-danger" >delete report</button>
+                <button class="deleteBtnSuper btn AllButton">delete post </button>
+            </div>
         </ul>
         {{/each}}
     </div>

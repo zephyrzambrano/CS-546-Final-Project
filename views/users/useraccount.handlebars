@@ -1,9 +1,11 @@
 <body>
     {{#if userLogin.Admin}}
     <div>
-        <h1>Welcome! Honorable administrator</h1>
-        <button id="toReportList">ReportList</button>
-        <button id="toStatistic">Statistic</button>
+        <h1 style="color: #b52818; text-align: center">Welcome! Honorable administrator</h1>
+        <p style="text-align: center">
+            <button class="btn btn-default" id="toReportList">ReportList</button>
+            <button class="btn btn-default" id="toStatistic">Statistics of all DataBase</button>
+        </p>
     </div>
     {{/if}}
 <div class="container">
@@ -106,7 +108,7 @@
                 </div>
                 <div class="caption">
                     <h3><a href='http://localhost:3000/posts/postInfo/{{this._id}}' class="usercenterTopic">{{this.topic}}</a></h3>
-                    <div style="width: 100%; height: 150px;overflow: hidden">
+                    <div style="width: 100%; height: 120px;overflow: hidden">
                         <p>{{this.content}}</p>
                     </div>
                     <hr/>
@@ -123,7 +125,7 @@
                                         <div class="modal-header">
                                             <input hidden="hidden" name="postId" value={{this._id}}>
                                             <label for={{this._id}} class="control-label"></label>
-                                            <textarea name="newContent" class="form-control" rows="7" id={{this._id}} placeholder="Type in new content for this post.">{{this.content}}</textarea>
+                                            <textarea name="newContent" class="form-control" rows="7" id={{this._id}}>{{this.content}}</textarea>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

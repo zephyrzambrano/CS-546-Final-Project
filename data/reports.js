@@ -3,14 +3,12 @@ const reports = mongoCollections.reports;
 const { ObjectId } = require('mongodb');
 
 
-// insert functions here
+
 async function getAllReports() {
     try 
     {
         const reportCollection = await reports();
-
         const allReports = await reportCollection.find({}).toArray();
-
         return allReports;
     } 
     catch (error) 
@@ -27,11 +25,9 @@ async function getReportById(id)
         const objId = ObjectId.createFromHexString(id);
         id = objId;
     }
-
     const reportCollection = await reports();
     const reportt = await reportCollection.findOne({_id: id});
     if (reportt === null) throw 'No report with that id';
-
     return reportt;
 }
 
@@ -40,9 +36,7 @@ async function addReport(userId,postId,reason)
     if (!postId || typeof postId !== "string") throw 'You must provide a post id for report';
     if (!userId || typeof userId !== "string") throw 'You must provide an user id for report';
     if (!reason || !Array.isArray(reason)) throw ' You must select at least a reason for reporting';
-
     const reportCollection = await reports();
-    // check if the user has already reported 
     const existReport = await reportCollection.findOne({userId: userId, postId: postId}); 
     if(existReport == null)
     {
@@ -64,7 +58,6 @@ async function addReport(userId,postId,reason)
 
 async function removeReport(reportId) {
     if (!reportId || typeof reportId !== "string") throw 'You must provide a reportId id';
-
     let reportObjId = ObjectId.createFromHexString(reportId);
     const reportCollection = await reports()
     let deletionInfo = await reportCollection.removeOne({ _id: reportObjId });

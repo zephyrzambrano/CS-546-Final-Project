@@ -10,10 +10,9 @@ module.exports = router;
 
 
 router.get("/form", async (req, res) => {
-  if (!req.session.userId) {    //if not logged in, redirect to the homepage
+  if (!req.session.userId) {   
     return res.redirect('/homePage');
   }
-
   try{
     const userId = req.session.userId;
     const userLogin = await userData.getUserById(userId);
@@ -31,7 +30,6 @@ router.post("/form", async (req, res) => {
   const post = await postData.getPostById(postId);
     try
     {
-      
         let reason = req.body.reason;
         if(typeof reason == "string")
         {
@@ -89,11 +87,9 @@ router.get("/", async (req, res) => {
     }
     else
       res.redirect('/homePage');
-    // res.status(404).send('you dont have access to report list page');
   }
   else
     res.redirect('/homePage');
-  // res.status(404).send('you dont have session to report list page');
 });
 
 

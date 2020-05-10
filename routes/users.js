@@ -7,7 +7,7 @@ const userData = data.users;
 const postData = data.posts;
 
 router.get('/account', async (req, res) => {
-    if (!req.session.userId) {		//if not logged in, redirect to the homepage
+    if (!req.session.userId) {		
 		return res.redirect('/homePage');
 	}
 	try{
@@ -27,14 +27,14 @@ router.get('/account', async (req, res) => {
 });
 
 router.get('/signin', async (req, res) => {
-	if (req.session.userId) {		//if logged in, redirect to the homepage
+	if (req.session.userId) {		
 		return res.redirect('/homePage');
 	}
     res.render('home/signin');
 });
 
 router.post('/signin', async (req, res) => {
-	if (req.session.userId) {		//if logged in, redirect to the homepage
+	if (req.session.userId) {		
 		return res.redirect('/homePage');
 	}
 	const { username, password } = req.body;
@@ -55,7 +55,7 @@ router.post('/signin', async (req, res) => {
 });
 
 router.get('/signup', async (req, res) => {
-    if (req.session.userId) {		//if logged in, redirect to the homepage
+    if (req.session.userId) {		
 		return res.redirect('/homePage');
 	}
 	res.render('home/signup');
@@ -91,14 +91,14 @@ router.post('/signup', async (req, res) => {
 });
 
 router.get('/signout', async (req, res) => {
-	if (!req.session.userId) {		//if not logged in, redirect to the homepage
+	if (!req.session.userId) {		
 		return res.redirect('/homePage');
 	}
 	req.session.destroy();
     return res.redirect('/homePage');
 });
 
-router.post('/account', async (req, res) => { //patch _ edit username,nickname,password
+router.post('/account', async (req, res) => { 
 	let { username, password,Cpassword,nickname } = req.body;
 	const userId = req.session.userId; 
 	let oldUser;
@@ -153,7 +153,6 @@ router.post('/account', async (req, res) => { //patch _ edit username,nickname,p
 		if(e =="You have to submit different inputs before pushing button")message4="You have to submit different inputs before pushing button";
 		const oldUsername = oldUser.username;
 		const oldNickname = oldUser.nickname;
-		
 		for(let x of oldUser.posts)
 		{
 			const onePost = await postData.getPostById(x);
@@ -163,7 +162,7 @@ router.post('/account', async (req, res) => { //patch _ edit username,nickname,p
 	}
 });
 
-//create getAll route 
+
 router.get("/", async (req, res) => {
 	try {
       const userList = await userData.getAllUsers();

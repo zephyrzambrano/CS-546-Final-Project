@@ -22,7 +22,7 @@
                         <p style="font-size: 20px">PostId-List:
                         <ol>
                             {{#each this.posts}}
-                                <li style="font-size: 20px">{{this}}</li>
+                                <li style="font-size: 20px"><a class="PostIdList" href="http://localhost:3000/posts/postInfo/{{this}}">{{this}}</a></li>
                             {{/each}}
                         </ol>
                     </div>
@@ -51,7 +51,7 @@
             <div role="tabpanel" class="tab-pane" id="comments">
                 <ol>
                     {{#each allComments}}
-                        <li style="font-size: large">{{this.content}}</li>
+                        <li style="font-size: large"><a class="PostIdList" href="http://localhost:3000/posts/postInfo/{{this.postId}}">{{this.content}}</a></li>
                         <hr/>
                     {{/each}}
                 </ol>

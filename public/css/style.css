@@ -463,3 +463,13 @@
     text-decoration: none;
     color: #962618;
 }
+
+.PostIdList{
+    text-decoration: none;
+    color: #b52818;
+}
+
+.PostIdList:hover {
+    text-decoration: none;
+    color: #962618;
+}

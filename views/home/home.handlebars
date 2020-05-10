@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>HomePage</title>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </head>
 <body>
 
 <div class="container">
     <main class="container">
-        <!-- advertisement here -->
+        <!-- ad banner here, without links -->
         <div class="row">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <div class="container">
@@ -54,7 +54,7 @@
         </div>
         <br/>
         <br/>
-        <div class="row">
+        <div class="row" style="margin-left: 30px">
         <!-- live Twitter feed -->
         <div class="col-sm-4 twitter-part">
             <a class="twitter-timeline" data-width="300" data-height="1000" href="https://twitter.com/openingceremony?lang=en">Tweets by openingceremony</a>
@@ -66,7 +66,7 @@
                         <div class="media-left ">
                             <div class="photoContainer">
                                 <a href='http://localhost:3000/posts/postInfo/{{this._id}}'>
-                                    <img class="media-object user-Pic" src={{this.photoArr.[0]}} alt="UserPic">
+                                    <img class="media-object user-Pic" src={{this.photoArr.[0]}}>
                                 </a>
                             </div>
                         </div>
@@ -85,8 +85,9 @@
         <br/>
         <hr>
         <br/>
+
         <!-- Add new Post -->
-    {{#if userLogin}}
+        {{#if userLogin}}
             <div id="addNewPost">
             <form id="static-form" method="post" action="http://localhost:3000/homePage/createPost" enctype="multipart/form-data">
                 <div class="row">
@@ -186,15 +187,17 @@
                     <input id="addNewPostButton" name="submit" type="button" class="btn AllButton" value="Submit" data-toggle="button" aria-pressed="false" autocomplete="off">
                 </div>
             </form>
-    {{else}}
-        <h4 class="noPost" id="addnewPosttip">You must Login to add new post here.</h4>
-    {{/if}}
+                <p style="margin-top: 3px; color: #b52818" id="picTips"></p>
+        {{else}}
+            <h4 class="noPost" id="addnewPosttip">You must Login to add new post here.</h4>
+        {{/if}}
     </div>
     </main>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <script type="text/javascript">
+
     // This is to transport data in "Add new post"
     var form = document.getElementById('static-form');
 
@@ -202,14 +205,31 @@
         var formData = new FormData(form);
     
     var file = document.getElementById('addImg')
-    // 当用户选择文件的时候
+
+    // count for photos user has chosen
+    var fileCount = 0;
+    $('#picTips').hide();
+
+    // when user choose photos
     file.onchange = function () {
         for (let i = 0; i < this.files.length; i++) {
-            formData.append('photo' + i, this.files[i]); // 将用户选择的二进制文件追加到表单对象中
-
+            formData.append('photo' + i, this.files[i]); // add photos' path to formData
+            fileCount ++;
+        }
+        if(fileCount == 1){
+            $('#picTips').text('You have chosen '+fileCount+' photo');
+            $('#picTips').show();
+        } else if(fileCount > 1 && fileCount <=3){
+            $('#picTips').text('You have chosen '+fileCount+' photos');
+            $('#picTips').show();
+        } else {
+            $('#picTips').text('You can only upload 3 photos at most');
+            $('#picTips').show();
         }
     }
     }
+
+
     
     $('#addNewPostButton').click(function () {
 
@@ -235,7 +255,7 @@
             // alert("Succeed!")
             var Timeout = setTimeout(function () {
                 window.location.reload();
-            }, 700);
+            }, 500);
         }
     })
 
@@ -250,9 +270,14 @@
 
         var selector = `#${ID}`
 
-        // console.log($(selector));
-        // window.location.href = url;
         $(selector).attr('href', url);
+    })
+
+    // if no photos are uploaded, a default photo will display instead
+    $('.user-Pic').each(function () {
+        if(!$(this).attr("src")){
+            $(this).attr("src", "../../public/images/replace.jpg");
+        }
     })
 </script>
 </body>

@@ -63,12 +63,9 @@
         deleteBtn[i].onclick =function() {
             let dad = this.parentNode;
             let grandfather=dad.parentNode;
-            //console.log(grandfather);
             let sonli = grandfather.getElementsByTagName("li");
-            //console.log(sonli[0]);
             let sonspan=sonli[0].getElementsByTagName("span");
             let reportId=sonspan[0].innerText
-            //console.log(reportId);
             var xhr = new XMLHttpRequest();//创建 Ajax 对象
             xhr.open('post', 'http://localhost:3000/posts/removeReport');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
@@ -85,15 +82,11 @@
         deleteBtnSuper[i].onclick =function() {
             let dad = this.parentNode;
             let grandfather=dad.parentNode;
-            //console.log(grandfather);
             let sonli = grandfather.getElementsByTagName("li");
-            //console.log(sonli[0]);
             let sonspan=sonli[0].getElementsByTagName("span");
             let reportId=sonspan[0].innerText
             let sonspan2=sonli[2].getElementsByTagName("span");
             let postId=sonspan2[0].innerText
-            //console.log(reportId);
-            //console.log(postId);
             var xhr = new XMLHttpRequest();//创建 Ajax 对象
             xhr.open('post', 'http://localhost:3000/posts/removeReportAndPost');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')

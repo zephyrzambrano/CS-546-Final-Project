@@ -133,7 +133,6 @@
     <script type="text/javascript">
 
         var ID = $('.PostTopic').attr('id');
-        // console.log(ID);
 
         $('#ReportThis').click(function () {
             var url = `http://localhost:3000/reports/form?id=${ID}`;
@@ -148,14 +147,12 @@
         })
 
         $('#likeCountId').click(function () {
-            //console.log($('.PostTopic').attr('id'));
             $.get("http://localhost:3000/posts/like", { postId: ID }, function (response) {
                 $('#likeCountId').text(response.likeCount.length);
             })
         })
 
         $('#dislikeCountId').click(function () {
-            //console.log($('.PostTopic').attr('id'));
             $.get("http://localhost:3000/posts/dislike", {postId: ID}, function (response) {
                 $('#dislikeCountId').text(response.dislikeCount.length);
             })
@@ -167,10 +164,8 @@
         $('.commentDeleteButton').each(function () {
             console.log($(this).attr('name'));
             if($(this).attr('name') == currentUser){
-                // console.log("aaa");
                 $(this).show();
             } else {
-                // console.log("bbb");
                 $(this).hide();
             }
         })
@@ -194,7 +189,6 @@
 
                 xhr.onload = function () {//获取服务器端给与客户端的响应数据
                     console.log(xhr.responseText);
-                    // alert("Succeed!")
                     var Timeout = setTimeout(function () {
                         window.location.reload();
                     }, 100);

@@ -88,9 +88,8 @@ router.post('/editContent', async (req, res) => {//（目前还在讨论）浏�
             throw "Your id is not the same as the userId of the post!!"
         let updatedPost = await postData.editContent(req.body.postId, req.body.newContent);
         res.redirect("http://localhost:3000/users/account");
-        // res.send(updatedPost);
     } catch (error) {
-        res.status(404).send(error);
+        res.redirect("http://localhost:3000/users/account");
     }
 });
 

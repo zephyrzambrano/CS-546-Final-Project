@@ -128,7 +128,7 @@ router.post('/addComment', async (req, res) => {//发送一个post请求，添�
         let newComment = await commentData.addComment(req.body.postId, req.session.userId, req.body.commentContent)
         res.redirect("http://localhost:3000/posts/postInfo/"+req.body.postId);
     } catch (error) {
-        res.status(404).send(error);
+        res.redirect("http://localhost:3000/posts/postInfo/"+req.body.postId);
     }
 });
 

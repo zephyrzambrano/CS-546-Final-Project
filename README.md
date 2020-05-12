@@ -13,4 +13,17 @@ Notice:
 2. If your browser has an ad-blocker, remember to turn it off, or some part of this site will not be loaded as it should be.
 
 
+Populating the datapase:
+1. npm run seed
+2. The seed file creates four administrator users as well as several standard users
 
+
+Running the program
+1. node app.js
+2. Browse the website (only able to read posts)
+3. Create an account to access all of the website's features
+
+
+Running the program with an administrator account
+1. Username: un04@gmail.com
+2. Passwordpw0404

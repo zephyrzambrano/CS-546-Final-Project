@@ -26,4 +26,4 @@ Running the program
 
 Running the program with an administrator account
 1. Username: un04@gmail.com
-2. Passwordpw0404
+2. Password: pw0404

@@ -23,7 +23,7 @@ There are 11 properties in the post collection
 
 
 async function createPost(topic, userId, content, photoArr, tagArr) {//This function needs to interact with the user collection, and when a post is created, the user's postID needs to add a piece of data
-    if (!topic || typeof topic !== "string")//此函数需要互动user collection，当创建了一个post，user的postID需要添加一条数据
+    if (!topic || typeof topic !== "string")
         throw 'you should input a string as the topic';
     if (!userId || typeof userId !== "string")
         throw 'you should input a string as the userId';
@@ -196,7 +196,7 @@ async function removePost(postId) {
     return true;
 }
 
-async function addCommentIdToPost(postId, commentId) {//此函数需要配合comment collection使用，当一条comment数据被创建，应调用此函数
+async function addCommentIdToPost(postId, commentId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
     if (!commentId || typeof commentId !== "string") throw 'You must provide a comment id';
     let postObjId = ObjectId.createFromHexString(postId);
@@ -208,7 +208,7 @@ async function addCommentIdToPost(postId, commentId) {//此函数需要配合com
     return true;
 }
 
-async function removeCommentIdFromPost(postId, commentId) {//此函数需要配合comment collection使用，当一条comment数据被删除，应调用此函数
+async function removeCommentIdFromPost(postId, commentId) {
     if (!postId || typeof postId !== "string") throw 'You must provide a post id';
     if (!commentId || typeof commentId !== "string") throw 'You must provide a comment id';
     let postObjId = ObjectId.createFromHexString(postId);

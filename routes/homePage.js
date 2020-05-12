@@ -8,7 +8,7 @@ const commentData = data.comments;
 const formidable = require('formidable');
 
 
-router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲染完整的post 数组信息，数组内每个元素包含post详细信息与创建此post的userNickname
+router.get('/', async (req, res) => {
     try {
         let userLogin = null;
         if (req.session) {
@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {//通过浏览器地址访问，返回渲�
 });
 
 
-router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通get请求，返回重新渲染网页，就像之前一样
+router.get('/tag', async (req, res) => {
     try {
         let userLogin = null;
         if (req.session) {
@@ -43,18 +43,15 @@ router.get('/tag', async (req, res) => {//通过点击主页的tag发送普通ge
             throw "need tagInfo";
         if (!req.query.searchTag)
             throw "need a tag";
-        // console.log(req.query.searchTag);
+        
         let postArr = await postData.getPostByOneTag(req.query.searchTag);
-
-        // console.log(postArr);
-        // res.send(postArr);
         res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {
         res.status(404).send(error);
     }
 });
 
-router.get("/search", async (req, res) => {//通过主页浏览框输入发送普通get请求，返回重新渲染网页，就像之前一样
+router.get("/search", async (req, res) => {
     try { // search?searchString=xxxx
         let userLogin = null;
         if (req.session) {
@@ -69,23 +66,21 @@ router.get("/search", async (req, res) => {//通过主页浏览框输入发送�
         res.render('home/home.handlebars', { postArr, userLogin });
     } catch (error) {
         res.redirect('/homePage')
-        // res.status(404).send(error);
+       
     }
 })
 
-router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax请求（但还是会刷新网页），返回重新渲染一个网页，包含了最新的post
+router.post('/createPost', async (req, res) => {
     let userLogin = null;
     if (req.session) {
         if (req.session.userId)
             userLogin = await userData.getUserById(req.session.userId);
     }
-    const form = new formidable.IncomingForm();//创建formidable解析器
-    form.uploadDir = path.join(__dirname, '../', 'public', 'images');//设置上传的存储路径
+    const form = new formidable.IncomingForm();
+    form.uploadDir = path.join(__dirname, '../', 'public', 'images');
     form.keepExtensions = true;//保留后缀名
     form.parse(req, async (err, fields, files) => {
-        // console.log(err);
-        // console.log(fields);
-        // console.log(files);
+        
         try {
             if (!fields)
                 throw "need data to create post";
@@ -106,7 +101,7 @@ router.post('/createPost', async (req, res) => {//通过post方式发一个Ajax�
                 photoArr.push("http://localhost:3000/public/images/" + files.photo1.path.split('images\\')[1]);
             if (files.photo2)
                 photoArr.push("http://localhost:3000/public/images/" + files.photo2.path.split('images\\')[1]);
-            // console.log(photoArr);
+            
             let newPost = await postData.createPost(
                 fields.topic,
                 req.session.userId,

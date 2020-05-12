@@ -9,7 +9,7 @@ const reportData = data.reports;
 router.use(express.urlencoded({ extended: false }));
 router.use(express.json());
 
-router.get('/postInfo/:id', async (req, res) => {//浏览器端发送一个普通的get请求，网址包含postId，返回渲染一个完整的posts网页（包含帖子内容和评论）
+router.get('/postInfo/:id', async (req, res) => {
     try {
         let userLogin = null;
         if (req.session) {
@@ -35,7 +35,7 @@ router.get('/postInfo/:id', async (req, res) => {//浏览器端发送一个普�
     }
 });
 
-router.get('/like', async (req, res) => {//浏览器端发送一个Ajax的get请求，包含postId的参数，返回这个post更新后的详细数据（不包含comment）
+router.get('/like', async (req, res) => {
     try {
         // console.log(req.query)
         if (!req.session)
@@ -54,7 +54,7 @@ router.get('/like', async (req, res) => {//浏览器端发送一个Ajax的get请
     }
 });
 
-router.get('/dislike', async (req, res) => {//浏览器端发送一个Ajax的get请求，包含postId的参数，返回这个post更新后的详细数据（不包含comment）
+router.get('/dislike', async (req, res) => {
     try {
         if (!req.session)
             throw "you don't have the cookie"
@@ -71,7 +71,7 @@ router.get('/dislike', async (req, res) => {//浏览器端发送一个Ajax的get
     }
 });
 
-router.post('/editContent', async (req, res) => {//（目前还在讨论）浏览器端发送一个普通的post请求，包含postId与新的content，返回更新后的post详细数据
+router.post('/editContent', async (req, res) => {
     try {
         if (!req.session)
             throw "you don't have the cookie"
@@ -83,7 +83,7 @@ router.post('/editContent', async (req, res) => {//（目前还在讨论）浏�
             throw "need postId";
         if (!req.body.newContent)
             throw "new Content";
-        let postToEdit = await postData.getPostById(req.body.postId);//这里判断想要修改post content的人是不是真正的写这个post的人
+        let postToEdit = await postData.getPostById(req.body.postId);
         if (postToEdit.userId !== req.session.userId)//这里判断想要修改post content的人是不是真正的写这个post的人
             throw "Your id is not the same as the userId of the post!!"
         let updatedPost = await postData.editContent(req.body.postId, req.body.newContent);
@@ -93,7 +93,7 @@ router.post('/editContent', async (req, res) => {//（目前还在讨论）浏�
     }
 });
 
-router.post('/delete',async (req, res) =>{//浏览器端发一个ajax的get请求
+router.post('/delete',async (req, res) =>{
     try{
         if(!req.session) throw 'you dont have session to delete the post'
         if(!req.session.userId) throw 'you dont have userId in session to delete the post'
@@ -113,7 +113,7 @@ router.post('/delete',async (req, res) =>{//浏览器端发一个ajax的get�
     }
 })
 
-router.post('/addComment', async (req, res) => {//发送一个post请求，添加导commnet文档，重新刷新网页
+router.post('/addComment', async (req, res) => {
     try {
         if (!req.session)
             throw "you don't have the cookie"
@@ -134,7 +134,7 @@ router.post('/addComment', async (req, res) => {//发送一个post请求，添�
 
 router.post('/deleteComment', async (req, res) => {
     try {
-        console.log("aaaaa");
+        
         if (!req.session)
             throw "you don't have the cookie to delete the comment"
         if (!req.session.userId)
@@ -174,7 +174,7 @@ router.post('/removeReport', async (req, res) => {//浏览器端发一个ajax的
     }
 })
 
-router.post('/removeReportAndPost', async (req, res) => {//浏览器端发一个ajax的get请求
+router.post('/removeReportAndPost', async (req, res) => {
     try {
         //console.log(req.body.reportId);
         if (!req.session) throw 'you dont have session to delete the post'

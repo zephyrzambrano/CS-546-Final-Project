@@ -66,13 +66,11 @@
             let sonli = grandfather.getElementsByTagName("li");
             let sonspan=sonli[0].getElementsByTagName("span");
             let reportId=sonspan[0].innerText
-            var xhr = new XMLHttpRequest();//创建 Ajax 对象
+            var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:3000/posts/removeReport');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             xhr.send('reportId='+reportId);
             xhr.onload = function () {
-                console.log(xhr.responseText);
-                console.log(xhr.status);
                 window.location.reload();
             }
         }
@@ -87,13 +85,12 @@
             let reportId=sonspan[0].innerText
             let sonspan2=sonli[2].getElementsByTagName("span");
             let postId=sonspan2[0].innerText
-            var xhr = new XMLHttpRequest();//创建 Ajax 对象
+            var xhr = new XMLHttpRequest();
             xhr.open('post', 'http://localhost:3000/posts/removeReportAndPost');
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
             xhr.send('reportId='+reportId+'&postId='+postId);
             xhr.onload = function () {
-                console.log(xhr.responseText);
-                console.log(xhr.status);
+                
                 window.location.reload();
             }
         }

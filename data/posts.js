@@ -107,9 +107,6 @@ async function editContent(id, newContent) {
     let objId = ObjectId.createFromHexString(id);
     let postCollection = await posts();
     let updatedInfo = await postCollection.updateOne({ _id: objId }, { $set: { content: newContent } });
-    if (updatedInfo.modifiedCount === 0) {
-        throw 'could not edit the content successfully';
-    }
     return await getPostById(id);
 }
 

@@ -159,10 +159,10 @@
         })
 
         let currentUser = $('.addCommentButton').attr('id');
-        console.log((currentUser));
+        // console.log((currentUser));
 
         $('.commentDeleteButton').each(function () {
-            console.log($(this).attr('name'));
+            // console.log($(this).attr('name'));
             if($(this).attr('name') == currentUser){
                 $(this).show();
             } else {
@@ -180,15 +180,14 @@
                 xhr.open('post', 'http://localhost:3000/posts/deleteComment');
                 let thisCommentId = this.id;
                 let thisPostId =  $('.PostTopic').attr('id');
-                console.log(thisCommentId);
-                console.log(thisPostId);
+                // console.log(thisCommentId);
+                // console.log(thisPostId);
 
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
                 xhr.send('commentId=' + thisCommentId + '&postId=' + thisPostId);
 
                 xhr.onload = function () {//获取服务器端给与客户端的响应数据
-                    console.log(xhr.responseText);
                     var Timeout = setTimeout(function () {
                         window.location.reload();
                     }, 100);
